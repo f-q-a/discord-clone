@@ -9,7 +9,7 @@ server_routes = Blueprint('servers', __name__)
 def getting_servers():
     # getting userId from the flask login
     userId = current_user.id
-    # query the joins talble for all of the user's servers
+    # query the joins table for all of the user's servers
     Users_Server = ServerUser.query.filter(ServerUser.user_id == userId).all()
     # list of servers by id
     serverIds = [server.server_id for server in Users_Server]
