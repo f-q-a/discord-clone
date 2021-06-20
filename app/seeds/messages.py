@@ -2,6 +2,7 @@
 from app.models import db, Message
 from faker import Faker
 
+
 faker = Faker()
 
 # Adds a demo user, you can add other users here if you want
