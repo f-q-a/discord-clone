@@ -13,8 +13,8 @@ def seed_userservers():
     #             hashed_password='password', avatar_link="")
     # db.session.add(demo)
 
-    for i in range(1, 101):
-        temp = ServerUser(server_id=i, user_id=0)
+    for i in range(1, 100):
+        temp = ServerUser(server_id=i, user_id=1)
         db.session.add(temp)
 
 

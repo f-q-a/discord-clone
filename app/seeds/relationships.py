@@ -12,8 +12,8 @@ def seed_relationships():
     #             hashed_password='password', avatar_link="")
     # db.session.add(demo)
 
-    for i in range(1, 101):
-        temp = Relationship(first_user_id=0, second_user_id=i, relationship='Accept')
+    for i in range(1, 100):
+        temp = Relationship(first_user_id=1, second_user_id=i, relationship='Accept')
         db.session.add(temp)
 
 

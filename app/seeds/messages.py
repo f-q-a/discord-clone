@@ -13,7 +13,7 @@ def seed_messages():
     #             hashed_password='password', avatar_link="")
     # db.session.add(demo)
 
-    for i in range(0, 101):
+    for i in range(1, 100):
         temp = Message(content= faker.text(), user_id=i, channel_id=i)
         db.session.add(temp)
 

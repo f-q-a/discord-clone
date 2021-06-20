@@ -4,13 +4,14 @@ from flask_login import UserMixin
 
 
 class User(db.Model, UserMixin):
+
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
-    email = db.Column(db.String(255), nullable=False, unique=True)
-    hashed_password = db.Column(db.String(255), nullable=False)
-    avatar_link = db.Column(db.String(50))
+    username = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    hashed_password = db.Column(db.String(100), nullable=False)
+    avatar_link = db.Column(db.String(200))
 
     def to_dict(self):
         return {
@@ -21,7 +22,8 @@ class User(db.Model, UserMixin):
             "avatar_link": self.avatar_link
         }
 
-    servers = db.relationship('Server', secondary='server_users', back_populates='users')
+    servers=db.relationship('Server', secondary='server_users', back_populates='users')
+
 
     @property
     def password(self):
