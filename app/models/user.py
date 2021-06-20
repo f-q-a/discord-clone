@@ -15,10 +15,10 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             "id": self.id,
-            "user_name": self.user_name,
+            "username": self.username,
             "email": self.email,
-            "hashed_password": self.shed_password,
-            "avatar_link ": self.avatar_link
+            "hashed_password": self.hashed_password,
+            "avatar_link": self.avatar_link
         }
 
     servers = db.relationship('Server', secondary='server_users', back_populates='users')

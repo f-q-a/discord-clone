@@ -1,13 +1,13 @@
 from .db import db
 from datetime import datetime
-
+from app.models import User
 
 class Server(db.Model):
     __tablename__ = 'servers'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
     type = db.Column(db.String(8), nullable=True) # Private, Public
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)

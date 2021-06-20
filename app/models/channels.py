@@ -20,3 +20,4 @@ class Channel(db.Model):
             'updated_at': self.updated_at
         }
     server = db.relationship('Server', back_populates="channels")
+    messages = db.relationship('Message',  back_populates="channels")

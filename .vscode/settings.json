@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/felipe/App Academy/week_19/discord-clone/.venv/bin/python3.9",
+    "python.pythonPath": "/home/felipe/.pyenv/versions/3.9.5/bin/python",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "python.linting.pycodestyleEnabled": false

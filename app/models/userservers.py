@@ -1,6 +1,7 @@
+from app.models.user import User
 from .db import db
 from datetime import datetime
-
+from app.models import User, Server
 
 server_users = db.Table('server_users',
 
@@ -10,14 +11,16 @@ server_users = db.Table('server_users',
         'users.id'), primary_key=True)
 )
 
+db.metadata.clear()
 
-class ServerUser(db.Models):
 
-    __tablename__ ="server_user"
+class ServerUser(db.Model):
+
+    __tablename__ ="server_users"
 
     id= db.Column(db.Integer, primary_key=True)
-    server_id= db.Column(db.Integer, db.ForeignKey('servers.id'), nullable=False)
-    user_id= db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    server_id= db.Column(db.Integer, db.ForeignKey(Server.id), nullable=False)
+    user_id= db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
     created_at= db.Column(db.DateTime, nullable=False)
 
     def to_dict(self):

@@ -1,20 +1,20 @@
 # from werkzeug.security import generate_password_hash
-from app.models import db, User
+from app.models import db, ServerUser
 from faker import Faker
+
 faker = Faker()
 
 # Adds a demo user, you can add other users here if you want
 
 
-def seed_users():
+def seed_userservers():
 
     # demo = User(username='Demo', email='demo@aa.io',
     #             hashed_password='password', avatar_link="")
     # db.session.add(demo)
 
-    for i in range(1, 100):
-        temp = User(username= faker.user_name(), email=faker.email(),
-                hashed_password='password', avatar_link="https://discord.com/assets/6f26ddd1bf59740c536d2274bb834a05.png")
+    for i in range(1, 101):
+        temp = ServerUser(server_id=i, user_id=0)
         db.session.add(temp)
 
 
@@ -27,6 +27,6 @@ def seed_users():
 # the auto incrementing primary key
 
 
-def undo_users():
-    db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+def undo_userservers():
+    db.session.execute('TRUNCATE server_users RESTART IDENTITY CASCADE;')
     db.session.commit()
