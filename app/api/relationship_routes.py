@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from app.models import db, Server, User, Channel, Message, ServerUser, Relationship
 from flask_login import current_user, login_required
-from sqlalchemy import or_, and_
+# from sqlalchemy import or_, and_
 
 
 relationship_routes = Blueprint('relationships', __name__)
@@ -15,11 +15,10 @@ def get_relationships ():
 
 @relationship_routes.route('/', methods=['POST'])
 def create_relationships ():
-
+    userId = int(current_user.id)
     res = request.get_json()
-    print(request.get_json())
     relation = Relationship(
-        first_user_id=int('current_user.id'),
+        first_user_id=userId,
         second_user_id=res["secondUserId"],
         relationship= res["relationshipType"]
     )

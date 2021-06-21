@@ -2,9 +2,13 @@
 // import { useDispatch, useSelector } from "react-redux";
 // import { Redirect } from "react-router-dom";
 
-
 const SplashPage = () => {
 
+    // return(
+    //     <>
+    //         <h1>Hello</h1>
+    //     <>
+    // );
 }
 
 export default SplashPage;
