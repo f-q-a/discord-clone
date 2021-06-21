@@ -15,11 +15,10 @@ def get_relationships ():
 
 @relationship_routes.route('/', methods=['POST'])
 def create_relationships ():
-
+    userId = int(current_user.id)
     res = request.get_json()
-    print(request.get_json())
     relation = Relationship(
-        first_user_id=int('current_user.id'),
+        first_user_id=userId,
         second_user_id=res["secondUserId"],
         relationship= res["relationshipType"]
     )
