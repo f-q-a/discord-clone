@@ -6,10 +6,9 @@ server_routes = Blueprint('servers', __name__)
 #api/servers/
 
 @server_routes.route('/')
-@login_required
 def getting_servers():
     # getting userId from the flask login
-    userId = current_user.id
+    userId = int(current_user.id)
     # query the joins table for all of the user's servers
     Users_Server = ServerUser.query.filter(ServerUser.user_id == userId).all()
     # list of servers by id
@@ -21,7 +20,6 @@ def getting_servers():
     return {'servers':servers}
 
 @server_routes.route('/', methods=['POST'])
-@login_required
 def create_server():
     # get the server name from the form
     name = request.json['name']
@@ -58,7 +56,6 @@ def create_server():
 
 # Will this Cascade Delete? or do I need to manually delete everything else?
 @server_routes.route('/<int:server_id>', methods=['DELETE'])
-@login_required
 def delete_server(server_id):
     user_id = int(current_user.id)
     server = Server.query.get(server_id)
