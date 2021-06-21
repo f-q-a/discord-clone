@@ -1,4 +1,4 @@
-# from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash
 from app.models import db, User
 from faker import Faker
 faker = Faker()
