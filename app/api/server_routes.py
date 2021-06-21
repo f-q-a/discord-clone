@@ -10,6 +10,7 @@ def getting_servers():
     userId = int(current_user.id)
     serverObjects = Server.query.filter(Server.user_id==userId).all()
     servers = [servers.to_dict() for servers in serverObjects]
+    print('>>>', servers)
     return {'servers':servers}
 
 @server_routes.route('/', methods=['POST'])

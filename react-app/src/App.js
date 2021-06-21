@@ -7,6 +7,7 @@ import NavBar from "./components/splash_page/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/splash_page/UsersList";
 import User from "./components/splash_page/User";
+import MainApp from "./components/app_container/main_app";
 import { authenticate } from "./store/session";
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
   if (!loaded) {
     return null;
   }
-
+  // bill test
   return (
     <BrowserRouter>
       <NavBar />
@@ -41,8 +42,8 @@ function App() {
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true} >
-          <h1>My Home Page</h1>
+        <ProtectedRoute path="/" exact={false} >
+          <MainApp />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
