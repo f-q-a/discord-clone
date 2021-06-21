@@ -6,7 +6,7 @@ import * as serverActions from '../../store/server'
 function MainApp() {
   const dispatch = useDispatch();
   useEffect(()=>{
-    dispatch(serverActions.getServers())
+    dispatch(serverActions.getServers()).then(data => console.log(data))
   }, [])
   return (
     <div className="app__container">

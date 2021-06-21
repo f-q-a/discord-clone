@@ -8,9 +8,11 @@ import React from "react";
 
 const ServerSidebar = () => {
 
-  const servers = useSelector((state)=> state.servers)
+  const servers = useSelector((state)=> state.server.servers)
 
-  const serversList = servers ? servers.values() : []
+  const serversList = servers ? Object.values(servers) : []
+  if (serversList) console.log('<<<<', serversList)
+  // const serversList = []
   return (
     <div className='sidebar__div'>
       <h1>SIDEBAR CONTAINER</h1>
