@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import ServerSidebarItem from "./sidebar_item";
 import React from "react";
 
 // import { Redirect } from "react-router-dom";
@@ -8,15 +7,15 @@ import React from "react";
 
 const MessageMain = () => {
   let { channelId } = useParams();
-  const allMessages = useSelector((state)=> state.messages)
-  console.log(allMessages)
-  const serversList = servers ? Object.values(servers) : []
-  if (serversList) console.log('<<<<', serversList)
+  const messages = useSelector((state)=> state.messages)
+  console.log(messages)
+  const allMessages = messages ? Object.values(messages) : []
+  if (allMessages) console.log('<<<<', allMessages)
   // const serversList = []
   return (
-    <div className='sidebar__div'>
+    <div>
       <h1>SIDEBAR CONTAINER</h1>
-      {serversList.map((server, index) => <ServerSidebarItem server={server} key={index} />)}
+      {allMessages.map((message, index) => <div> message={message} key={index}</div>)}
     </div>
   )
 }
