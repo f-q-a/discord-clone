@@ -24,5 +24,6 @@ def delete_message(id):
 def edit_message(id):
     res = request.get_json()
     message = db.session.query(Message).get(id)
+
     message.content = res['content']
     db.session.commit()
