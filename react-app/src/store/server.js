@@ -32,6 +32,9 @@ export const editServerAction = (serverId, name) => ({
     name
 })
 
+
+
+
 export const getServers = () => async (dispatch) => {
     const response = await fetch('/api/servers/')
     const data = await response.json();
@@ -57,10 +60,12 @@ export const createServer = (name) => async (dispatch) => {
         return;
     }
     dispatch(createServerAction(data.server))
-    // dispatch(createChannelAction(data.channel))
     return data.server.id;
 }
 
+export const editServer = () => async (dispatch) => {
+
+}
 
 export const deleteServer = (serverId) => async (dispatch) => {
     const response = await fetch(`api/servers/${serverId}`, {

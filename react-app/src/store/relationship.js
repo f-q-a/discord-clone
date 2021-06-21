@@ -117,7 +117,3 @@ export default function reducer(state = initialState, action) {
             newState = { relationships: { ...state.relationships } }
             newState.relationships[action.Id].name = action.name;
             return newState;
-        default:
-            return state;
-    }
-}
