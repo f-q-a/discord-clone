@@ -21,5 +21,5 @@ class Server(db.Model):
             'type': self.type,
         }
 
-    channels = db.relationship('Channel', back_populates="server")
+    channels = db.relationship('Channel', back_populates="servers")
     users = db.relationship('User', secondary='server_users', back_populates='servers')

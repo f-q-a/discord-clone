@@ -9,7 +9,7 @@ import React from "react";
 const MessageMain = () => {
   let { channelId } = useParams();
   const allMessages = useSelector((state)=> state.messages)
-  print(allMessages)
+  console.log(allMessages)
   const serversList = servers ? Object.values(servers) : []
   if (serversList) console.log('<<<<', serversList)
   // const serversList = []
