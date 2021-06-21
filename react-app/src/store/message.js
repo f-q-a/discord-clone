@@ -32,8 +32,8 @@ export const editMessageAction = (messageId, content) => ({
     content
 })
 
-export const getMessages = () => async (dispatch) => {
-    const response = await fetch('/api/messages/')
+export const getMessages = (channelId) => async (dispatch) => {
+    const response = await fetch(`/api/messages/${channelId}`)
     const data = await response.json();
     if (data.errors) {
         return;
