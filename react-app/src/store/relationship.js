@@ -1,75 +1,119 @@
-const GET_ALL_RELATIONSHIPS = "relationship/GET_ALL_MEMBERS"
-const EDIT_RELATIONSHIP = "relationship/EDIT_MEMBERS"
-const REMOVE_RELATIONSHIP= "relationship/REMOVE_MEMBER"
-const ADD_RELATIONSHIP = "relationship/ADD_MEMBER"
+const GET_ALL_RELATIONSHIP = "relationship/GET_ALL_RELATIONSHIP"
+const CREATE_RELATIONSHIP = "relationship/CREATE_RELATIONSHIP"
+const DELETE_RELATIONSHIP = "relationship/DELETE_RELATIONSHIP"
+const ADD_RELATIONSHIP = "relationship/ADD_RELATIONSHIP"
+const EDIT_RELATIONSHIP = "relationship/EDIT_RELATIONSHIP"
 
-const getRelationship = (relationship) => ({
+const getRelationshipsAction = (relationships) => ({
     type: GET_ALL_RELATIONSHIPS,
+    payload: relationships
+})
+
+const createRelationshipAction = (relationship) => ({
+    type: CREATE_RELATIONSHIPS,
     payload: relationship
 })
 
-export const editMemberAction = (relationshipType) => ({
-    type: EDIT_RELATIONSHIP,
-    relationshipType
+export const deleteRelationshipAction = (relationship) => ({
+    type: DELETE_RELATIONSHIPS,
+    payload: relationship
 })
 
-export const removeRelationship = () => ({
-    type: REMOVE_RELATIONSHIP
+export const addRelationshipAction = (relationship) => ({
+    type: ADD_RELATIONSHIPS,
+    relationship
 })
 
-export const addMemberAction = (userId, username) => ({
-    type: ADD_RELATIONSHIP,
+export const editRelationshipAction = (relation) => ({
+    type: EDIT_RELATIONSHIPS,
     userId,
-    username
+    relationships
 })
 
-export const getUsersForSidebar = (serverId) => async (dispatch) => {
-    const response = await fetch(`/api/relationships`)
-    const relationship = await response.json();
-    if (relationship.errors) {
+export const getRelationships = () => async (dispatch) => {
+    const response = await fetch('/api/relationships/')
+    const data = await response.json();
+    if (data.errors) {
         return;
     }
-
-    const relationshipArray = []
-
-    for (const key in relationship.relationship) {
-        relationshipArray.push(relationship.relationship[key])
-    }
-    dispatch(getRelationshipAction(relationshipArray))
+    dispatch(getRelationshipsAction(data.relationships))
+    return data.relationships;
 }
 
-
-const NormalizeRelationship = (messages) => {
-    const normRelationship = {}
-    messages.forEach(message => {
-        normRelationship[message.id] = message
+export const createRelationship = (secondUserId,relationshipType) => async (dispatch) => {
+    const response = await fetch('/api/relationships/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ secondUserId,relationshipType })
     })
-    return NormalizeRelationship
+
+    const data = await response.json();
+    if (data.errors) {
+        return;
+    }
+    dispatch(createRelationshipAction(data.relationship))
+
+    return data.relationship.id;
 }
 
-const initialState = { relationship: {} }
+export const editRelationship = (secondUserId) => async (dispatch) => {
+    const response = await fetch('/api/relationships/', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({secondUserId})
+    })
+
+    if (response.ok) {
+        const relation = await response.json();
+        dispatch(editRelationshipAction(relation))
+    };
+
+}
+
+export const deleteRelationship = (userId) => async (dispatch) => {
+    const response = await fetch(`api/relationships/`, {
+        method: 'DELETE'
+    });
+
+    const data = await response.json();
+    if (data.errors) {
+        return;
+    }
+    dispatch(deleteRelationshipAction(userId))
+}
+
+const NormalizeRelationship = (relationships) => {
+    const normRelationship = {}
+    relationships.forEach(relationship => {
+        normRelationship[relationship.id] = relationship
+    })
+    return normRelationship
+}
+
+const initialState = { relationships: {} }
 
 export default function reducer(state = initialState, action) {
     let newState
     switch (action.type) {
-        case GET_ALL_RELATIONSHIP:
-            return { relationship: NormalizeRelationship(action.payload) }
-        case EDIT_RELATIONSHIPS:
-            newState = { relationship: { ...state.relationship} }
-            newState.relationship[action.id].relationship = action.relationship;
-            return newState;
-        case REMOVE_RELATIONSHIP:
-            newState = { relationship: { ...state.relationship } }
-            delete newState.relationship[action.userId]
+        case GET_ALL_RELATIONSHIPS:
+            return { relationships: NormalizeRelationship(action.payload) }
+        case CREATE_RELATIONSHIP:
+            newState = { relationships: { ...state.relationships } }
+            newState.relationships[action.payload.id] = action.payload
+            return newState
+        case DELETE_RELATIONSHIP:
+            newState = { relationships: { ...state.relationships } }
+            delete newState.relationships[action.payload]
             return newState
         case ADD_RELATIONSHIP:
-            newState = { relationship: { ...state.relationship } }
-            newState.relationship[action.userId] = {
-                second_user_id: action.second_user_id,
-                relationship: action.relationship
-            }
-            return newState
-        default:
-            return state;
-    }
-}
+            newState = { relationships: { ...state.relationships } }
+            newState.relationships[action.relationship.id] = action.relationship
+            return newState;
+        case EDIT_RELATIONSHIP:
+            newState = { relationships: { ...state.relationships } }
+            newState.relationships[action.Id].name = action.name;
+            return newState;
