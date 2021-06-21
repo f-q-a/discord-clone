@@ -12,12 +12,14 @@ def create_channel():
                       server_id= res["server_id"])
     db.session.add(channel)
     db.session.commit()
+    return channel
 
 @channel_routes.route('/delete/<int:id>', methods=['POST'])
 def delete_channel(id):
     channel = db.session.query(Channel).get(id)
     db.session.delete(channel)
     db.session.commit()
+    return 'Channel deleted'
 
 @channel_routes.route('/edit/<int:id>', methods=['POST'])
 def edit_channel(id):
@@ -25,3 +27,4 @@ def edit_channel(id):
     channel = db.session.query(Channel).get(id)
     channel.name = res['name']
     db.session.commit()
+    return channel
