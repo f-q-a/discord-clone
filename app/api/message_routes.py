@@ -13,17 +13,19 @@ def create_message():
                       channel_id= res["channel_id"])
     db.session.add(message)
     db.session.commit()
+    return message
 
 @message_routes.route('/delete/<int:id>', methods=['POST'])
 def delete_message(id):
     message = db.session.query(Message).get(id)
     db.session.delete(message)
     db.session.commit()
+    return 'Message deleted'
 
 @message_routes.route('/edit/<int:id>', methods=['POST'])
 def edit_message(id):
     res = request.get_json()
     message = db.session.query(Message).get(id)
-
     message.content = res['content']
     db.session.commit()
+    return message 
