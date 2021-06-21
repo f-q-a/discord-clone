@@ -7,7 +7,10 @@ message_routes = Blueprint('messages', __name__)
 
 @message_routes.route('/', methods=['POST'])
 def create_message():
-    message = request.json()
+    res = request.get_json()
+    message = Message(user_id= res["user_id"],
+                      content= res["content"],
+                      channel_id= res["channel_id"])
     db.session.add(message)
     db.session.commit()
 
