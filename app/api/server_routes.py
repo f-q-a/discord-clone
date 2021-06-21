@@ -55,3 +55,12 @@ def create_server():
     channel_dict = channel.to_dict()
     #send back the server and channel to update state maybe
     return {'server': server_dict, 'channel': channel_dict}
+
+# Will this Cascade Delete? or do I need to manually delete everything else?
+@server_routes.route('/<int:server_id>', methods=['DELETE'])
+@login_required
+def delete_server(server_id):
+    user_id = int(current_user.id)
+    server = Server.query.get(server_id)
+    if server.owner_id != user_id:
+        return {'errors': 'User is not server owner'}, 401
