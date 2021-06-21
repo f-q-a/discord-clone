@@ -8,9 +8,9 @@ faker = Faker()
 
 def seed_users():
 
-    # demo = User(username='Demo', email='demo@aa.io',
-    #             hashed_password='password', avatar_link="")
-    # db.session.add(demo)
+    demo = User(username='Demo', email='demo@aa.io',
+                hashed_password='password', avatar_link="")
+    db.session.add(demo)
 
     for i in range(0, 100):
         temp = User(username= faker.user_name(), email=faker.email(),

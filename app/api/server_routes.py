@@ -7,15 +7,8 @@ server_routes = Blueprint('servers', __name__)
 
 @server_routes.route('/')
 def getting_servers():
-    # getting userId from the flask login
     userId = int(current_user.id)
-    # query the joins table for all of the user's servers
-    Users_Server = ServerUser.query.filter(ServerUser.user_id == userId).all()
-    # list of servers by id
-    serverIds = [server.server_id for server in Users_Server]
-    # with the list of ids get me the acutal Servers as Objects
-    serverObjects = Server.query.filter(Server.id.in_(serverIds)).all()
-    # those servers in list should
+    serverObjects = Server.query.filter(Server.user_id==userId).all()
     servers = [servers.to_dict() for servers in serverObjects]
     return {'servers':servers}
 

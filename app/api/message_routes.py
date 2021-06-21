@@ -23,3 +23,4 @@ def edit_message(id):
     message = db.session.query(Message).get(id)
     message.content = body
     db.commit()
+
