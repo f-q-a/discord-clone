@@ -5,10 +5,12 @@ from flask_login import current_user, login_required
 
 message_routes = Blueprint('messages', __name__)
 
-@message_routes.route('/', methods=['GET'])
-def get_messages():
-    messages = db.session.query(Message)
-    return messages
+@message_routes.route('/<int:id>', methods=['GET'])
+def get_messages(id):
+    messages = db.session.query(Message).filter(Message.channel_id == id).all()
+    result = [message.to_dict() for message in messages]
+    print('HELLO?---->', result)
+    return jsonify(result)
 
 @message_routes.route('/', methods=['POST'])
 def create_message():
