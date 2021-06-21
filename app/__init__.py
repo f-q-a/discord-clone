@@ -6,12 +6,12 @@ from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 
 from .models import db, User
-from api.user_routes import user_routes
-from api.auth_routes import auth_routes
-from api.server_routes import server_routes
-from api.channel_routes import channel_routes
-from api.message_routes import message_routes
-from api.relationship_routes import relationship_routes
+from .api.user_routes import user_routes
+from .api.auth_routes import auth_routes
+from .api.server_routes import server_routes
+from .api.channel_routes import channel_routes
+from .api.message_routes import message_routes
+from .api.relationship_routes import relationship_routes
 
 from .seeds import seed_commands
 
@@ -42,7 +42,7 @@ app.register_blueprint(relationship_routes, url_prefix='/api/relationships')
 app.register_blueprint(server_routes, url_prefix='/api/servers')
 # end of registered blue print routes
 db.init_app(app)
-Migrate(app, db)
+migrate = Migrate(app, db)
 
 # Application Security
 CORS(app)
