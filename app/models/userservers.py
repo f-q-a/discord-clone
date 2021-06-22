@@ -3,17 +3,6 @@ from .db import db
 from datetime import datetime
 from app.models import User, Server
 
-# server_users = db.Table('server_users',
-
-#     db.Column('server_id', db.Integer, db.ForeignKey(
-#         'servers.id'), primary_key=True),
-#     db.Column('user_id', db.Integer, db.ForeignKey(
-#         'users.id'), primary_key=True)
-# )
-
-# db.metadata.clear()
-
-
 class ServerUser(db.Model):
 
     __tablename__ ="server_users"
