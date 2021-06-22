@@ -32,7 +32,6 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <Switch>
         <Route path="/splash-page" exact={true}>
           <SplashPage />
         </Route>
@@ -57,7 +56,6 @@ function App() {
         <Route path="/@me/:serverId/:channelId">
           <MessageMain />
         </Route>
-      </Switch>
     </BrowserRouter>
   );
 }
