@@ -1,7 +1,14 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { NavLink, useParams } from "react-router-dom";
+import * as messageActions from '../../store/message'
 
 function NormalChannel({ channel }) {
+  const  {serverId} = useParams();
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(messageActions.getMessages(channel.id))
+  },[serverId])
   return (
     <div className="normal_channel__div">
       <h1>Channel</h1>

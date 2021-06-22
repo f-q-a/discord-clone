@@ -90,7 +90,7 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_MESSAGES:
             newState = {...state}
-            newState.messages[action.channelId] = NormalizeMessage(action.messages)
+            newState.messages[action.channelId] = action.messages
             return newState;
         case CREATE_MESSAGE:
             newState = { messages: { ...state.messages } }

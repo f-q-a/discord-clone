@@ -8,24 +8,18 @@ import * as messageActions from "../../store/message"
 
 const MessageMain = () => {
   let { channelId } = useParams();
-  const messages = useSelector((state)=> state.messages)
-  const [channelMessages, setChannelMessages] = useState([])
-  const dispatch = useDispatch()
-  const allMessages = messages ? Object.values(messages) : []
-  if (allMessages) console.log('<<<<', allMessages)
-  useEffect(()=>{
-    dispatch(messageActions.getMessages(channelId)).then(data => {
-      console.log('````',data)
-      setChannelMessages(data)
-    })
-
-  }, [dispatch])
-  // const serversList = []
+  const channelMessages = useSelector((state)=> state.message.messages[channelId])
+  console.log('chanchanchanchan', channelId)
+  console.log('honk', channelMessages)
   return (
-    <div>
-      <h1>MESSAGES CONTAINER</h1>
-      {channelMessages.map((message, index) => <div> message={message.content} key={index}</div>)}
-    </div>
+    // <div>
+    //   <h1>MESSAGES CONTAINER</h1>
+    //   {channelMessages.map((message, index) => <div> message={message.content} key={index}</div>)}
+    // </div>
+  <div>
+    <h1>MESSAGES CONTAINER</h1>
+    {channelMessages && channelMessages.map((message, index) => <div> message={message.content} key={index}</div>)}
+  </div>
   )
 }
 
