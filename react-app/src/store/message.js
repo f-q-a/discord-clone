@@ -75,6 +75,12 @@ export const deleteMessage = (messageId) => async (dispatch) => {
     dispatch(deleteMessageAction(messageId))
 }
 
+export const editMessage = (messageId) => async(dispatch) =>{
+    const response = await fetch(`api/messages/${messageId}`, {
+        method: 'PUT'
+    })
+}
+
 const NormalizeMessage = (messages) => {
     const normMessage = {}
     messages.forEach(message => {
