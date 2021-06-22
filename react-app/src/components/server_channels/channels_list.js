@@ -1,26 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect,  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NormalChannel from "./normal_server__channel";
-import * as channelActions from "../../store/channel";
+import * as messageActions from "../../store/message";
 import { useParams } from "react-router-dom";
 
 function ChannelsList() {
   const { serverId } = useParams();
   const dispatch = useDispatch();
-  console.log(serverId);
+  let channelsList = useSelector((state) => state.channel.channels);
+  // const servers = useSelector((state)=> state.server.servers)
+  let channelIds = []
+  if (channelsList) {
+    channelsList = Object.values(channelsList)
+    // channelIds = channelsList.map(e => e.id
+  }
+  // const [messages, setMessages] = useState([])
 
-  useEffect(() => {
-    dispatch(channelActions.getChannels(serverId));
-  }, []);
+  useEffect(()=>{
+    for (let i = 0; i < channelIds.length; i++){
+      console.log(channelIds[i].id)
+      dispatch(messageActions.getMessages(channelIds[i].id))
+    }
 
-  // const channels = useSelector((state) => state.channel.channels);
-  // const channelsList = channels ? Object.values(channels) : [];
+  },[serverId])
+
   return (
     <div className="channels__list">
       <h1>Channel List</h1>
-      {/* {channelsList.map((channel, index) => (
+      {channelsList && channelsList.map((channel, index) => (
         <NormalChannel channel={channel} key={index} />
-      ))} */}
+      ))}
     </div>
   );
 }

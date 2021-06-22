@@ -5,7 +5,6 @@ import React from "react";
 
 
 const ServerSidebarItem = ({server}) => {
-  console.log('>>>>', server)
   return (
     <div className='sidebar_item__div'>
       <h1>SERVER SIDEBAR ITEM</h1>

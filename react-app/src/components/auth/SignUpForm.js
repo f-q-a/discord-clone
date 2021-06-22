@@ -45,6 +45,7 @@ const SignUpForm = () => {
   return (
     <form onSubmit={onSignUp}>
       <div>
+        {errors && <div>{errors}</div>}
         <label>User Name</label>
         <input
           type="text"

@@ -8,8 +8,9 @@ function NormalChannel({ channel }) {
       <NavLink
         className="channel_list__link"
         exact
-        to={`/@me/${channel.server_id}/${channel.id}`}
-      />
+        to={`/@me/${channel.server_id}/${channel.id}`}>
+          {channel.name}
+        </NavLink>
     </div>
   );
 }

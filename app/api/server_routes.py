@@ -10,7 +10,7 @@ def getting_servers():
     userId = int(current_user.id)
     serverObjects = Server.query.filter(Server.user_id==userId).all()
     servers = [servers.to_dict() for servers in serverObjects]
-    print('>>>', servers)
+    print('>>>',servers)
     return {'servers':servers}
 
 @server_routes.route('/', methods=['POST'])
@@ -20,7 +20,7 @@ def create_server():
 
     # create the server object
     server = Server(
-        name=server_name,
+        name=name,
         user_id=int(current_user.id),
         type='public'
         )
@@ -28,11 +28,11 @@ def create_server():
     db.session.commit()
 
     # add the serveruser object
-    ServerUser = ServerUser(
+    server_user = ServerUser(
         server_id=int(server.id),
         user_id=int(current_user.id)
     )
-    db.session.add(ServerUser)
+    db.session.add(server_user)
     db.session.commit()
 
     # add #General/Default channel

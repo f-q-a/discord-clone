@@ -6,9 +6,10 @@ const DELETE_MESSAGE = "message/DELETE_MESSAGE"
 const ADD_MESSAGE = "message/ADD_MESSAGE"
 const EDIT_MESSAGE = "message/EDIT_MESSAGE"
 
-const getMessagesAction = (messages) => ({
+const getMessagesAction = (channelId, messages) => ({
     type: GET_ALL_MESSAGES,
-    payload: messages
+    messages,
+    channelId
 })
 
 const createMessageAction = (message) => ({
@@ -38,7 +39,7 @@ export const getMessages = (channelId) => async (dispatch) => {
     if (data.errors) {
         return;
     }
-    dispatch(getMessagesAction(data.messages))
+    dispatch(getMessagesAction(channelId, data.messages))
     return data.messages;
 }
 
@@ -88,7 +89,9 @@ export default function reducer(state = initialState, action) {
     let newState
     switch (action.type) {
         case GET_ALL_MESSAGES:
-            return { messages: NormalizeMessage(action.payload) }
+            newState = {...state}
+            newState.messages[action.channelId] = NormalizeMessage(action.messages)
+            return newState;
         case CREATE_MESSAGE:
             newState = { messages: { ...state.messages } }
             newState.messages[action.payload.id] = action.payload
