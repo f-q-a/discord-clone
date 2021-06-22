@@ -32,10 +32,10 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <Route path="/splash-page" exact={true}>
-          <SplashPage />
-      </Route>
       <Switch>
+        <Route path="/splash-page" exact={true}>
+          <SplashPage />
+        </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
@@ -57,7 +57,7 @@ function App() {
         <Route path="/@me/:serverId/:channelId">
           <MessageMain />
         </Route>
-      {/* </Switch> */}
+      </Switch>
     </BrowserRouter>
   );
 }
