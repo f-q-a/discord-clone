@@ -12,12 +12,14 @@ from .api.server_routes import server_routes
 from .api.channel_routes import channel_routes
 from .api.message_routes import message_routes
 from .api.relationship_routes import relationship_routes
-
+from .socket import socketio
 from .seeds import seed_commands
 
 from .config import Config
 
 app = Flask(__name__)
+
+
 
 # Setup login manager
 login = LoginManager(app)
@@ -43,6 +45,8 @@ app.register_blueprint(server_routes, url_prefix='/api/servers')
 # end of registered blue print routes
 db.init_app(app)
 migrate = Migrate(app, db)
+
+socketio.init_app(app)
 
 # Application Security
 CORS(app)
@@ -81,3 +85,6 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
+
+if __name__ == '__main__':
+    socketio.run(app)

@@ -10,7 +10,6 @@ const MessageMain = () => {
   let { channelId } = useParams();
   const messages = useSelector((state)=> state.messages)
   const [channelMessages, setChannelMessages] = useState([])
-  console.log(messages)
   const dispatch = useDispatch()
   const allMessages = messages ? Object.values(messages) : []
   if (allMessages) console.log('<<<<', allMessages)
