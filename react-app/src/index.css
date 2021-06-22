@@ -1,1 +1,80 @@
 /* TODO Add site wide styles */
+/* Main body layout */
+
+.app__container {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 5% 12.5% 70% 12.5%;
+  grid-template-rows: 5% 85% 5% 5%;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "server_list channels_list channel_context users_list"
+    "server_list channels_list channel_body users_list"
+    "server_list channels_list channel_body users_list"
+    "server_list user_status chat_input users_list";
+  border: solid red;
+}
+
+
+/* Sidebar styling */
+.sidebar__container {
+  grid-area: server_list;
+  height: 100%;
+  border: solid green;
+}
+.sidebar__div {
+}
+
+/* Channel list styling */
+.channels__list {
+  grid-area: channels_list;
+  border: solid blue;
+}
+.normal_channel__div {
+}
+
+.dm_channel__div {
+
+}
+
+/* Chat messages area styling */
+.channel__context {
+  grid-area: channel_context;
+  border: solid black;
+}
+.messages_area__div {
+}
+
+/* Chat messages body styling */
+.messages_body__div {
+  grid-area: channel_body;
+  border: solid purple;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+
+}
+
+/* Individual message styling */
+.message__div {
+  border: solid gray;
+  padding: 1px;
+  margin: 1px;
+}
+
+/* Chat box styling*/
+.chat_box {
+  border: solid yellow;
+  grid-area: chat_input;
+  display: flex;
+}
+
+.text__box {
+  width: 70%;
+}
+
+.sub_butt {
+  width: 10%;
+}
