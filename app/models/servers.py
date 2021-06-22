@@ -15,9 +15,11 @@ class Server(db.Model):
     users=db.relationship('User', back_populates='servers')
 
     def to_dict(self):
+        channels = [channel.to_dict() for channel in self.channels]
         return {
             'id': self.id,
             'name': self.name,
             'user_id': self.user_id,
             'type': self.type,
+            'channels': channels,
         }
