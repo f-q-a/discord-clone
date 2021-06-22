@@ -12,7 +12,7 @@ import SplashPage from "./components/splash_page/splash_page";
 import MessageMain from "./components/message_main/message_main";
 import MainApp from "./components/app_container/main_app";
 import { authenticate } from "./store/session";
-import Chat from './components/chat/chat'
+import Chat from "./components/chat/chat";
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -33,6 +33,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
+      <div className="app__container">
         <Route path="/splash-page" exact={true}>
           <SplashPage />
         </Route>
@@ -42,7 +43,7 @@ function App() {
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path="/" exact={false}>
+        <ProtectedRoute path="/">
           <MainApp />
         </ProtectedRoute>
         <ProtectedRoute path="/@me/:serverId">
@@ -57,9 +58,10 @@ function App() {
         <Route path="/@me/:serverId/:channelId">
           <MessageMain />
         </Route>
-        <ProtectedRoute path='/chat'>
-          <Chat/>
+        <ProtectedRoute path="/chat">
+          <Chat />
         </ProtectedRoute>
+      </div>
     </BrowserRouter>
   );
 }

@@ -1,1 +1,49 @@
 /* TODO Add site wide styles */
+/* Main body layout */
+
+.app__container {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 5% 12.5% 70% 12.5%;
+  grid-template-rows: 5% 85% 5% 5%;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "server_list channels_list channel_context users_list"
+    "server_list channels_list channel_body users_list"
+    "server_list channels_list channel_body users_list"
+    "server_list user_status chat_input users_list";
+}
+
+
+/* Sidebar styling */
+.sidebar__div {
+  grid-area: server_list;
+}
+
+/* Channel list styling */
+.normal_channel__div {
+  grid-area: channels_list;
+}
+
+.dm_channel__div {
+
+}
+
+/* Chat messages area styling */
+.messages_area__div {
+  grid-area: channel_body;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+/* Chat messages body styling */
+.messages_body__div {
+
+}
+
+/* Chat box styling*/
+.chat_box {
+  grid-area: chat_input
+}
