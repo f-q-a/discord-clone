@@ -8,6 +8,7 @@ const SignUpForm = () => {
   const user = useSelector(state => state.session.user)
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState([]);
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
 
@@ -15,6 +16,9 @@ const SignUpForm = () => {
     e.preventDefault();
     if (password === repeatPassword) {
       const data = await dispatch(signUp(username, email, password));
+      if (data.errors) {
+        setErrors(data.errors);
+      }
     }
   };
 

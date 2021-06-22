@@ -14,6 +14,7 @@ def seed_userservers():
     # db.session.add(demo)
 
     for i in range(1, 100):
+
         temp = ServerUser(server_id=i, user_id=1)
         db.session.add(temp)
 

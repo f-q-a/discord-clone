@@ -64,7 +64,7 @@ export const createMessage = (content, channelId) => async (dispatch) => {
 
 export const deleteMessage = (messageId) => async (dispatch) => {
     const response = await fetch(`api/messages/${messageId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
     });
 
     const data = await response.json();
