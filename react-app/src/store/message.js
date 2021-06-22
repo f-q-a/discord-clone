@@ -14,7 +14,7 @@ const getMessagesAction = (channelId, messages) => ({
 
 const createMessageAction = (message) => ({
     type: CREATE_MESSAGE,
-    payload: message
+    message
 })
 
 export const deleteMessageAction = (message) => ({
@@ -57,9 +57,9 @@ export const createMessage = (content, channelId) => async (dispatch) => {
     if (data.errors) {
         return;
     }
-    dispatch(createMessageAction(data.message))
+    dispatch(createMessageAction(data))
     // dispatch(createChannelAction(data.channel))
-    return data.message.id;
+    return data;
 }
 
 
@@ -100,7 +100,8 @@ export default function reducer(state = initialState, action) {
             return newState;
         case CREATE_MESSAGE:
             newState = { messages: { ...state.messages } }
-            newState.messages[action.payload.id] = action.payload
+            newState.messages[action.message.id] = action.payload
+            // thunk action not working, may be unnecessary
             return newState
         case DELETE_MESSAGE:
             newState = { messages: { ...state.messages } }

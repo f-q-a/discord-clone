@@ -18,11 +18,11 @@ def create_message():
     res = request.get_json()
     message = Message(user_id= current_user.id,
                       content= res["content"],
-                      channel_id= res["channel_id"])
+                      channel_id= res["channelId"])
     db.session.add(message)
     db.session.commit()
     print('This is a call to to_dict', message.to_dict())
-    return message
+    return message.to_dict()
 
 @message_routes.route('/<int:id>', methods=['DELETE'])
 def delete_message(id):

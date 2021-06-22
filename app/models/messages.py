@@ -17,6 +17,7 @@ class Message(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
+            "username": self.users.username,
             "content": self.content,
             "channel_id": self.channel_id,
             "created_at": self.created_at,
