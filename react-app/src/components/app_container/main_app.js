@@ -13,7 +13,6 @@ function MainApp() {
   }, [dispatch]);
   return (
     <div className="sidebar__container">
-      <p>APP CONTAINER</p>
       <ServerSidebar />
     </div>
   );

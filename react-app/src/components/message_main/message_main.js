@@ -54,19 +54,20 @@ const MessageMain = () => {
   channelMessages.forEach((e) => console.log(e));
   return (
     <>
-      <div classname="messages_area__div">
-        <p>MESSAGES CONTAINER</p>
-        {channelMessages &&
-          channelMessages.map((message, index) => (
-            <div className='messages_body__div'>
-              {" "}
-              message={message.content} username={message.username} key={index}
-            </div>
-          ))}
+        <div className="channel__context">MESSAGES CONTAINER</div>
+        <div className='messages_body__div'>
+          {channelMessages &&
+            channelMessages.map((message, index) => (
+              <div className="message__div">
+                {" "}
+                message={message.content} username={message.username} key=
+                {index}
+              </div>
+            )).reverse()}
       </div>
       <form onSubmit={sendChat} className="chat_box">
-        <input value={chatInput} onChange={updateChatInput} />
-        <button type="submit">Send</button>
+        <input className='text__box' value={chatInput} onChange={updateChatInput} />
+        <button className='sub_butt' type="submit">Send</button>
       </form>
     </>
   );

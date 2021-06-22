@@ -25,7 +25,7 @@ function ChannelsList() {
   console.log("making it HERRRERERRE");
   return (
     <div className="channels__list">
-      <h1>Channel List</h1>
+      <p>Channel List</p>
       {channelsList &&
         channelsList.map((channel, index) => (
           <NormalChannel channel={channel} key={index} />

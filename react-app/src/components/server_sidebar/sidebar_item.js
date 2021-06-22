@@ -7,7 +7,7 @@ import React from "react";
 const ServerSidebarItem = ({server}) => {
   return (
     <div className='sidebar_item__div'>
-      <h1>SERVER SIDEBAR ITEM</h1>
+      <p>SERVER SIDEBAR ITEM</p>
       <NavLink className='server_sidebar__link' exact to={`/@me/${server.id}`}>Name: {server.name}</NavLink>
     </div>
   )
