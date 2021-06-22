@@ -21,6 +21,7 @@ const MessageMain = () => {
     dispatch(messageActions.getMessages(channelId)).then(data => setChannelMessages(data));
 
     socket = io()
+    socket.emit('join',  {channelId: channelId, username: user.username})
 
     socket.on('chat', (chat) => {
       setChannelMessages(channelMessages => [...channelMessages, chat])
@@ -40,7 +41,7 @@ const MessageMain = () => {
 
   const sendChat = (e) => {
     e.preventDefault()
-    socket.emit('chat', { user: user, content: chatInput })
+    socket.emit('chat', { user: user, content: chatInput, channelId: channelId })
     dispatch(messageActions.createMessage(chatInput, channelId))
     setChatInput("")
   }
