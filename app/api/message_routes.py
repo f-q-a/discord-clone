@@ -1,3 +1,4 @@
+import datetime
 from flask import Blueprint, jsonify, request
 from app.models import db, Server, User, Channel, Message, ServerUser, Relationship
 from flask_login import current_user, login_required
@@ -20,6 +21,7 @@ def create_message():
                       channel_id= res["channel_id"])
     db.session.add(message)
     db.session.commit()
+    print('This is a call to to_dict', message.to_dict())
     return message
 
 @message_routes.route('/<int:id>', methods=['DELETE'])
@@ -31,8 +33,14 @@ def delete_message(id):
 
 @message_routes.route('/<int:id>', methods=['PUT'])
 def edit_message(id):
+    print('Hello?????')
     res = request.get_json()
-    message = db.session.query(Message).get(id)
+    message = Message.query.get(id)
+    print(message)
+    print('BEFORE------>', message.to_dict())
     message.content = res['content']
+    message.updated_at = db.func.now()
+    db.session.add(message)
     db.session.commit()
-    return message
+    print('AFTER------>', message.to_dict())
+    return {"message": message.to_dict()}
