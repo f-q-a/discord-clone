@@ -31,6 +31,9 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
+      <Route path="/splash-page" exact={true}>
+          <SplashPage />
+      </Route>
       <Switch>
         <Route path="/login" exact={true}>
           <LoginForm />
