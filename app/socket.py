@@ -26,13 +26,15 @@ def handle_chat(data):
                       channel_id = data.channelId)
     msgArr.append(message)
     """
-    
+
     print('SOCKETIO DATA HERE ------>', data)
-    emit("chat", data, broadcast=True)
+    room = data['channelId']
+    emit("chat", data, room=room)
 
 @socketio.on('join')
 def on_join(data):
     username = data['username']
-    room = data['room']
+    room = data['channelId']
     join_room(room)
+    print(username + ' has joined room ' + room)
     send(username + ' has entered the room.', to=room)
