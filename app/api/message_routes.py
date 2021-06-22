@@ -10,7 +10,7 @@ def get_messages(id):
     messages = db.session.query(Message).filter(Message.channel_id == id).all()
     result = [message.to_dict() for message in messages]
     print('HELLO?---->', result)
-    return jsonify(result)
+    return {'messages':result}
 
 @message_routes.route('/', methods=['POST'])
 def create_message():

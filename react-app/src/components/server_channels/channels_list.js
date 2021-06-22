@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 function ChannelsList() {
   const { serverId } = useParams();
   const dispatch = useDispatch();
-  let channelsList = useSelector((state) => state.channel.channels);
+  let channelsList = useSelector((state) => state.channel.channels[serverId]);
   // const servers = useSelector((state)=> state.server.servers)
   let channelIds = []
   if (channelsList) {

@@ -42,7 +42,7 @@ function App() {
         <ProtectedRoute path="/" exact={false}>
           <MainApp />
         </ProtectedRoute>
-        <ProtectedRoute path="/@me/:serverId" exact={true}>
+        <ProtectedRoute path="/@me/:serverId">
           <ChannelsList />
         </ProtectedRoute>
         <ProtectedRoute path="/users" exact={true}>
@@ -51,7 +51,7 @@ function App() {
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
         </ProtectedRoute>
-        <Route path="/messages/:channelId">
+        <Route path="/@me/:serverId/:channelId">
           <MessageMain />
         </Route>
       {/* </Switch> */}
