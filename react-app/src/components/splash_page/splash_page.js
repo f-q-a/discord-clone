@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import { Redirect } from "react-router-dom";
-import study_group from '../../images/study_group.svg'
-import study_group1 from '../../images/8a8375ab7908384e1fd6efe408284203.svg'
-
+import study_group_img from '../../images/study_group.svg'
+import splash_right_image from '../../images/splash_right_image.svg'
+import main_bottom_image from '../../images/main_bottom_image.svg'
+import voice_connect_image from '../../images/voice_connect_image.svg'
+import friends_role_image from '../../images/friends_role_image.svg'
+import splash_left_image from '../../images/splash_left_image.svg'
+import splash_middle_image from '../../images/splash_midde_image.svg'
 
 const SplashPage = () => {
 
     return(
         <div>
             <h1>SPLASH</h1>
-            <img src={study_group}></img>
-            <img src={study_group1}></img>
+            <img src={study_group_img}></img>
+            <img src={splash_right_image}></img>
+            <img src={splash_left_image}></img>
+            <img src={splash_middle_image}></img>
+            <img src={main_bottom_image}></img>
+            <img src={voice_connect_image}></img>
+            <img src={friends_role_image}></img>
         </div>
     );
 }
