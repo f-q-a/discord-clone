@@ -6,6 +6,7 @@ import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/splash_page/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/splash_page/UsersList";
+import ChannelsList from "./components/server_channels/channels_list";
 import User from "./components/splash_page/User";
 import SplashPage from "./components/splash_page/splash_page";
 import MessageMain from "./components/message_main/message_main";
@@ -31,28 +32,31 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <Switch>
+      {/* <Switch> */}
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
+        <ProtectedRoute path="/" exact={false}>
+          <MainApp />
+        </ProtectedRoute>
+        <ProtectedRoute path="/@me/:serverId">
+          <ChannelsList />
+        </ProtectedRoute>
         <ProtectedRoute path="/users" exact={true}>
           <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path="/" exact={false} >
-          <MainApp />
-        </ProtectedRoute>
-        <Route path='/messages/:channelId'>
+        <Route path="/@me/:serverId/:channelId">
           <MessageMain />
         </Route>
-      </Switch>
+      {/* </Switch> */}
     </BrowserRouter>
-      );
+  );
 }
 
-      export default App;
+export default App;
