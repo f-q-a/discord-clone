@@ -7,6 +7,7 @@ import NavBar from "./components/splash_page/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/splash_page/UsersList";
 import User from "./components/splash_page/User";
+import MessageMain from "./components/message_main/message_main";
 import MainApp from "./components/app_container/main_app";
 import { authenticate } from "./store/session";
 
@@ -16,7 +17,7 @@ function App() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -37,7 +38,7 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path="/users" exact={true}>
-          <UsersList/>
+          <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
@@ -45,9 +46,12 @@ function App() {
         <ProtectedRoute path="/" exact={false} >
           <MainApp />
         </ProtectedRoute>
+        <Route path='/messages/:channelId'>
+          <MessageMain />
+        </Route>
       </Switch>
     </BrowserRouter>
-  );
+      );
 }
 
-export default App;
+      export default App;

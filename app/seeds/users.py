@@ -1,4 +1,4 @@
-# from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash
 from app.models import db, User
 from faker import Faker
 faker = Faker()
@@ -13,12 +13,10 @@ def seed_users():
     db.session.add(demo)
 
     for i in range(0, 100):
-        temp = User(username= faker.user_name(), email=faker.email(),
-                hashed_password='password', avatar_link="https://discord.com/assets/6f26ddd1bf59740c536d2274bb834a05.png")
+        hash_password = generate_password_hash('password')
+        temp = User(username=faker.user_name(), email=faker.email(),
+                    hashed_password=hash_password, avatar_link="https://discord.com/assets/6f26ddd1bf59740c536d2274bb834a05.png")
         db.session.add(temp)
-
-
-
     db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the users table.
