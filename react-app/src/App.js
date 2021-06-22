@@ -7,6 +7,7 @@ import NavBar from "./components/splash_page/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/splash_page/UsersList";
 import User from "./components/splash_page/User";
+import SplashPage from "./components/splash_page/splash_page";
 import MessageMain from "./components/message_main/message_main";
 import MainApp from "./components/app_container/main_app";
 import { authenticate } from "./store/session";
