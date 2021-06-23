@@ -7,6 +7,7 @@ import message from "./message"
 import relationship from "./relationship"
 import serveruser from "./serveruser"
 
+
 const rootReducer = combineReducers({
     session,
     server,

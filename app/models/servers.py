@@ -10,7 +10,7 @@ class Server(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
     type = db.Column(db.String(8), nullable=True) # Private, Public
 
-    channels = db.relationship('Channel', back_populates='server')
+    channels = db.relationship('Channel', cascade="all,delete", back_populates='server')
     server_users = db.relationship('ServerUser', back_populates='servers')
     users=db.relationship('User', back_populates='servers')
 
