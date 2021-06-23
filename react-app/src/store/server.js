@@ -68,6 +68,7 @@ export const createServer = (name) => async (dispatch) => {
 }
 
 export const editServer = (serverId , name) => async (dispatch) => {
+    // should be accepting form data with name and server data
     const response = await fetch(`/api/servers/${serverId}`, {
         method: 'PUT',
         headers: {
@@ -80,8 +81,9 @@ export const editServer = (serverId , name) => async (dispatch) => {
     if (data.errors) {
         return;
     }
-    dispatch(editServerAction(data.server.id))
-    return data.server.id;
+    let name = data.name
+    dispatch(editServerAction(name, serverId))
+    // return data // dont need 
 }
 
 
