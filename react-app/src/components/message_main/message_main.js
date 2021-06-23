@@ -1,14 +1,15 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {io} from 'socket.io-client';
 import * as messageActions from '../../store/message';
-import Messages from './messages'
+import Messages from './messages';
 
 // import { Redirect } from "react-router-dom";
 let socket;
 
 const MessageMain = () => {
+  const latest = useRef();
   const dispatch = useDispatch();
 
   let {channelId} = useParams();
@@ -67,42 +68,52 @@ const MessageMain = () => {
     else if (hours < 24) return hours + ' hours ago';
     else return days + ' days ago';
   }
-  channelMessages.forEach((e) => {
-    console.log(timeConvert(Date.now() - Date.parse(e.created_at)));
-    let messageDate = new Date(e.created_at);
-    console.log(messageDate.getDate());
-  });
+
+  if (latest) console.log(latest);
+
+  const AlwaysScrollToBottom = () => {
+    const elementRef = useRef();
+    useEffect(() => elementRef.current.scrollIntoView(), []);
+    return <div ref={elementRef} ></div>;
+  };
+
+  function gotoBottom(){
+    if(latest.current)
+    latest.current.scrollTop = latest.current.scrollHeight - latest.current.clientHeight;
+ }
 
   return (
     <>
       <div className="channel__context">MESSAGES CONTAINER</div>
-      <div className="messages_body__div">
+
+      <div className="messages_body__div" ref={latest} id='scrollyboi'>
         {/* {channelMessages &&
           channelMessages
-            .map((message, index) => (
-              <div className="message__div">
-                message={message.content} username={message.username} key=
-                {index} timestamp={timeConvert(Date.now() - new Date(message.created_at))}
-              </div>
+          .map((message, index) => (
+            <div className="message__div">
+            message={message.content} username={message.username} key=
+            {index} timestamp={timeConvert(Date.now() - new Date(message.created_at))}
+            </div>
             ))
-            .reverse()} */}
-            {channelMessages &&
-          channelMessages
-            .map((message, index) => (
-              <Messages message={message} key={index} />
-            ))
-            .reverse()}
+          .reverse()} */}
+        {channelMessages &&
+          channelMessages.map((message, index) => (
+            <div className="message__div">
+              <Messages props={{message, index}} key={index} />
+            </div>
+          ))}
+          <AlwaysScrollToBottom />
       </div>
+
       <form onSubmit={sendChat} className="chat_box">
         <input
           className="text__box"
           value={chatInput}
           onChange={updateChatInput}
         />
-        <button className="sub_butt" type="submit">
-          Send
-        </button>
       </form>
+      <div className="chat_end" />
+    {  gotoBottom()}
     </>
   );
 };

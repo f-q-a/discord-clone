@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
-function Messages({message}) {
+function Messages({props}) {
+  const {message, index, current} = props
   const timeNow = new Date();
   const messageDate = new Date(message.created_at);
   const messageLocalTime = Date(message.created_at).toLocaleString();
   const messageDay = messageDate.getDate();
   const messageMonth = messageDate.getMonth();
-  const messageHours = messageDate.getHours();
-  const messageMinutes = messageDate.getMinutes();
+  let messageHours = messageDate.getHours();
+  let messageMinutes = messageDate.getMinutes();
+
+
+
+  useEffect(()=>{
+  },[])
 
   function monthParse(monthNum) {
     switch (monthNum) {
@@ -38,6 +44,7 @@ function Messages({message}) {
     }
   }
 
+
   function timeConvert(time) {
     const seconds = parseInt(time / 1000);
     const minutes = parseInt(time / (1000 * 60));
@@ -45,6 +52,7 @@ function Messages({message}) {
     const days = parseInt(time / (1000 * 60 * 60 * 24));
     const month = monthParse(messageMonth);
     let date;
+    let meridian;
     if (messageMonth === timeNow.getMonth() && messageDay === timeNow.getDate())
       date = 'Today';
     else if (
@@ -65,27 +73,36 @@ function Messages({message}) {
     // else if (minutes < 60) return minutes + ' minutes ago';
     // else if (hours < 24) return hours + ' hours ago';
     // else if (days < 7) return days + ' days ago';
+    if (messageHours > 12){
+      meridian = 'PM';
+      messageHours -= 12;
+    }
+    else meridian = 'AM'
+    if (messageMinutes < 10) messageMinutes = '0' + messageMinutes
     return `${monthParse(
       messageMonth
-    )} ${messageDay}, ${messageHours}:${messageMinutes}`;
+    )} ${messageDay} at ${messageHours}:${messageMinutes} ${meridian}`;
   }
 
-  console.log(message);
+
 
   return (
-    <div className="message__div">
+    // <div className={`message__div author_${message.username}`} id={`${index}`}>
+      <>
       <div className="message_avatar__div">
         <img className="message_avatar__img" src={`${message.user_avatar}`} />
       </div>
       <div clasName="message_username_date__div">
         <span className="message_username__span">{`${message.username} `}</span>
         <span className="message_timestamp__span">
-          {timeConvert(Date.now() - new Date(message.created_at))}
+          {timeConvert(Date.now() - new Date(message.created_at))}, {index}
         </span>
       </div>
       <div className="message_content__div">{message.content}</div>
       <div className="message_context__div">EDIT/REACT</div>
-    </div>
+   
+    </>
+      // </div>
   );
 }
 
