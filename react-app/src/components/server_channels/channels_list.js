@@ -8,6 +8,7 @@ import * as channelActions from '../../store/channel';
 function ChannelsList() {
   const { serverId } = useParams();
   const dispatch = useDispatch();
+  const server = useSelector(state => state.server.servers[serverId])
   let user = useSelector(state => state.session.user)
   let channelsList = useSelector((state) => state.channel.channels[serverId]);
   // const servers = useSelector((state)=> state.server.servers)
@@ -37,10 +38,18 @@ function ChannelsList() {
   return (
     <div className="channels__list">
       <p>Channel List</p>
-      {channelsList &&
+      {(user && user.id === server.user_id) ? (channelsList &&
         channelsList.map((channel, index) => (
-          <NormalChannel channel={channel} key={index} />
-        ))}
+          <div>
+            <NormalChannel channel={channel} key={index} />
+            <button onClick={(e) => editChannel(e, channel.id)}>Edit Channel</button>
+            <button onClick={(e) => deleteChannel(e, channel.id)}>Edit Channel</button>
+          </div>
+        ))) : (channelsList &&
+          channelsList.map((channel, index) => (
+            <NormalChannel channel={channel} key={index} />
+          )))}
+
     </div>
   )
 }

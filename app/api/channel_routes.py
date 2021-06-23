@@ -18,7 +18,7 @@ def create_channel():
 
 @channel_routes.route('/<int:id>', methods=['DELETE'])
 def delete_channel(id):
-    channel = db.session.query(Channel).get(id)
+    channel = Channel.query.get(id)
     db.session.delete(channel)
     db.session.commit()
     return 'Channel deleted'
