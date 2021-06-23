@@ -5,11 +5,13 @@ import server  from "./server"
 import channel from "./channel"
 import message from "./message"
 
+
 const rootReducer = combineReducers({
     session,
     server,
     channel,
     message,
+
 });
 
 

@@ -10,16 +10,18 @@ class Server(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
     type = db.Column(db.String(8), nullable=True) # Private, Public
 
-    channels = db.relationship('Channel', back_populates='server')
+    channels = db.relationship('Channel', cascade="all,delete", back_populates='server')
     server_users = db.relationship('ServerUser', back_populates='servers')
     users=db.relationship('User', back_populates='servers')
 
     def to_dict(self):
         channels = [channel.to_dict() for channel in self.channels]
+        users = [user.to_dict() for user in self.users]
         return {
             'id': self.id,
             'name': self.name,
             'user_id': self.user_id,
             'type': self.type,
             'channels': channels,
+            'users': users
         }
