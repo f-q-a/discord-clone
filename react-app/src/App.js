@@ -31,21 +31,21 @@ function App() {
   if (!loaded) {
     return null;
   }
-  // bill test
+  // bill test <NavBar />
   return (
     <BrowserRouter>
-      <NavBar />
+      <Route path="/splash-page" exact={true}>
+        <SplashPage />
+      </Route>
+
       <div className="app__container">
-        <Route path="/splash-page" exact={true}>
-          <SplashPage />
-        </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path="/">
+        <ProtectedRoute path="/" exact={true}>
           <MainApp />
         </ProtectedRoute>
         <ProtectedRoute path="/@me/:serverId">

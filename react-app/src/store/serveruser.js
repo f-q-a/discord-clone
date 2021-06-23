@@ -10,15 +10,11 @@ export const getServerUsers = (serverId) => async (dispatch) => {
   const response = await fetch(`/api/servers/serversuser/${serverId}`)
   if (response.ok) {
     const serverUsers = await response.json();
-    console.log("Frontend______",serverUsers)
-    console.log("Frontend______22",serverUsers.users)
-    const membersArr = []
+    const serverUsersArr = []
     for (let userObj of serverUsers.users) {
-        membersArr.push(userObj)
-        console.log("Backend",userObj)
+      serverUsersArr.push(userObj)
     }
-    console.log("Need Users_____",membersArr)
-    dispatch(getServerUsersAction(membersArr))
+    dispatch(getServerUsersAction(serverUsersArr))
   }
 
 }
