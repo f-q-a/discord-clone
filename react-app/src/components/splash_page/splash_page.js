@@ -12,15 +12,21 @@ import splash_middle_image from '../../images/splash_midde_image.svg'
 const SplashPage = () => {
 
     return(
-        <div>
+        <div className="MainPage">
             <h1>SPLASH</h1>
-            <img src={study_group_img}></img>
-            <img src={splash_right_image}></img>
-            <img src={splash_left_image}></img>
-            <img src={splash_middle_image}></img>
-            <img src={main_bottom_image}></img>
+            <div className="MainPage_SplashPage1" >
+                <img src={splash_right_image}></img>
+                <img src={splash_left_image}></img>
+                <img src={splash_middle_image}></img>
+            </div>
+            <div>
+                <img src={study_group_img}></img>
+            </div>
+            <div></div>
             <img src={voice_connect_image}></img>
             <img src={friends_role_image}></img>
+
+            <img src={main_bottom_image}></img>
         </div>
     );
 }

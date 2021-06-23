@@ -11,6 +11,8 @@ import User from "./components/splash_page/User";
 import SplashPage from "./components/splash_page/splash_page";
 import MessageMain from "./components/message_main/message_main";
 import MainApp from "./components/app_container/main_app";
+import ServerUsers from "./components/active_users_sidebar/active_users_sidebar"
+
 import { authenticate } from "./store/session";
 import Chat from "./components/chat/chat";
 
@@ -48,6 +50,7 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/@me/:serverId">
           <ChannelsList />
+          <ServerUsers />
         </ProtectedRoute>
         <ProtectedRoute path="/users" exact={true}>
           <UsersList />

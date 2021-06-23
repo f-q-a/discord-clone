@@ -22,7 +22,7 @@ function ChannelsList() {
       dispatch(messageActions.getMessages(channelIds[i].id));
     }
   }, [serverId]);
-  console.log("making it HERRRERERRE");
+
   return (
     <div className="channels__list">
       <p>Channel List</p>
