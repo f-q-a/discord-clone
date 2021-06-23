@@ -78,3 +78,7 @@
 .sub_butt {
   width: 10%;
 }
+
+.user_list{
+  grid-area: users_list;
+}
