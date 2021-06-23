@@ -2,11 +2,12 @@ import React from 'react'
 
 function Messages({message}){
   const timeNow = Date();
+  const messageDate = new Date(message.created_at)
   const messageLocalTime = Date(message.created_at).toLocaleString()
-  const messageDay = Date(messageLocalTime).getDate()
-  const messageMonth = parseInt(Date(messageLocalTime).getMonth())
-  const messageHours = Date(messageLocalTime).getHours()
-  const messageMinutes = Date(messageLocalTime).getMinutes()
+  const messageDay =  messageDate.getDate()
+  const messageMonth = messageDate.getMonth()
+  const messageHours = messageDate.getHours()
+  const messageMinutes = messageDate.getMinutes()
 
   function monthParse(monthNum){
     switch(monthNum){

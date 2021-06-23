@@ -54,9 +54,22 @@ const MessageMain = () => {
     dispatch(messageActions.createMessage(chatInput, channelId));
     setChatInput('');
   };
+
+  function timeConvert(time) {
+    const seconds = parseInt(time / 1000);
+    const minutes = parseInt(time / (1000 * 60));
+    const hours = parseInt(time / (1000 * 60 * 60));
+    const days = parseInt(time / (1000 * 60 * 60 * 24));
+
+    if (seconds < 60) return seconds + ' seconds ago';
+    else if (minutes < 60) return minutes + ' minutes ago';
+    else if (hours < 24) return hours + ' hours ago';
+    else return days + ' days ago';
+  }
   channelMessages.forEach((e) => {
-    console.log(Date.parse(e.created_at) - Date.now());
-    console.log(Date.getDate(e.created_at));
+    console.log(timeConvert(Date.now() - Date.parse(e.created_at)));
+    let messageDate = new Date(e.created_at);
+    console.log(messageDate.getDate());
   });
 
   return (
@@ -68,7 +81,7 @@ const MessageMain = () => {
             .map((message, index) => (
               <div className="message__div">
                 message={message.content} username={message.username} key=
-                {index} timestamp={Date(message.created_at)}
+                {index} timestamp={timeConvert(Date.now() - new Date(message.created_at))}
               </div>
             ))
             .reverse()}

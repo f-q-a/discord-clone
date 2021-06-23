@@ -30,6 +30,7 @@ PyJWT = "==1.7.1"
 Faker = "*"
 flask-socketio = "*"
 eventlet = "==0.30.2"
+sqlalchemy-utc = "*"
 
 [dev-packages]
 psycopg2-binary = "==2.8.6"
