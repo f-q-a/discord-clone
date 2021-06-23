@@ -12,7 +12,6 @@ import SplashPage from "./components/splash_page/splash_page";
 import MessageMain from "./components/message_main/message_main";
 import MainApp from "./components/app_container/main_app";
 import ServerUsers from "./components/active_users_sidebar/active_users_sidebar"
-
 import { authenticate } from "./store/session";
 import Chat from "./components/chat/chat";
 
@@ -40,7 +39,8 @@ function App() {
 
       <div className="app__container">
         <Route path="/login" exact={true}>
-          <LoginForm />
+          {/* <LoginForm /> */}
+
         </Route>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
