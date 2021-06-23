@@ -7,17 +7,33 @@ import SignUpForm from './SignUpForm'
 
 function LoginFormModal() {
   const [showModal, setShowModal] = useState(false);
-
+  const [formState, setformState] = useState(true);
 //   if (sessionUser) return <Redirect to="/" />;
+  const toLogin = async (e) => {
+    setformState(true);
+  };
 
+  const toSignUp = async (e) => {
+    setformState(false)
+  };
   return (
     <>
       <button className="LoginButton" onClick={() => setShowModal(true)}>Log In</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <LoginForm />
+          {formState ?
+          <div>
+            <LoginForm />
+            <button onClick={toSignUp}>Need to Sign Up?</button>
+          </div>
+          :
+          <div>
+            <SignUpForm />
+            <button onClick={toLogin}>Already Have An Account?</button>
+          </div>}
+
           <div>SPLIT HERE SPLIT HERE SPLIT HERE SPLIT HERE</div>
-          <SignUpForm />
+
         </Modal>
       )}
     </>
