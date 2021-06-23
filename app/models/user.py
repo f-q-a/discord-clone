@@ -23,8 +23,7 @@ class User(db.Model, UserMixin):
         }
 
     servers = db.relationship('Server', secondary='server_users', back_populates='users', cascade="all,delete")
-    first_user = db.relationship('Relationship', cascade="all,delete")
-    second_user = db.relationship('Relationship', cascade="all,delete")
+    
 
     @property
     def password(self):
