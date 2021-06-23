@@ -11,7 +11,7 @@ function NormalChannel({ channel }) {
   },[serverId])
   return (
     <div className="normal_channel__div">
-      <h1>Channel</h1>
+      <p>Channel</p>
       <NavLink
         className="channel_list__link"
         exact

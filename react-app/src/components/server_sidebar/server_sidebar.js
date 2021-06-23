@@ -13,7 +13,7 @@ const ServerSidebar = () => {
   // const serversList = []
   return (
     <div className="sidebar__div">
-      <h1>SIDEBAR CONTAINER</h1>
+      <p>SIDEBAR CONTAINER</p>
       {serversList.map((server, index) => (
         <ServerSidebarItem server={server} key={index} />
       ))}
