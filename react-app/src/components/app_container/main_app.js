@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as serverActions from '../../store/server'
 // import { useParams } from "react-router-dom";
-import MembersList from "../../components/active_users_sidebar/active_users_sidebar"
 
 function MainApp() {
   // const {serverId} = useParams();
@@ -18,10 +17,7 @@ function MainApp() {
         <h1>APP CONTAINER</h1>
         <ServerSidebar />
       </div>
-      <div className="app__container">
-        <h1>MEMBER CONTAINER</h1>
-        <MembersList />
-      </div>
+
     </div>
 
   );

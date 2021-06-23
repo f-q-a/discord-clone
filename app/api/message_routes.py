@@ -10,7 +10,6 @@ message_routes = Blueprint('messages', __name__)
 def get_messages(id):
     messages = db.session.query(Message).filter(Message.channel_id == id).all()
     result = [message.to_dict() for message in messages]
-    print('HELLO?---->', result)
     return {'messages':result}
 
 @message_routes.route('/', methods=['POST'])
@@ -33,14 +32,10 @@ def delete_message(id):
 
 @message_routes.route('/<int:id>', methods=['PUT'])
 def edit_message(id):
-    print('Hello?????')
     res = request.get_json()
     message = Message.query.get(id)
-    print(message)
-    print('BEFORE------>', message.to_dict())
     message.content = res['content']
     message.updated_at = db.func.now()
     db.session.add(message)
     db.session.commit()
-    print('AFTER------>', message.to_dict())
     return {"message": message.to_dict()}

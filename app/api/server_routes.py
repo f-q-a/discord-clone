@@ -56,13 +56,15 @@ def delete_server(server_id):
     if server.owner_id != user_id:
         return {'errors': 'User is not server owner'}, 401
 
-@server_routes.route('/serversuser')
+
+@server_routes.route('/serversuser/<int:serverId>')
 @login_required
-def get_serversuser():
-    user_id = int(current_user.id)
-    userServers = ServerUser.query.filter(ServerUser.user_id == user_id).all()
-    serverIds = [userServer.server_id for userServer in userServers]
-    raw_servers = Server.query.filter(Server.id.in_(serverIds)).all()
-    servers = [server.to_dict() for server in raw_servers]
-    print("this is backend_____",{'servers': servers})
-    return {'servers': servers}
+def server_get_users(serverId):
+
+    usersObj = db.session.query(ServerUser, User).join(User).filter(ServerUser.server_id == serverId).all()
+    users = [(x.to_dict(),y.to_dict()) for (x,y) in usersObj ]
+    # for user in users:
+    #     add_user = User.query.filter(User.id == user[0]).first()
+    #     user_list.append(add_user)
+    # return {"serverUsers": [user.to_dict() for user in user_list]}
+    return {"users": users}

@@ -16,5 +16,4 @@ class ServerUser(db.Model):
             'id': self.id,
             'server_id': self.server_id,
             'user_id': self.user_id,
-            'created_at': self.created_at,
         }
