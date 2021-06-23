@@ -10,18 +10,17 @@
 }
 .MainPageABC {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: 15% 1fr 1fr 15%;
     grid-template-rows: repeat(6,1fr);
     gap: 0px 0px;
-    grid-auto-flow: row;
+    grid-auto-flow: dense;
     grid-template-areas:
-    "splash splash"
-    "image1 note1"
-    "note2 image2"
-    "image3 note3"
-    "note4 note4"
-    "image4 image4";
-    border: solid green;
+    "splash splash splash splash"
+    "extra2 image1 note1 extra8"
+    "extra3 note2 image2 extra9"
+    "extra4 image3 note3 extra10"
+    "extra5 note4 note4 extra11"
+    "extra6 image4 image4 extra12";
     height: 100vh;
     width: 100vw;
 }
@@ -32,6 +31,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    top:-200px
 }
 
 .MainPage_SplashPage-text > h1{
@@ -40,14 +40,14 @@
 }
 
 .MainPage_SplashPage-text > h1{
-    margin-left: 35%;
-    margin-right:35%;
+    margin-left: 25%;
+    margin-right:25%;
     color:white;
 }
 
 .MainPage_SplashPage-text > h3{
-    margin-left: 35%;
-    margin-right:35%;
+    margin-left: 25%;
+    margin-right:25%;
     color:white;
 }
 
@@ -63,7 +63,7 @@
     width:100vw;
     display:flex;
     justify-content: center;
-    border: solid blue;
+
 }
 .MainPage_SplashPage3-image{
     grid-area: splash;
@@ -72,7 +72,6 @@
     z-index: -1;
     display:flex;
     justify-content: center;
-    border: solid blue;
     background-color: rgb(83, 83, 248);
 }
 
@@ -81,7 +80,7 @@
     grid-area: image1;
     display:flex;
     justify-content: space-evenly;
-    border: solid red;
+
 }
 
 .MainPage_StudyGroup-text{
@@ -90,7 +89,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: solid red;
 }
 
 .MainPage_StudyGroup-text > h1,h3{
@@ -102,7 +100,7 @@
     grid-area: image2;
     display:flex;
     justify-content: center;
-    border: solid red;
+
 }
 
 .MainPage_ConnectImage-text{
@@ -111,7 +109,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: solid red;
+
 }
 
 .MainPage_ConnectImage-text > h1 + h3{
@@ -123,7 +121,7 @@
     grid-area: image3;
     display:flex;
     justify-content: center;
-    border: solid red;
+
 }
 
 .MainPage_RoleImage-text{
@@ -132,7 +130,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: solid red;
+
 
 }
 
@@ -146,7 +144,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: solid red;
+
     margin-left: 250px;
     margin-right:250px;
 }
@@ -157,5 +155,5 @@
     display:flex;
     flex-direction: column;
     justify-content: center;
-    border: solid red;
+
 }

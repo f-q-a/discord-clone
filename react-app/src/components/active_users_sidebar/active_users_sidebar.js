@@ -4,6 +4,7 @@ import { getServerUsers } from "../../store/serveruser";
 import { useParams } from "react-router-dom";
 import defaultLogo from "../../images/default.png"
 
+
 const ServerUsers = () => {
   const dispatch = useDispatch();
   const serverUsers = useSelector((state) => state.serveruser);
@@ -11,7 +12,7 @@ const ServerUsers = () => {
 
   const serverUsersList= Object.values(serverUsers)
   let list=null
-  
+
   useEffect(async () => {
     await dispatch(getServerUsers(serverId));
   }, [dispatch, serverId]);
@@ -24,7 +25,7 @@ const ServerUsers = () => {
     })
 }
   return (
-    <div>
+    <div className ="user_list">
         <h1>ServerUsers:</h1>
         {list}
     </div>
