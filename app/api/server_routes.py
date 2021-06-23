@@ -48,20 +48,35 @@ def create_server():
     #send back the server and channel to update state maybe
     return {'server': server_dict, 'channel': channel_dict}
 
-# Will this Cascade Delete? or do I need to manually delete everything else?
+@server_routes.route('/<int:server_id>', methods=['PUT'])
+def edit_server(server_id):
+    # this will return the Name of Server for Updating
+    res = request.get_json()
+    # get Server by ServerId
+    server = db.session.query(Server).get(server_id).one()
+    # changed name
+    server.name = res['name']
+    # add back in
+    db.session.add(server)
+    db.session.commit()
+    r
+    if server.owner_id != user_id:
+        return {'errors': 'USER IS NOT SERVER OWNER'}, 401
+
+
+
 @server_routes.route('/<int:server_id>', methods=['DELETE'])
 def delete_server(server_id):
     user_id = int(current_user.id)
     server = Server.query.get(server_id)
     if server.owner_id != user_id:
-        return {'errors': 'User is not server owner'}, 401
+        return {'errors': 'USER IS NOT SERVER OWNER'}, 401
 
 
 @server_routes.route('/serversuser/<int:serverId>')
 @login_required
 def server_get_users(serverId):
-
     usersObj = db.session.query(ServerUser, User).join(User).filter(ServerUser.server_id == serverId).all()
+    # usersObj is getting (SeverUser,User) then I'm getting only the Users
     users = [y.to_dict() for x,y in usersObj ]
-    print("BACKEND_______",users)
     return {"users": users}
