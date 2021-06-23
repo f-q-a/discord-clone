@@ -19,7 +19,9 @@ const LoginForm = () => {
   };
 
   const handleDemoSubmit = async () => {
-    const data = await dispatch(login({ email:'demo@aa.io', password:'password' }))
+    let email = setEmail('demo@aa.io')
+    let password = setPassword('password')
+    const data = await dispatch(login(email, password))
       if (data.errors){
         setErrors(data.errors);
       }
