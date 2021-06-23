@@ -24,16 +24,13 @@ function LoginFormModal() {
           {formState ?
           <div>
             <LoginForm />
-            <button onClick={toSignUp}>Need to Sign Up?</button>
+            <a onClick={toSignUp}>Need to Sign Up?</a>
           </div>
           :
           <div>
             <SignUpForm />
-            <button onClick={toLogin}>Already Have An Account?</button>
+            <a onClick={toLogin}>Already Have An Account?</a>
           </div>}
-
-          <div>SPLIT HERE SPLIT HERE SPLIT HERE SPLIT HERE</div>
-
         </Modal>
       )}
     </>
