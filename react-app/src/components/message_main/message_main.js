@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
-import React, { useEffect, useState } from "react";
-import { io } from "socket.io-client";
-import * as messageActions from "../../store/message";
+import {useDispatch, useSelector} from 'react-redux';
+import {useParams} from 'react-router';
+import React, {useEffect, useState} from 'react';
+import {io} from 'socket.io-client';
+import * as messageActions from '../../store/message';
 
 // import { Redirect } from "react-router-dom";
 let socket;
@@ -10,11 +10,11 @@ let socket;
 const MessageMain = () => {
   const dispatch = useDispatch();
 
-  let { channelId } = useParams();
+  let {channelId} = useParams();
 
   const user = useSelector((state) => state.session.user);
 
-  const [chatInput, setChatInput] = useState("");
+  const [chatInput, setChatInput] = useState('');
   const [channelMessages, setChannelMessages] = useState([]);
 
   useEffect(() => {
@@ -23,9 +23,9 @@ const MessageMain = () => {
     );
 
     socket = io();
-    socket.emit("join", { channelId: channelId, username: user.username });
+    socket.emit('join', {channelId: channelId, username: user.username});
 
-    socket.on("chat", (chat) => {
+    socket.on('chat', (chat) => {
       setChannelMessages((channelMessages) => [...channelMessages, chat]);
       console.log();
       messageActions.createMessage(chat);
@@ -43,31 +43,45 @@ const MessageMain = () => {
 
   const sendChat = (e) => {
     e.preventDefault();
-    socket.emit("chat", {
+    socket.emit('chat', {
       user: user,
       content: chatInput,
       channelId: channelId,
+      user_avatar: user.user_avatar,
+      username: user.username,
+      created_at: Date(),
     });
     dispatch(messageActions.createMessage(chatInput, channelId));
-    setChatInput("");
+    setChatInput('');
   };
-  channelMessages.forEach((e) => console.log(e));
+  channelMessages.forEach((e) => {
+    console.log(Date.parse(e.created_at) - Date.now());
+    console.log(Date.getDate(e.created_at));
+  });
+
   return (
     <>
-        <div className="channel__context">MESSAGES CONTAINER</div>
-        <div className='messages_body__div'>
-          {channelMessages &&
-            channelMessages.map((message, index) => (
+      <div className="channel__context">MESSAGES CONTAINER</div>
+      <div className="messages_body__div">
+        {channelMessages &&
+          channelMessages
+            .map((message, index) => (
               <div className="message__div">
-                {" "}
                 message={message.content} username={message.username} key=
-                {index}
+                {index} timestamp={Date(message.created_at)}
               </div>
-            )).reverse()}
+            ))
+            .reverse()}
       </div>
       <form onSubmit={sendChat} className="chat_box">
-        <input className='text__box' value={chatInput} onChange={updateChatInput} />
-        <button className='sub_butt' type="submit">Send</button>
+        <input
+          className="text__box"
+          value={chatInput}
+          onChange={updateChatInput}
+        />
+        <button className="sub_butt" type="submit">
+          Send
+        </button>
       </form>
     </>
   );

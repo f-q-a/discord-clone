@@ -16,6 +16,14 @@ function ChannelsList() {
   }
   // const [messages, setMessages] = useState([])
 
+  const el = document.querySelector("body")
+  el.addEventListener('contextmenu', function(ev) {
+    ev.preventDefault();
+    alert('success!');
+    return false;
+ }, false);
+
+
   useEffect(() => {
     for (let i = 0; i < channelIds.length; i++) {
       console.log(channelIds[i].id);
@@ -25,7 +33,7 @@ function ChannelsList() {
   console.log("making it HERRRERERRE");
   return (
     <div className="channels__list">
-      <p>Channel List</p>
+      <p>TEXT CHANNELS</p>
       {channelsList &&
         channelsList.map((channel, index) => (
           <NormalChannel channel={channel} key={index} />
