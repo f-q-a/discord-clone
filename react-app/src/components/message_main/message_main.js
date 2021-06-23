@@ -49,7 +49,7 @@ const MessageMain = () => {
       user: user,
       content: chatInput,
       channelId: channelId,
-      user_avatar: user.user_avatar,
+      user_avatar: user.avatar_link,
       username: user.username,
       created_at: Date(),
     });
