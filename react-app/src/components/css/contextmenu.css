@@ -1,0 +1,22 @@
+.container {
+    width:200px;
+    height:100px;
+    background-color:#e0e0e0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+containers {
+    display: flex;
+}
+
+.conatainers .container__item {
+    margin: 15px;
+}
+
+.context-menu {
+    position: fixed;
+    border: 1px solid black;
+    background-color: white;
+}

@@ -1,8 +1,8 @@
 // import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ServerSidebarItem from "./sidebar_item";
-import React from "react";
-
+import React, {useState} from "react";
+import ContextMenu from "./server_context_menu";
 // import { Redirect } from "react-router-dom";
 
 const ServerSidebar = () => {
@@ -17,6 +17,7 @@ const ServerSidebar = () => {
       {serversList.map((server, index) => (
         <ServerSidebarItem server={server} key={index} />
       ))}
+
     </div>
   );
 };
