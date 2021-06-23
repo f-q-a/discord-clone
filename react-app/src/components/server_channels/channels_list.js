@@ -33,7 +33,7 @@ function ChannelsList() {
       console.log(channelIds[i].id);
       dispatch(messageActions.getMessages(channelIds[i].id));
     }
-  }, [serverId]);
+  }, [serverId, channelsList]);
 
   return (
     <div className="channels__list">
