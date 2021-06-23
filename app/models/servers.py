@@ -16,12 +16,12 @@ class Server(db.Model):
 
     def to_dict(self):
         channels = [channel.to_dict() for channel in self.channels]
-        users = [user.to_dict() for user in self.users]
+        server_users = [server_user.to_dict() for server_user in self.server_users]
         return {
             'id': self.id,
             'name': self.name,
             'user_id': self.user_id,
             'type': self.type,
             'channels': channels,
-            'users': users
+            'server_users':server_users
         }

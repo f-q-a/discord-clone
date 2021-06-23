@@ -1,4 +1,4 @@
-import React, { useEffect, } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NormalChannel from "./normal_server__channel";
 import * as messageActions from "../../store/message";
@@ -10,11 +10,10 @@ function ChannelsList() {
   const dispatch = useDispatch();
   let user = useSelector(state => state.session.user)
   let channelsList = useSelector((state) => state.channel.channels[serverId]);
-  let server = useSelector(state => state.server.servers[serverId])
-  console.log(server)
-  let channelIds = []
+  // const servers = useSelector((state)=> state.server.servers)
+  let channelIds = [];
   if (channelsList) {
-    channelsList = Object.values(channelsList)
+    channelsList = Object.values(channelsList);
     // channelIds = channelsList.map(e => e.id
   }
   // const [messages, setMessages] = useState([])
@@ -30,23 +29,18 @@ function ChannelsList() {
 
   useEffect(() => {
     for (let i = 0; i < channelIds.length; i++) {
-      console.log(channelIds[i].id)
-      dispatch(messageActions.getMessages(channelIds[i].id))
+      console.log(channelIds[i].id);
+      dispatch(messageActions.getMessages(channelIds[i].id));
     }
+  }, [serverId]);
 
-  }, [serverId])
-  console.log('making it HERRRERERRE')
   return (
     <div className="channels__list">
-      <h1>Channel List</h1>
-      {channelsList && channelsList.map((channel, index) => (
-        (user && user.id === server.user_id) ?
-      <div>
+      <p>Channel List</p>
+      {channelsList &&
+        channelsList.map((channel, index) => (
           <NormalChannel channel={channel} key={index} />
-          <button onClick={(e) => editChannel(e, channel.id)}>Edit Channel</button>
-          <button onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
-      </div> : <NormalChannel channel={channel} key={index}/>)
-      )}
+        ))}
     </div>
   )
 }
