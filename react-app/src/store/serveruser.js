@@ -10,10 +10,12 @@ export const getServerUsers = (serverId) => async (dispatch) => {
   const response = await fetch(`/api/servers/serversuser/${serverId}`)
   if (response.ok) {
     const serverUsers = await response.json();
-    console.log("Frontend______",serverUsers.users)
+    console.log("Frontend______",serverUsers)
+    console.log("Frontend______22",serverUsers.users)
     const membersArr = []
     for (let userObj of serverUsers.users) {
-        membersArr.push(userObj[1])
+        membersArr.push(userObj)
+        console.log("Backend",userObj)
     }
     console.log("Need Users_____",membersArr)
     dispatch(getServerUsersAction(membersArr))
@@ -23,7 +25,7 @@ export const getServerUsers = (serverId) => async (dispatch) => {
 
 
 const NormalizeServerUsers  = (serverUsers) => {
-    const normServerUsers = []
+    const normServerUsers = {}
     serverUsers.forEach(server => {
         normServerUsers[server.id] = server
     })
@@ -31,7 +33,7 @@ const NormalizeServerUsers  = (serverUsers) => {
 }
 
 // reducer
- const initialState = { serveruser: [] };
+ const initialState = { serveruser: {} };
 
 export default function serveruser(state = initialState, action) {
 

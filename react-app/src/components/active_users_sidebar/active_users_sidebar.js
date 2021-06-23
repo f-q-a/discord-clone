@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getServerUsers } from "../../store/serveruser";
 import { useParams } from "react-router-dom";
-// import "./serverUsers.css";
-
+import defaultLogo from "../../images/default.png"
 
 const ServerUsers = () => {
   const dispatch = useDispatch();
@@ -12,19 +11,20 @@ const ServerUsers = () => {
   let { serverId } = useParams();
 
 
+const serverUsersList= Object.values(serverUsers)
+
   useEffect(async () => {
 await dispatch(getServerUsers(serverId));
   }, [dispatch, serverId]);
-console.log(Array.isArray(serverUsers))
+
+console.log(serverUsersList)
+
 let list=null
-  if(serverUsers.length > 0){
-    list = serverUsers.map((user) => {
-        if(user){
-           return <UserList props={user} />
-        }
+  if(serverUsersList.length > 0){
+    list = serverUsersList.map((user) => {
+           return <UserList key={user.id} props={user} />
     })
 }
-console.log("THIS IS LIST________", list)
   return (
     <div>
         <h1>ServerUsers:</h1>
@@ -34,7 +34,6 @@ console.log("THIS IS LIST________", list)
   }
 
 const UserList = ({props}) => {
-    console.log(props)
     return(
     <div className="server_users">
         <div>
@@ -43,7 +42,7 @@ const UserList = ({props}) => {
                 src={
                 props.avatar_link
                     ? props.avatar_link
-                    : "default"
+                    : defaultLogo
                 }
             ></img>
         </div>

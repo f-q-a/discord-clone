@@ -62,9 +62,6 @@ def delete_server(server_id):
 def server_get_users(serverId):
 
     usersObj = db.session.query(ServerUser, User).join(User).filter(ServerUser.server_id == serverId).all()
-    users = [(x.to_dict(),y.to_dict()) for (x,y) in usersObj ]
-    # for user in users:
-    #     add_user = User.query.filter(User.id == user[0]).first()
-    #     user_list.append(add_user)
-    # return {"serverUsers": [user.to_dict() for user in user_list]}
+    users = [y.to_dict() for x,y in usersObj ]
+    print("BACKEND_______",users)
     return {"users": users}
