@@ -76,14 +76,16 @@ export const editServer = (serverId , name) => async (dispatch) => {
         },
         body: JSON.stringify({ name })
     })
-
-    const data = await response.json();
-    if (data.errors) {
-        return;
+    if (response.ok){
+        dispatch(editServerAction(name, serverId))
+        return {}
+    }else{
+        return {}
     }
-    let name = data.name
-    dispatch(editServerAction(name, serverId))
-    // return data // dont need 
+
+
+
+    // return data // dont need
 }
 
 
@@ -91,12 +93,15 @@ export const deleteServer = (serverId) => async (dispatch) => {
     const response = await fetch(`api/servers/${serverId}`, {
         method: 'DELETE'
     });
+    // const data = await response.json();
+    // console.log(data)
+    if (response.ok){
+        dispatch(deleteServerAction(serverId))
 
-    const data = await response.json();
-    if (data.errors) {
-        return;
     }
-    dispatch(deleteServerAction(serverId))
+    // else {
+    //     return data.errors
+    // }
 }
 
 const NormalizeServer = (servers) => {
@@ -108,7 +113,7 @@ const NormalizeServer = (servers) => {
 }
 
 const initialState = { servers: {} }
-
+// { servers: { ...state.servers } }
 export default function reducer(state = initialState, action) {
     let newState
     switch (action.type) {
@@ -119,9 +124,18 @@ export default function reducer(state = initialState, action) {
             newState.servers[action.payload.id] = action.payload
             return newState
         case DELETE_SERVER:
-            newState = { servers: { ...state.servers } }
-            delete newState.servers[action.payload]
-            return newState
+
+            // newState = { servers: { ...state.servers } }
+            // delete newState.servers[action.payload]
+            // console.log("STATE__________",{...state,servers:newState})
+            // console.log("STATE__________2",{newState})
+            // return newState
+
+            newState= {...state.servers}
+            delete newState[action.payload]
+            console.log("STATE__________",{...state,servers:newState})
+            console.log("STATE__________2",{newState})
+            return {...state,servers:newState}
         case ADD_SERVER:
             newState = { servers: { ...state.servers } }
             newState.servers[action.server.id] = action.server
