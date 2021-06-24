@@ -63,14 +63,11 @@ function App() {
         <ProtectedRoute path="/@me/:serverId/:channelId/edit" exact={true}>
           <EditChannel/>
         </ProtectedRoute>
-<<<<<<< HEAD
         <ProtectedRoute path="/@me/:serverId/add" exact={true}>
           <CreateChannel/>
         </ProtectedRoute>
-=======
 
 
->>>>>>> main
       </div>
     </BrowserRouter>
   );
