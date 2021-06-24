@@ -14,6 +14,7 @@ function MainApp() {
   return (
     <div className="sidebar__container">
       <ServerSidebar />
+
     </div>
   );
 }
