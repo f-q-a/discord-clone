@@ -19,10 +19,6 @@ const Container = ({ children, serverId }) => {
 
             </Modal>)}
         </div>
-
-
-
-
     );
 };
 
