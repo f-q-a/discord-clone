@@ -56,7 +56,7 @@ function ChannelsList() {
         channelsList.map((channel, index) => (
           <div>
             <NormalChannel channel={channel} key={index} />
-            <Link key={index} to={`/@me/${server.id}/${channel.id}/edit`}>Edit Album Title</Link>{' '}
+            <Link key={index} to={`/@me/${server.id}/${channel.id}/edit`}>Edit Channel Name</Link>{' '}
             <button onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
           </div>
         ))}

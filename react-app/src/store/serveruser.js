@@ -7,8 +7,8 @@ const getServerUsersAction = (serverUsers) => ({
   payload: serverUsers
 })
 
-const getServerUsersAction = (serverUser) => ({
-  type: GET_SERVERUSERS,
+const addServerUsersAction = (serverUser) => ({
+  type: ADD_SERVERUSERS,
   payload: serverUser
 })
 
