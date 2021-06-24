@@ -37,16 +37,8 @@ function App() {
       <Route path="/splash-page" exact={true}>
         <SplashPage />
       </Route>
-
       <div className="app__container">
-        <Route path="/login" exact={true}>
-          {/* <LoginForm /> */}
-
-        </Route>
-        <Route path="/sign-up" exact={true}>
-          <SignUpForm />
-        </Route>
-        <ProtectedRoute path="/" exact={true}>
+         <ProtectedRoute path="/">
           <MainApp />
         </ProtectedRoute>
         <ProtectedRoute path="/@me/:serverId">
@@ -59,9 +51,9 @@ function App() {
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
         </ProtectedRoute>
-        <Route path="/@me/:serverId/:channelId">
+        <ProtectedRoute path="/@me/:serverId/:channelId">
           <MessageMain />
-        </Route>
+        </ProtectedRoute>
         <ProtectedRoute path="/chat">
           <Chat />
         </ProtectedRoute>
