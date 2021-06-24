@@ -59,7 +59,7 @@ function ChannelsList() {
             <button onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
           </div>
         ))}
-
+      <Link to={`/@me/${server.id}/add`}>Add New Channel</Link>{' '}
     </div>
   )
 }

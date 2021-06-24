@@ -8,12 +8,11 @@ channel_routes = Blueprint('channels', __name__)
 @channel_routes.route('/', methods=['POST'])
 def create_channel():
     res = request.get_json()
-    channel = Channel(id=res["id"],
-                      name=res["name"],
+    channel = Channel(name=res["name"],
                       server_id=res["server_id"])
     db.session.add(channel)
     db.session.commit()
-    return channel
+    return channel.to_dict()
 
 
 @channel_routes.route('/<int:id>', methods=['DELETE'])
