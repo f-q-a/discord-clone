@@ -14,7 +14,7 @@ import MainApp from "./components/app_container/main_app";
 import ServerUsers from "./components/active_users_sidebar/active_users_sidebar"
 import { authenticate } from "./store/session";
 import Chat from "./components/chat/chat";
-
+import EditChannel from "./components/server_channels/edit_channel";
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ function App() {
   if (!loaded) {
     return null;
   }
- 
+
   // bill test <NavBar />
   return (
     <BrowserRouter>
@@ -59,11 +59,14 @@ function App() {
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
         </ProtectedRoute>
-        <Route path="/@me/:serverId/:channelId">
+        <Route path="/@me/:serverId/:channelId" exact={true}>
           <MessageMain />
         </Route>
         <ProtectedRoute path="/chat">
           <Chat />
+        </ProtectedRoute>
+        <ProtectedRoute path="/@me/:serverId/:channelId/edit" exact={true}>
+          <EditChannel/>
         </ProtectedRoute>
       </div>
     </BrowserRouter>
