@@ -4,6 +4,7 @@ import NormalChannel from "./normal_server__channel";
 import * as messageActions from "../../store/message";
 import { useParams, useHistory } from "react-router-dom";
 import * as channelActions from '../../store/channel';
+import { Link } from "react-router-dom";
 
 function ChannelsList() {
   const { serverId } = useParams();
@@ -12,7 +13,8 @@ function ChannelsList() {
   const server = useSelector(state => state.server.servers[serverId])
   let user = useSelector(state => state.session.user)
   let channelsList = useSelector((state) => state.channel.channels[serverId]);
-  // const servers = useSelector((state)=> state.server.servers)
+
+  console.log("WHAT IS CURRSERVER???", server)
   let channelIds = [];
   if (channelsList) {
     console.log('LOOK OVER HERE PAL ------> ', channelsList)
@@ -54,7 +56,7 @@ function ChannelsList() {
         channelsList.map((channel, index) => (
           <div>
             <NormalChannel channel={channel} key={index} />
-            <button onClick={(e) => editChannel(e, channel.id)}>Edit Channel</button>
+            <Link key={index} to={`/@me/${server.id}/${channel.id}/edit`}>Edit Channel Name</Link>{' '}
             <button onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
           </div>
         ))}
