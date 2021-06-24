@@ -10,12 +10,13 @@ const items = [
   ]
 
 const ContextMenu = ({parentRef, serverId}) => {
-    {console.log("WHERE________",parentRef.current)}
     const [Visible, setVisible] = useState(false)
     const [showModal, setShowModal] = useState(false);
     const [Y, setY] = useState(0)
     const [X, setX] = useState(0)
     useEffect(()=>{
+
+
         const parent = parentRef.current;
         if (!parent) {
             return;
