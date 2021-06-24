@@ -26,15 +26,24 @@ export const getServerUsers = (serverId) => async (dispatch) => {
 
 }
 
-export const addServerUsers = (serverId) => async (dispatch) => {
-  const response = await fetch(`/api/servers/serversuser/${serverId}`)
-  if (response.ok) {
-    const serverUser = await response.json();
+export const addServerUsers = (serverId, name) => async (dispatch) => {
+  const response = await fetch(`/api/servers/serversuser/${serverId}`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ serverId, name })
+    })
 
-    dispatch(addServerUsersAction(serverUser))
+    const data = await response.json();
+    console.log("this is thunk________",data.errors)
+    if (data.errors){
+      return data
+    } else {
+      getServerUsers(serverId)
+      return {}
+    }
   }
-
-}
 
 const NormalizeServerUsers  = (serverUsers) => {
     const normServerUsers = {}
@@ -53,8 +62,9 @@ export default function serveruser(state = initialState, action) {
     case GET_SERVERUSERS:
       return NormalizeServerUsers(action.payload)
     case ADD_SERVERUSERS:
-      newState = { relationships: { ...state.relationships } }
-      newState.relationships[action.relationship.id] = action.relationship
+      console.log(newState)
+      newState = { serveruser: { ...state.payload } }
+      newState.serveruser[action.payload.id] = action.serveruser
       return newState;
     default:
       return state;

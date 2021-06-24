@@ -4,6 +4,7 @@ import { getServerUsers } from "../../store/serveruser";
 import { useParams } from "react-router-dom";
 import defaultLogo from "../../images/default.png"
 
+import "../css/active_users_sidebar.css"
 
 const ServerUsers = () => {
   const dispatch = useDispatch();
