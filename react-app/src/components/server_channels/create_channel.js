@@ -1,18 +1,18 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import * as channelActions from '../../store/channel'
 
-function CreateChannel() {
+function CreateChannel({}) {
+
   const { serverId} = useParams();
   const currServer = useSelector(state => state.channel.channels[serverId]);
   const [channelName, setChannelName] = useState("");
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const history = useHistory();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     let newErrors = [];
