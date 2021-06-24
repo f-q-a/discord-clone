@@ -30,7 +30,7 @@ function App() {
   if (!loaded) {
     return null;
   }
- 
+
   // bill test <NavBar />
   return (
     <BrowserRouter>
