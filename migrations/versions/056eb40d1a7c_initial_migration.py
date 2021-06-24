@@ -1,8 +1,8 @@
-"""empty message
+"""initial migration
 
-Revision ID: 6d0f7bb320c6
+Revision ID: 056eb40d1a7c
 Revises: 
-Create Date: 2021-06-24 00:30:35.258663
+Create Date: 2021-06-24 13:07:01.869187
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6d0f7bb320c6'
+revision = '056eb40d1a7c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -62,8 +62,8 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('content', sa.String(length=255), nullable=False),
     sa.Column('channel_id', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['channel_id'], ['channels.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
