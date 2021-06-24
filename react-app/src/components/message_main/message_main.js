@@ -12,7 +12,7 @@ const MessageMain = () => {
   const latest = useRef();
   const dispatch = useDispatch();
 
-  let {channelId} = useParams();
+  let { serverId, channelId } = useParams();
 
   const user = useSelector((state) => state.session.user);
 

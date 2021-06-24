@@ -22,8 +22,8 @@ class User(db.Model, UserMixin):
             "avatar_link": self.avatar_link
         }
 
-    servers = db.relationship('Server', secondary='server_users', back_populates='users')
-
+    servers = db.relationship('Server', secondary='server_users', back_populates='users', cascade="all,delete")
+    
 
     @property
     def password(self):

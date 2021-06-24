@@ -18,6 +18,15 @@ const LoginForm = () => {
     }
   };
 
+  const handleDemoSubmit = async () => {
+    let email = setEmail('demo@aa.io')
+    let password = setPassword('password')
+    const data = await dispatch(login(email, password))
+      if (data.errors){
+        setErrors(data.errors);
+      }
+  };
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -31,6 +40,7 @@ const LoginForm = () => {
   }
 
   return (
+    <>
     <form onSubmit={onLogin}>
       <div>
         {errors.map((error) => (
@@ -57,10 +67,12 @@ const LoginForm = () => {
           onChange={updatePassword}
         />
         <button type="submit">Login</button>
+        <button className="form-button-modals" type="submit" onClick={handleDemoSubmit}>Demo User</button>
       </div>
     </form>
+
+    </>
   );
 };
 
 export default LoginForm;
-

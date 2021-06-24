@@ -1,0 +1,159 @@
+* {
+    box-sizing: border-box;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+
+}
+
+.NavigationBar {
+    position: absolute;
+}
+.MainPageABC {
+    display: grid;
+    grid-template-columns: 15% 1fr 1fr 15%;
+    grid-template-rows: repeat(6,1fr);
+    gap: 0px 0px;
+    grid-auto-flow: dense;
+    grid-template-areas:
+    "splash splash splash splash"
+    "extra2 image1 note1 extra8"
+    "extra3 note2 image2 extra9"
+    "extra4 image3 note3 extra10"
+    "extra5 note4 note4 extra11"
+    "extra6 image4 image4 extra12";
+    height: 100vh;
+    width: 100vw;
+}
+
+.MainPage_SplashPage-text{
+    grid-area: splash;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top:-200px
+}
+
+.MainPage_SplashPage-text > h1{
+   font-size: 4em;
+   margin: 0px;
+}
+
+.MainPage_SplashPage-text > h1{
+    margin-left: 25%;
+    margin-right:25%;
+    color:white;
+}
+
+.MainPage_SplashPage-text > h3{
+    margin-left: 25%;
+    margin-right:25%;
+    color:white;
+}
+
+.MainPage_SplashPage1{
+    grid-area: splash;
+    display:flex;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.MainPage_SplashPage2{
+    grid-area: splash;
+    width:100vw;
+    display:flex;
+    justify-content: center;
+
+}
+.MainPage_SplashPage3-image{
+    grid-area: splash;
+    width:100vw;
+    height:100vh;
+    z-index: -1;
+    display:flex;
+    justify-content: center;
+    background-color: rgb(83, 83, 248);
+}
+
+
+.MainPage_StudyGroup{
+    grid-area: image1;
+    display:flex;
+    justify-content: space-evenly;
+
+}
+
+.MainPage_StudyGroup-text{
+    grid-area: note1;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.MainPage_StudyGroup-text > h1,h3{
+    margin-left: 25%;
+    margin-right:25%;
+}
+
+.MainPage_ConnectImage{
+    grid-area: image2;
+    display:flex;
+    justify-content: center;
+
+}
+
+.MainPage_ConnectImage-text{
+    grid-area: note2;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.MainPage_ConnectImage-text > h1 + h3{
+    margin-left: 25%;
+    margin-right:25%;
+}
+
+.MainPage_RoleImage{
+    grid-area: image3;
+    display:flex;
+    justify-content: center;
+
+}
+
+.MainPage_RoleImage-text{
+    grid-area: note3;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.MainPage_RoleImage-text > h1 + h3{
+    margin-left: 25%;
+    margin-right:25%;
+}
+.MainPage_BottomImage-text{
+    grid-area: note4;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: 250px;
+    margin-right:250px;
+}
+
+.MainPage_BottomImage{
+
+    grid-area: image4;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+
+}

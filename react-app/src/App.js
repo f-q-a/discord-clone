@@ -11,6 +11,7 @@ import User from "./components/splash_page/User";
 import SplashPage from "./components/splash_page/splash_page";
 import MessageMain from "./components/message_main/message_main";
 import MainApp from "./components/app_container/main_app";
+import ServerUsers from "./components/active_users_sidebar/active_users_sidebar"
 import { authenticate } from "./store/session";
 import Chat from "./components/chat/chat";
 
@@ -29,25 +30,28 @@ function App() {
   if (!loaded) {
     return null;
   }
-  // bill test
+ 
+  // bill test <NavBar />
   return (
     <BrowserRouter>
-      <NavBar />
+      <Route path="/splash-page" exact={true}>
+        <SplashPage />
+      </Route>
+
       <div className="app__container">
-        <Route path="/splash-page" exact={true}>
-          <SplashPage />
-        </Route>
         <Route path="/login" exact={true}>
-          <LoginForm />
+          {/* <LoginForm /> */}
+
         </Route>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path="/">
+        <ProtectedRoute path="/" exact={true}>
           <MainApp />
         </ProtectedRoute>
         <ProtectedRoute path="/@me/:serverId">
           <ChannelsList />
+          <ServerUsers />
         </ProtectedRoute>
         <ProtectedRoute path="/users" exact={true}>
           <UsersList />

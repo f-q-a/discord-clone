@@ -1,8 +1,8 @@
-const GET_ALL_RELATIONSHIP = "relationship/GET_ALL_RELATIONSHIP"
-const CREATE_RELATIONSHIP = "relationship/CREATE_RELATIONSHIP"
-const DELETE_RELATIONSHIP = "relationship/DELETE_RELATIONSHIP"
-const ADD_RELATIONSHIP = "relationship/ADD_RELATIONSHIP"
-const EDIT_RELATIONSHIP = "relationship/EDIT_RELATIONSHIP"
+const GET_ALL_RELATIONSHIPS = "relationship/GET_ALL_RELATIONSHIP"
+const CREATE_RELATIONSHIPS = "relationship/CREATE_RELATIONSHIP"
+const DELETE_RELATIONSHIPS = "relationship/DELETE_RELATIONSHIP"
+const ADD_RELATIONSHIPS = "relationship/ADD_RELATIONSHIP"
+const EDIT_RELATIONSHIPS = "relationship/EDIT_RELATIONSHIP"
 
 const getRelationshipsAction = (relationships) => ({
     type: GET_ALL_RELATIONSHIPS,
@@ -24,7 +24,7 @@ export const addRelationshipAction = (relationship) => ({
     relationship
 })
 
-export const editRelationshipAction = (relation) => ({
+export const editRelationshipAction = (userId,relationships) => ({
     type: EDIT_RELATIONSHIPS,
     userId,
     relationships
@@ -101,19 +101,19 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_RELATIONSHIPS:
             return { relationships: NormalizeRelationship(action.payload) }
-        case CREATE_RELATIONSHIP:
+        case CREATE_RELATIONSHIPS:
             newState = { relationships: { ...state.relationships } }
             newState.relationships[action.payload.id] = action.payload
             return newState
-        case DELETE_RELATIONSHIP:
+        case DELETE_RELATIONSHIPS:
             newState = { relationships: { ...state.relationships } }
             delete newState.relationships[action.payload]
             return newState
-        case ADD_RELATIONSHIP:
+        case ADD_RELATIONSHIPS:
             newState = { relationships: { ...state.relationships } }
             newState.relationships[action.relationship.id] = action.relationship
             return newState;
-        case EDIT_RELATIONSHIP:
+        case EDIT_RELATIONSHIPS:
             newState = { relationships: { ...state.relationships } }
             newState.relationships[action.Id].name = action.name;
             return newState;

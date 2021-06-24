@@ -27,10 +27,10 @@ export const addServerAction = (server) => ({
     server
 })
 
-export const editServerAction = (serverId, name) => ({
+export const editServerAction =  (name, serverId) => ({
     type: EDIT_SERVER,
-    serverId,
-    name
+    name,
+    serverId
 })
 
 
@@ -67,9 +67,25 @@ export const createServer = (name) => async (dispatch) => {
     return data.server.id;
 }
 
-export const editServer = () => async (dispatch) => {
+export const editServer = (serverId , name) => async (dispatch) => {
+    // should be accepting form data with name and server data
+    const response = await fetch(`/api/servers/${serverId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name })
+    })
 
+    const data = await response.json();
+    if (data.errors) {
+        return;
+    }
+    let name = data.name
+    dispatch(editServerAction(name, serverId))
+    // return data // dont need 
 }
+
 
 export const deleteServer = (serverId) => async (dispatch) => {
     const response = await fetch(`api/servers/${serverId}`, {

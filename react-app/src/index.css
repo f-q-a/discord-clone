@@ -148,3 +148,7 @@ a {
   background-clip: padding-box;
   border-radius: 8px;
 }
+
+.user_list{
+  grid-area: users_list;
+}

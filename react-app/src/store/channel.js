@@ -20,9 +20,9 @@ const createChannelAction = (channel) => ({
   payload: channel,
 });
 
-const deleteChannelAction = (channel) => ({
+const deleteChannelAction = (channelId) => ({
   type: DELETE_CHANNEL,
-  payload: channel,
+  channelId
 });
 
 const addChannelAction = (channel) => ({
@@ -44,6 +44,32 @@ export const getChannels = (serverId) => async (dispatch) => {
   return data.channels;
 };
 
+export const editChannel = (data) => async (dispatch) => {
+  const response = await fetch(`/api/channels/:${data.id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+  },
+    body: JSON.stringify(data),
+  });
+  const data = await response.json();
+  if (data.errors) return;
+  dispatch(getChannelsAction(data.body));
+  return data.channels;
+};
+
+export const deleteChannel = (channelId) => async (dispatch) => {
+  const response = await fetch(`/api/channels/${channelId}`, {
+    method: "DELETE"
+  });
+  // const data = await response.json();
+  // if (data.errors) return;
+  if (response.ok){
+    dispatch(deleteChannelAction(channelId));
+  }
+
+  // return data.channels;
+};
+
 const NormalizeData = (data) => {
   const normData = {};
   data.forEach((e) => {
@@ -60,9 +86,15 @@ export default function reducer(state = initialState, action) {
     case GET_ALL_CHANNELS:
       return { channels: NormalizeData(action.payload) };
     case GET_SERVER_CHANNELS:
-      newState = {...state}
+      newState = { ...state }
       newState.channels[action.serverId] = NormalizeData(action.channels);
       return newState;
+    case DELETE_CHANNEL:
+      let newStateChannels;
+      newState = { ...state }
+      newStateChannels = { ...state.channels }
+      delete newStateChannels[action.channelId]
+      return { ...state, channels: newStateChannels }
     default:
       return state;
   }
