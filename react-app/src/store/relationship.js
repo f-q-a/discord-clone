@@ -60,7 +60,7 @@ export const createRelationship = (secondUserId,relationshipType) => async (disp
 
 export const editRelationship = (secondUserId) => async (dispatch) => {
     const response = await fetch('/api/relationships/', {
-        method: 'DELETE',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
