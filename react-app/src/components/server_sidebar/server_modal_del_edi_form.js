@@ -13,11 +13,11 @@ function ServerFormModal({item, serverId}) {
         {showModal && (
         <Modal onClose={() => setShowModal(false)}>
             <div>
-            <ServerDeleteForm serverId={serverId}/>
-            <ServerEditForm serverId={serverId}/>
+              <ServerDeleteForm serverId={serverId}/>
+              <ServerEditForm serverId={serverId}/>
             </div>
             <div>
-
+              
             </div>
         </Modal>
         )}
