@@ -34,6 +34,13 @@ function ChannelsList() {
     history.push('/')
   }
 
+  const el = document.querySelector("body")
+  el.addEventListener('contextmenu', function(ev) {
+    ev.preventDefault();
+    return false;
+ }, false);
+
+
   useEffect(() => {
     for (let i = 0; i < channelIds.length; i++) {
       console.log(channelIds[i].id);
@@ -44,17 +51,15 @@ function ChannelsList() {
   return (
     <div className="channels__list">
       <p>Channel List</p>
-      {(user && user.id === server["user_id"]) ? (channelsList &&
+      {/* {(user && user.id === server.user_id) ? (channelsList && */}
+      {channelsList &&
         channelsList.map((channel, index) => (
           <div>
             <NormalChannel channel={channel} key={index} />
             <Link key={index} to={`/@me/${server.id}/${channel.id}/edit`}>Edit Album Title</Link>{' '}
             <button onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
           </div>
-        ))) : (channelsList &&
-          channelsList.map((channel, index) => (
-            <NormalChannel channel={channel} key={index} />
-          )))}
+        ))}
 
     </div>
   )

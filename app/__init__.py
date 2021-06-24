@@ -44,7 +44,7 @@ app.register_blueprint(relationship_routes, url_prefix='/api/relationships')
 app.register_blueprint(server_routes, url_prefix='/api/servers')
 # end of registered blue print routes
 db.init_app(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, compare_type=True)
 
 socketio.init_app(app)
 

@@ -11,7 +11,7 @@ class Server(db.Model):
     type = db.Column(db.String(8), nullable=True) # Private, Public
 
     channels = db.relationship('Channel', cascade="all,delete", back_populates='server')
-    server_users = db.relationship('ServerUser', back_populates='servers')
+    server_users = db.relationship('ServerUser', cascade="all,delete", back_populates='servers')
     users=db.relationship('User', back_populates='servers')
 
     def to_dict(self):
