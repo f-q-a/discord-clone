@@ -53,15 +53,15 @@ def edit_server(server_id):
     # this will return the Name of Server for Updating
     res = request.get_json()
     # get Server by ServerId
-    server = db.session.query(Server).get(server_id).one()
+    server = db.session.query(Server).get(server_id)
     # changed name
     server.name = res['name']
     # add back in
     db.session.add(server)
     db.session.commit()
-    r
-    if server.owner_id != user_id:
-        return {'errors': 'USER IS NOT SERVER OWNER'}, 401
+    return{}
+    # if server.owner_id != user_id:
+    #     return {'errors': 'USER IS NOT SERVER OWNER'}, 401
 
 
 
@@ -69,9 +69,9 @@ def edit_server(server_id):
 def delete_server(server_id):
     user_id = int(current_user.id)
     server = Server.query.get(server_id)
-    if server.owner_id != user_id:
-        return {'errors': 'USER IS NOT SERVER OWNER'}, 401
-
+    db.session.delete(server)
+    db.session.commit()
+    return {}
 
 @server_routes.route('/serversuser/<int:serverId>')
 @login_required
