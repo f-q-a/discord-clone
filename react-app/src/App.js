@@ -15,12 +15,7 @@ import ServerUsers from "./components/active_users_sidebar/active_users_sidebar"
 import { authenticate } from "./store/session";
 import Chat from "./components/chat/chat";
 import EditChannel from "./components/server_channels/edit_channel";
-<<<<<<< HEAD
-import CreateChannel from "./components/server_channels/create_channel";
-
-=======
 import SettingBar from "./components/setting_bar/setting_bar"
->>>>>>> main
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
   const dispatch = useDispatch();
@@ -66,6 +61,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/@me/:serverId/:channelId/edit" exact={true}>
           <EditChannel/>
+        </ProtectedRoute>
+        <ProtectedRoute path="/@me/:serverId/add" exact={true}>
+          <CreateChannel/>
         </ProtectedRoute>
 
 
