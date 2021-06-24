@@ -6,8 +6,8 @@ import { useHistory } from 'react-router';
 import * as channelActions from '../../store/channel'
 
 function EditChannel() {
-  const { id, name } = useParams()
-  console.log('WHAT ARE THESE VALUES', id, name)
+  const { serverId, channelId } = useParams()
+  // console.log('WHAT ARE THESE VALUES', id, name)
   const currServer = useSelector(state => state.channel.channels[serverId]);
   const currChannel = currServer[channelId];
   const [channelName, setChannelName] = useState(currChannel.name);
@@ -18,7 +18,7 @@ function EditChannel() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let newErrors = [];
-    dispatch(channelActions.editChannel({ id, name }))
+    dispatch(channelActions.editChannel({ channelId, channelName }))
       .then(() => {
         setChannelName("");
       })

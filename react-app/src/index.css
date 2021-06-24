@@ -35,6 +35,11 @@ a {
 .sidebar__div {
 }
 
+.sidebar_container__div {
+  width: 100%;
+  background-color: pink;
+}
+
 /* Channel list styling */
 .channels__list {
   grid-area: channels_list;
@@ -78,6 +83,10 @@ a {
   grid-template-areas:
     'avatar name_time message_context'
     'avatar message_content message_content';
+}
+
+.message__div:hover {
+  background-color: #32353B
 }
 
 .message_avatar__div {

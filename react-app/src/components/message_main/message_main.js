@@ -36,7 +36,7 @@ const MessageMain = () => {
     return () => {
       socket.disconnect();
     };
-  }, [dispatch]);
+  }, [dispatch, channelId]);
 
   const updateChatInput = (e) => {
     e.preventDefault();
@@ -49,7 +49,7 @@ const MessageMain = () => {
       user: user,
       content: chatInput,
       channelId: channelId,
-      user_avatar: user.avatar_link,
+      user_avatar: user.user_avatar,
       username: user.username,
       created_at: Date(),
     });
