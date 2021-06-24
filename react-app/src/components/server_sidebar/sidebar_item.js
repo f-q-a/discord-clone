@@ -4,12 +4,6 @@ import {NavLink} from 'react-router-dom';
 import Container from './server_context_container';
 
 const ServerSidebarItem = ({server}) => {
-  {
-    console.log('IS THIS INDIVD SERVER__________', server.id);
-  }
-  function serverAbbr(name) {
-    const words = name.split(' ');
-  }
   return (
     <div className={`sidebar_item__div `}>
       <p>SERVER SIDEBAR ITEM</p>

@@ -161,3 +161,7 @@ a {
 .user_list{
   grid-area: users_list;
 }
+
+.user_status_bar {
+  grid-area: user_status;
+}

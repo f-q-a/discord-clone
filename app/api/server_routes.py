@@ -80,22 +80,28 @@ def server_get_users(serverId):
     users = [y.to_dict() for x,y in usersObj ]
     return {"users": users}
 
-@server_routes.route('/serverusers/<int:serverId>', methods=['POST'])
+@server_routes.route('/serversuser/<int:serverId>', methods=['POST'])
 def add_server_users(serverId):
-    user_id = request.json['user']
-    userId = int(current_user.id)
-    serverId = db.session.query(Server).get(serverId)
+    name = request.json['name']
 
-    if(serverId == userId) :
-    # add the serveruser object
+    userId = int(current_user.id)
+    # serverId = db.session.query(ServerUser).get(serverId)
+    if ("#" in name) :
+        splitusername = name.split("#");
+        username = splitusername[0]
+        usernameid = splitusername[1]
+        userNameCheck = db.session.query(db.session.query(User).filter(User.username == username, User.id == usernameid).exists()).scalar()
+    else:
+        return {'errors':["Please Add # UserId"]}
+    if( userNameCheck ) :
         server_user = ServerUser(
-            server_id=serverId,
-            user_id=int(user_id)
+            server_id=int(serverId),
+            user_id=int(usernameid)
         )
         db.session.add(server_user)
         db.session.commit()
-        return {}
+        return {'servers':[server_user.id]}
     else:
-        return{}
+        return{'errors':["Not A Valid User"]}
 
     #send back the server and channel to update state maybe
