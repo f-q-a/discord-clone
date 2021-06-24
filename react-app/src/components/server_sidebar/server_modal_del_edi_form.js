@@ -12,8 +12,13 @@ function ServerFormModal({item, serverId}) {
         <a className="LoginButton" onClick={() => setShowModal(true)}>{item.text}</a>
         {showModal && (
         <Modal onClose={() => setShowModal(false)}>
+            <div>
             <ServerDeleteForm serverId={serverId}/>
             <ServerEditForm serverId={serverId}/>
+            </div>
+            <div>
+
+            </div>
         </Modal>
         )}
     </>

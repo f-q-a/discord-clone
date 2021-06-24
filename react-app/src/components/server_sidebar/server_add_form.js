@@ -6,21 +6,19 @@ import { createServer } from '../../store/server'
 const ServerAddForm = () => {
   const history = useHistory()
   const dispatch = useDispatch();
-  const created = useSelector(state => state.session.user.id);
-  const server_id = useSelector(state => state.create)
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState("");
   const [image, setImage] = useState(null);
-  const [ispublic, setisPublic] = useState(false);
+
 
   const onServerCreation = async (e) => {
     e.preventDefault();
     const formData = new FormData();
         formData.append("image", image);
 
-    const data = await dispatch(createServer(created, name, image, ispublic));
+    const data = await dispatch(createServer(name, image));
     if (data) {
-      history.push(`/server/${data.id}`);
+      history.push(`/`);
     }
   }
 
@@ -29,12 +27,7 @@ const ServerAddForm = () => {
   }
 
   const updateImage = (e) => {
-    const file = e.target.files[0];
-    setImage(file)
-  }
-
-  const updatePublic = (e) => {
-    setisPublic(!ispublic);
+    setImage(e.target.value);
   }
 
   return (
@@ -65,16 +58,7 @@ const ServerAddForm = () => {
           className='server_input_image'
         />
       </div>
-      <div className='server_div'>
-        <label htmlFor="ispublic">Public</label>
-        <input
-          name="ispublic"
-          type="checkbox"
-          value={ispublic}
-          onChange={updatePublic}
-          className='server_input_checkbox'
-        />
-      </div>
+
       <div className="create">
         <button className="server-button" type="submit">Create Server</button>
       </div>
