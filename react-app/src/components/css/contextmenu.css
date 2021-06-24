@@ -1,6 +1,6 @@
 .container {
-    width:auto;
-    height: width;
+    width:48px;
+    height: 48px;
     background-color:#e0e0e0;
     display:flex;
     justify-content: center;
