@@ -50,17 +50,15 @@ function ChannelsList() {
   return (
     <div className="channels__list">
       <p>Channel List</p>
-      {(user && user.id === server.user_id) ? (channelsList &&
+      {/* {(user && user.id === server.user_id) ? (channelsList && */}
+      {channelsList &&
         channelsList.map((channel, index) => (
           <div>
             <NormalChannel channel={channel} key={index} />
             <button onClick={(e) => editChannel(e, channel.id)}>Edit Channel</button>
             <button onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
           </div>
-        ))) : (channelsList &&
-          channelsList.map((channel, index) => (
-            <NormalChannel channel={channel} key={index} />
-          )))}
+        ))}
 
     </div>
   )
