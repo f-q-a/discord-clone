@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 
-import ServerEditForm from './server_edit_form'
+import ServerEditForm from './server_add_form'
 
 function ServerFormEditModal({item, serverId}) {
   const [showModal, setShowModal] = useState(false);//false

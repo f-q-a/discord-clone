@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 
 import ServerDeleteForm from './server_delete_form'
+import ServerEditForm from './server_edit_form'
+
 function ServerFormModal({item, serverId}) {
   const [showModal, setShowModal] = useState(false);//false
 
@@ -11,6 +13,7 @@ function ServerFormModal({item, serverId}) {
         {showModal && (
         <Modal onClose={() => setShowModal(false)}>
             <ServerDeleteForm serverId={serverId}/>
+            <ServerEditForm serverId={serverId}/>
         </Modal>
         )}
     </>

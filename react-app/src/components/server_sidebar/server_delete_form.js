@@ -6,22 +6,21 @@ import { deleteServer } from '../../store/server'
 const ServerDeleteForm = ({serverId}) => {
   const history = useHistory()
   const dispatch = useDispatch();
-
-  const server_id = useSelector(state => state.server.servers)
-    console.log(server_id)
+  const [errors, setErrors] = useState([]);
 
   const onDelete = async (e) => {
     e.preventDefault();
-    dispatch(deleteServer());
-    await history.push("/");
+    dispatch(deleteServer(serverId));
+    await history.push("/@me/");
     }
-
 
   return (
     <div>
         <div>Delete</div>
         {serverId}
-        <button className="server-button-delete" onCLick={onDelete}>Please Confirm?</button>
+        <form onSubmit={onDelete} className='delete_form'>
+          <button className="server-button" type="submit">Delete</button>
+        </form>
     </div>
   )
 }
