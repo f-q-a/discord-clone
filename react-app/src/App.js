@@ -17,6 +17,7 @@ import Chat from "./components/chat/chat";
 import EditChannel from "./components/server_channels/edit_channel";
 import CreateChannel from "./components/server_channels/create_channel";
 import SettingBar from "./components/setting_bar/setting_bar"
+
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
   const dispatch = useDispatch();
