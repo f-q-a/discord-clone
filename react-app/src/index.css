@@ -14,7 +14,7 @@ a {
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-columns: 5% 12.5% 70% 12.5%;
+  grid-template-columns: 72px 240px 6fr 1fr;
   grid-template-rows: 5% 85% 5% 5%;
   gap: 0px 0px;
   grid-auto-flow: row;
@@ -30,17 +30,58 @@ a {
 .sidebar__container {
   grid-area: server_list;
   height: 100%;
-  border: solid green;
+
+  display: flex;
+  flex-flow: column;
+  justify-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #202225;
 }
-.sidebar__div {
+
+.sidebar__container::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar_item__div {
+  display: flex;
+  justify-content: center;
+  padding: 0px 0px 8px
+}
+
+.sidebar_container__div {
+  width: 100%;
+  background-color: pink;
 }
 
 /* Channel list styling */
 .channels__list {
   grid-area: channels_list;
   border: solid blue;
+  overflow-y: scroll;
+  background-color: #2F3136;
+}
+
+.channels__list::-webkit-scrollbar{
+  display: none;
 }
 .normal_channel__div {
+
+}
+
+div.active__div{
+  background-color: pink
+}
+
+.normal_channel__div a{
+  color: rgb(142, 146, 151);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem
+}
+
+.nomal_channel__div:active{
+  color: #393C43;
 }
 
 .dm_channel__div {
@@ -78,6 +119,10 @@ a {
   grid-template-areas:
     'avatar name_time message_context'
     'avatar message_content message_content';
+}
+
+.message__div:hover {
+  background-color: #32353B
 }
 
 .message_avatar__div {

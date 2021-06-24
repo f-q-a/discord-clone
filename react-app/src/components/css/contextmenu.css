@@ -1,18 +1,16 @@
 .container {
-    width:200px;
-    height:100px;
+    width:48px;
+    height: 48px;
     background-color:#e0e0e0;
     display:flex;
     justify-content: center;
     align-items: center;
+    border-radius: 50%;
+    align-self: center;
 }
 
 containers {
     display: flex;
-}
-
-.conatainers .container__item {
-    margin: 15px;
 }
 
 .context-menu {
