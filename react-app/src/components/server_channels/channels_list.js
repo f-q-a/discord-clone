@@ -16,6 +16,7 @@ function ChannelsList() {
 
   console.log("WHAT IS CURRSERVER???", server)
   let channelIds = [];
+
   if (channelsList) {
     console.log('LOOK OVER HERE PAL ------> ', channelsList)
     channelsList = Object.values(channelsList);
@@ -23,10 +24,6 @@ function ChannelsList() {
     // channelIds = channelsList.map(e => e.id
   }
   // const [messages, setMessages] = useState([])
-  const editChannel = (e, channelId) => {
-    e.preventDefault()
-    dispatch(channelActions.editChannel(channelId))
-  }
 
   const deleteChannel = (e, channelId) => {
     e.preventDefault()
@@ -45,8 +42,10 @@ function ChannelsList() {
     for (let i = 0; i < channelIds.length; i++) {
       console.log(channelIds[i].id);
       dispatch(messageActions.getMessages(channelIds[i].id));
+
     }
-  }, []);
+
+  }, [channelsList]);
 
   return (
     <div className="channels__list">
@@ -55,7 +54,7 @@ function ChannelsList() {
       {channelsList &&
         channelsList.map((channel, index) => (
           <div>
-            <NormalChannel channel={channel} key={index} />
+            <NormalChannel channel={channel} key={index} id={`channel_${channel.id}`} />
             <Link key={index} to={`/@me/${server.id}/${channel.id}/edit`}>Edit Channel Name</Link>{' '}
             <button onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
           </div>

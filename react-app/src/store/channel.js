@@ -45,17 +45,20 @@ export const getChannels = (serverId) => async (dispatch) => {
 };
 
 export const editChannel = (data) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${data.id}`, {
-    method: 'PUT',
+  console.log('what is ', data)
+  const response = await fetch(`/api/channels/${data.id}/edit`, {
+    method: 'POST',
     headers: {
         'Content-Type': 'application/json'
     },
-    body: JSON.stringify({data})
+    body: JSON.stringify({id: data.id, name: data.name})
 })
 
 if (response.ok) {
-    const relation = await response.json();
-    dispatch(editChannelAction(data))
+    data = await response.json()
+    console.log("IS EDIT CHANNEL RESPONSE OK?", data.server_id)
+    dispatch(editChannelAction(data.id, data.name))
+    dispatch(getServerChannels(data.server_id, [data]))
 }
 }
 
@@ -67,6 +70,7 @@ export const deleteChannel = (channelId) => async (dispatch) => {
   // if (data.errors) return;
   if (response.ok){
     dispatch(deleteChannelAction(channelId));
+
   }
 
   // return data.channels;

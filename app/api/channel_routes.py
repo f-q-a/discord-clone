@@ -24,10 +24,12 @@ def delete_channel(id):
     return "channel deleted"
 
 
-@channel_routes.route('/edit/<int:id>', methods=['PUT'])
+@channel_routes.route('/<int:id>/edit', methods=['POST'])
 def edit_channel(id):
     res = request.get_json()
+    print('HELLO IS ANYONE HOME', res)
     channel = db.session.query(Channel).get(id)
-    channel.name = res['name']
+    channel.name = res["name"]
     db.session.commit()
-    return channel
+    print('THIS IS CHANNEL.TO_DICT =======>', channel.to_dict())
+    return channel.to_dict()
