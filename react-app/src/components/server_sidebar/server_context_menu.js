@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import '../css/contextmenu.css'
-import ServerFormModal from '../server_sidebar/server_modal'
+import ServerFormModal from './server_modal_del_edi_form'
 
 
 const items = [

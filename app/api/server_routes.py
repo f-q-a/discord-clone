@@ -3,7 +3,6 @@ from app.models import db, Server, User, Channel, Message, ServerUser, Relations
 from flask_login import current_user, login_required
 
 server_routes = Blueprint('servers', __name__)
-#api/servers/
 
 @server_routes.route('/')
 def getting_servers():
@@ -17,7 +16,7 @@ def getting_servers():
 def create_server():
     # get the server name from the form
     name = request.json['name']
-
+    image = request.json['image']
     # create the server object
     server = Server(
         name=name,
@@ -80,3 +79,23 @@ def server_get_users(serverId):
     # usersObj is getting (SeverUser,User) then I'm getting only the Users
     users = [y.to_dict() for x,y in usersObj ]
     return {"users": users}
+
+@server_routes.route('/serverusers/<int:serverId>', methods=['POST'])
+def add_server_users(serverId):
+    user_id = request.json['user']
+    userId = int(current_user.id)
+    serverId = db.session.query(Server).get(serverId)
+
+    if(serverId == userId) :
+    # add the serveruser object
+        server_user = ServerUser(
+            server_id=serverId,
+            user_id=int(user_id)
+        )
+        db.session.add(server_user)
+        db.session.commit()
+        return {}
+    else:
+        return{}
+
+    #send back the server and channel to update state maybe
