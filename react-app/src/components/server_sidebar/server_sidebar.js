@@ -4,6 +4,7 @@ import ServerSidebarItem from "./sidebar_item";
 import React, {useState} from "react";
 import ContextMenu from "./server_context_menu";
 // import { Redirect } from "react-router-dom";
+import ServerFormEditModal from "./server_modal_edit"
 
 const ServerSidebar = () => {
   const servers = useSelector((state) => state.server.servers);
@@ -17,9 +18,17 @@ const ServerSidebar = () => {
       {serversList.map((server, index) => (
         <ServerSidebarItem server={server} key={index} />
       ))}
-
+        <ServerFormEditModal />
     </div>
+
   );
 };
 
 export default ServerSidebar;
+
+
+// import ServerForm from './server_edit_form'
+// import { Modal } from '../../context/Modal';
+// <div>
+// <ServerForm />
+// </div>
