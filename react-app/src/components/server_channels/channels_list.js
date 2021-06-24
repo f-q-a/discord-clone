@@ -35,7 +35,6 @@ function ChannelsList() {
   const el = document.querySelector("body")
   el.addEventListener('contextmenu', function(ev) {
     ev.preventDefault();
-    alert('success!');
     return false;
  }, false);
 

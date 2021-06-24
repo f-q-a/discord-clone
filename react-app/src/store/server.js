@@ -49,22 +49,21 @@ export const getServers = () => async (dispatch) => {
     return data.servers;
 }
 
-export const createServer = (name) => async (dispatch) => {
+export const createServer = (name, image) => async (dispatch) => {
     const response = await fetch('/api/servers/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name })
+        body: JSON.stringify({ name, image })
     })
-
-
     const data = await response.json();
-    if (data.errors) {
-        return;
+    if (response.ok){
+        dispatch(createServerAction(data.server))
+        return {}
+    } else {
+        return {}
     }
-    dispatch(createServerAction(data.server))
-    return data.server.id;
 }
 
 export const editServer = (serverId , name) => async (dispatch) => {
