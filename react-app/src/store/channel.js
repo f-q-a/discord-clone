@@ -45,17 +45,19 @@ export const getChannels = (serverId) => async (dispatch) => {
 };
 
 export const editChannel = (data) => async (dispatch) => {
-  const response = await fetch(`/api/channels/:${data.id}`, {
+  const response = await fetch(`/api/channels/${data.id}`, {
+    method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
-  },
-    body: JSON.stringify(data),
-  });
-  const data = await response.json();
-  if (data.errors) return;
-  dispatch(getChannelsAction(data.body));
-  return data.channels;
-};
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({data})
+})
+
+if (response.ok) {
+    const relation = await response.json();
+    dispatch(editChannelAction(data))
+}
+}
 
 export const deleteChannel = (channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}`, {
@@ -95,6 +97,10 @@ export default function reducer(state = initialState, action) {
       newStateChannels = { ...state.channels }
       delete newStateChannels[action.channelId]
       return { ...state, channels: newStateChannels }
+    case EDIT_CHANNEL:
+     newState = {...state}
+     newState.channels[action.id] = action.name
+     return newState
     default:
       return state;
   }
