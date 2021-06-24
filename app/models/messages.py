@@ -1,6 +1,4 @@
 from .db import db
-from datetime import datetime
-from sqlalchemy_utc import UtcDateTime, utc, utcnow
 
 
 class Message(db.Model):

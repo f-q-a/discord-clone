@@ -7,10 +7,10 @@ const getServerUsersAction = (serverUsers) => ({
   payload: serverUsers
 })
 
-// const getServerUsersAction = (serverUser) => ({
-//   type: GET_SERVERUSERS,
-//   payload: serverUser
-// })
+const addServerUsersAction = (serverUser) => ({
+  type: ADD_SERVERUSERS,
+  payload: serverUser
+})
 
 //thunk
 export const getServerUsers = (serverId) => async (dispatch) => {
