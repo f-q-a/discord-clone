@@ -14,7 +14,8 @@ const rootReducer = combineReducers({
     channel,
     message,
     relationship,
-    serveruser
+    serveruser,
+
 });
 
 

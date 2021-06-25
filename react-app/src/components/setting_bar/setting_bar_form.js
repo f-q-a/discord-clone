@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-// import { editServer } from '../../store/server'
+import { editUser } from '../../store/session'
 
-const UserEditForm = ({serverId}) => {
+const UserEditForm = () => {
   const history = useHistory()
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
-  const [name, setName] = useState("");
+  const [userId, setUserId] = useState(user.id);
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState([]);
@@ -16,17 +17,15 @@ const UserEditForm = ({serverId}) => {
 
   const onProfileEdit= async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-        // formData.append("image", image);
-        // ,image
-    // const data = await dispatch(editUser(name));
-    // if (data) {
-      // history.push(`/`);
-    // }
+    const data = await dispatch(editUser(userId,username,email,image,password,repeatPassword));
+    if (data && data.errors) {
+      setErrors(data.errors)
+    }
+    history.push(`/@me`);
   }
 
-  const updateName = (e) => {
-    setName(e.target.value);
+  const updateUsername = (e) => {
+    setUsername(e.target.value);
   }
 
   const updateEmail = (e) => {
@@ -60,8 +59,8 @@ const UserEditForm = ({serverId}) => {
             name="UserName"
             type="text"
             placeholder="UserName"
-            value={name}
-            onChange={updateName}
+            value={username}
+            onChange={updateUsername}
             className='server_input'
           />
         </div>
@@ -79,7 +78,7 @@ const UserEditForm = ({serverId}) => {
           <input
             name="image"
             type="file"
-            accept="image/*"
+            accept="*"
             onChange={updateImage}
             className='server_input_image'
           />
