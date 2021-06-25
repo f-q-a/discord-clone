@@ -1,5 +1,6 @@
 // import React from "react";
 // import { useHistory } from "react-router-dom";
+// import "../css/navigation.css"
 
 // const OpenAppButton = () => {
 //     let history = useHistory();
@@ -9,7 +10,7 @@
 //       }
 
 
-//   return <button onClick={redirect}>Open App</button>;
+//   return <button className="OpenButton button"onClick={redirect}>Open App</button>;
 // };
 
 // export default OpenAppButton ;
