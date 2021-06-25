@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { createFactory, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NormalChannel from "./normal_server__channel";
 import * as messageActions from "../../store/message";
@@ -12,21 +12,20 @@ function ChannelsList() {
   const history = useHistory();
   const server = useSelector(state => state.server.servers[serverId])
   let user = useSelector(state => state.session.user)
-  let channelsList = useSelector((state) => state.channel.channels[serverId]);
-
+  let channelsState = useSelector((state) => state.channel.channels[serverId]);
+  const [createChannelState, setCreateChannelState] = useState(false)
+  const [channelCreated, setChannelCreated] = useState(false)
   console.log("WHAT IS CURRSERVER???", server)
   let channelIds = [];
-  if (channelsList) {
+  let channelsList
+
+  if (channelsState) {
     console.log('LOOK OVER HERE PAL ------> ', channelsList)
-    channelsList = Object.values(channelsList);
+    channelsList = Object.values(channelsState);
     console.log('LOOK OVER HERE AGAIN PAL ------> ', channelsList)
     // channelIds = channelsList.map(e => e.id
   }
   // const [messages, setMessages] = useState([])
-  const editChannel = (e, channelId) => {
-    e.preventDefault()
-    dispatch(channelActions.editChannel(channelId))
-  }
 
   const deleteChannel = (e, channelId) => {
     e.preventDefault()
@@ -40,13 +39,73 @@ function ChannelsList() {
     return false;
  }, false);
 
+ const rerenderRef = useRef()
 
   useEffect(() => {
     for (let i = 0; i < channelIds.length; i++) {
       console.log(channelIds[i].id);
       dispatch(messageActions.getMessages(channelIds[i].id));
+
     }
-  }, []);
+
+  }, [serverId, channelCreated]);
+
+
+  let newChannel
+  if (server) {
+    newChannel = <Link to={`/@me/${server.id}/add`} ref={rerenderRef}>Add New Channel</Link>
+    console.log(rerenderRef)
+  }
+
+
+  function CreateChannel() {
+
+    const {serverId} = useParams();
+    const currServer = useSelector(state => state.channel.channels[serverId]);
+    const [channelName, setChannelName] = useState("");
+    const [errors, setErrors] = useState([]);
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      let newErrors = [];
+      dispatch(channelActions.createChannel({ name: channelName, server_id: serverId }))
+        .then(() => {
+          setChannelName("");
+          setChannelCreated(!channelCreated)
+        })
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) {
+            newErrors = data.errors;
+            setErrors(newErrors);
+          }
+        });
+      // setTimeout(()=>{setChannelCreated(!channelCreated)},500)
+    };
+
+    return (
+      <div className='create_channel__div'>
+        {errors.length > 0 &&
+          errors.map((error) => <div key={error}>{error}</div>)}
+        <h2>Create Channel</h2>
+        <form
+          style={{ display: "flex", flexFlow: "column" }}
+          onSubmit={handleSubmit}
+        >
+          <label>
+            <input
+              type="text"
+              placeholder="New Channel Name"
+              value={channelName}
+              onChange={e => setChannelName(e.target.value)}
+            />
+          </label>
+          <button type="submit">Create Channel</button>
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className="channels__list">
@@ -55,13 +114,19 @@ function ChannelsList() {
       {channelsList &&
         channelsList.map((channel, index) => (
           <div>
-            <NormalChannel channel={channel} key={index} />
+            <NormalChannel channel={channel} key={index} id={`channel_${channel.id}`} />
             <Link key={index} to={`/@me/${server.id}/${channel.id}/edit`}>Edit Channel Name</Link>{' '}
             <button onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
           </div>
         ))}
-
+      <button onClick={()=>setCreateChannelState(!createChannelState)}>New Channel?</button>
+      {createChannelState && <CreateChannel props={{createChannelState, setCreateChannelState}}/>}
     </div>
   )
 }
+
+
+
+
+
 export default ChannelsList;

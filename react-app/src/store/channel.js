@@ -17,7 +17,7 @@ export const getServerChannels = (serverId, channels) => ({
 })
 const createChannelAction = (channel) => ({
   type: CREATE_CHANNEL,
-  payload: channel,
+  channel,
 });
 
 const deleteChannelAction = (channelId) => ({
@@ -45,19 +45,38 @@ export const getChannels = (serverId) => async (dispatch) => {
 };
 
 export const editChannel = (data) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${data.id}`, {
-    method: 'PUT',
+  console.log('what is ', data)
+  const response = await fetch(`/api/channels/${data.id}/edit`, {
+    method: 'POST',
     headers: {
-        'Content-Type': 'application/json'
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({data})
-})
+    body: JSON.stringify({ id: data.id, name: data.name })
+  })
 
-if (response.ok) {
-    const relation = await response.json();
-    dispatch(editChannelAction(data))
+  if (response.ok) {
+    data = await response.json()
+    console.log("IS EDIT CHANNEL RESPONSE OK?", data.server_id)
+    dispatch(editChannelAction(data.id, data.name))
+  }
 }
+
+export const createChannel = (data) => async (dispatch) => {
+  const response = await fetch(`/api/channels/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name: data.name, server_id: data.server_id })
+  })
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(createChannelAction(data));
+    // dispatch(getServerChannels(data.server_id, [data]))
+  }
 }
+
 
 export const deleteChannel = (channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}`, {
@@ -65,8 +84,9 @@ export const deleteChannel = (channelId) => async (dispatch) => {
   });
   // const data = await response.json();
   // if (data.errors) return;
-  if (response.ok){
+  if (response.ok) {
     dispatch(deleteChannelAction(channelId));
+
   }
 
   // return data.channels;
@@ -84,6 +104,7 @@ const initialState = { channels: {} };
 
 export default function reducer(state = initialState, action) {
   let newState;
+  let newStateChannels;
   switch (action.type) {
     case GET_ALL_CHANNELS:
       return { channels: NormalizeData(action.payload) };
@@ -91,16 +112,22 @@ export default function reducer(state = initialState, action) {
       newState = { ...state }
       newState.channels[action.serverId] = NormalizeData(action.channels);
       return newState;
-    case DELETE_CHANNEL:
-      let newStateChannels;
+    case CREATE_CHANNEL:
       newState = { ...state }
-      newStateChannels = { ...state.channels }
+      newStateChannels = newState.channels[action.channel.server_id]
+      console.log('This is newStateChannels ---> ', newStateChannels)
+      newStateChannels[action.channel.id] = action.channel
+      newState.channels[action.channel.server_id] = newStateChannels
+      return newState
+    case DELETE_CHANNEL:
+      newState = { ...state }
+      newStateChannels = newState.channels[action.channel.server_id]
       delete newStateChannels[action.channelId]
       return { ...state, channels: newStateChannels }
     case EDIT_CHANNEL:
-     newState = {...state}
-     newState.channels[action.id] = action.name
-     return newState
+      newState = { ...state }
+      newState.channels[action.id] = action.name
+      return newState
     default:
       return state;
   }
