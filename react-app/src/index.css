@@ -51,13 +51,12 @@ a {
 
 .sidebar_container__div {
   width: 100%;
-  background-color: pink;
+  background-color: #393C43;
 }
 
 /* Channel list styling */
 .channels__list {
   grid-area: channels_list;
-  border: solid blue;
   overflow-y: scroll;
   background-color: #2F3136;
 }
@@ -65,8 +64,15 @@ a {
 .channels__list::-webkit-scrollbar{
   display: none;
 }
-.normal_channel__div {
 
+.channel_list__link {
+  padding: 1px 5px;
+}
+
+.normal_channel__div {
+  margin: 1px 8px;
+  padding: 5px 8px;
+  border-radius: 3px;
 }
 
 div.active__div{
@@ -85,6 +91,11 @@ div.active__div{
 }
 
 .dm_channel__div {
+}
+
+.active_channel > * {
+  background-color: #393C43;
+  color: #F3FFFF;
 }
 
 /* Chat messages area styling */
@@ -200,4 +211,7 @@ div.active__div{
 
 .user_status_bar {
   grid-area: user_status;
+  display: flex;
+  width:100%
+
 }

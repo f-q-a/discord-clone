@@ -20,9 +20,10 @@ const createChannelAction = (channel) => ({
   channel,
 });
 
-const deleteChannelAction = (channelId) => ({
+const deleteChannelAction = (channelId, serverId) => ({
   type: DELETE_CHANNEL,
-  channelId
+  channelId,
+  serverId,
 });
 
 const addChannelAction = (channel) => ({
@@ -78,14 +79,16 @@ export const createChannel = (data) => async (dispatch) => {
 }
 
 
-export const deleteChannel = (channelId) => async (dispatch) => {
+export const deleteChannel = (channelId, serverId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}`, {
     method: "DELETE"
   });
   // const data = await response.json();
   // if (data.errors) return;
+  console.log('THUNK')
+  dispatch(deleteChannelAction(channelId, serverId))
   if (response.ok) {
-    dispatch(deleteChannelAction(channelId));
+    console.log('IFTHUNK')
 
   }
 
@@ -121,9 +124,10 @@ export default function reducer(state = initialState, action) {
       return newState
     case DELETE_CHANNEL:
       newState = { ...state }
-      newStateChannels = newState.channels[action.channel.server_id]
-      delete newStateChannels[action.channelId]
-      return { ...state, channels: newStateChannels }
+      console.log('delete---', newState, action.serverId, action.channelId)
+      delete newState.channels[action.serverId][action.channelId]
+      console.log('delete++++', newState)
+      return newState
     case EDIT_CHANNEL:
       newState = { ...state }
       newState.channels[action.id] = action.name
