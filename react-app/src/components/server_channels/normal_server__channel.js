@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink, useHistory, useParams} from 'react-router-dom';
 import * as messageActions from '../../store/message';
 import * as channelActions from '../../store/channel'
 
 function NormalChannel({channel}) {
+  const channelRef = useRef()
   const {serverId, channelId} = useParams();
   const dispatch = useDispatch();
   const [activeDiv, setActiveDiv] = useState('');
@@ -31,7 +32,9 @@ function NormalChannel({channel}) {
       let newErrors = [];
       dispatch(channelActions.editChannel({ id: channelId, name: channelName }))
         .then(() => {
+          channelRef.current.innerText=`# ${channelName}`
           setChannelName("");
+          setEditChannel(!editChannel)
 
         })
         .catch(async (res) => {
@@ -77,11 +80,11 @@ function NormalChannel({channel}) {
         activeClassName='active_channel'
       >
         <div className={`normal_channel__div ${activeDiv}`}>
-          <p># {channel.name} </p>
+          <p ref={channelRef}># {channel.name} </p>
         </div>
       </NavLink>
       <button onClick={(()=> setEditChannel(!editChannel) )}>Edit Channel</button>
-      {editChannel && <EditChannel props={{channelId = channel.id}}/>}
+      {editChannel && <EditChannel props={{channelId : channel.id}}/>}
     </>
   );
 }
