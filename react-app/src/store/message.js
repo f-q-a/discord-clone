@@ -121,7 +121,11 @@ export default function reducer(state = initialState, action) {
             return newState;
         case EDIT_MESSAGE:
             newState = { messages: { ...state.messages } }
-            newState.messages[action.message.id].content = action.message.content;
+            newState.messages[action.message.channel_id].forEach((el) => {
+                if(el["id"] === action.message.id){
+                    el.content = action.message.content
+                }
+            })
             return newState;
         default:
             return state;

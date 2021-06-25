@@ -29,14 +29,14 @@ const MessageMain = () => {
 
     socket.on('chat', (chat) => {
       setChannelMessages((channelMessages) => [...channelMessages, chat]);
-      console.log();
-      messageActions.createMessage(chat);
+      // console.log();
+      // dispatch(messageActions.createMessage(chat));
     });
 
     return () => {
       socket.disconnect();
     };
-  }, [dispatch, channelId]);
+  });
 
   const updateChatInput = (e) => {
     e.preventDefault();
