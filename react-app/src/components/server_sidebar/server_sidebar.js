@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import ContextMenu from "./server_context_menu";
 import ServerFormAddModal from "./server_modal_add"
 
+const separator = <div className="separator__div"></div>
+
 const ServerSidebar = () => {
   const servers = useSelector((state) => state.server.servers);
   const serversList = servers ? Object.values(servers) : [];
@@ -12,9 +14,11 @@ const ServerSidebar = () => {
   return (
     <div className="sidebar__div">
       <p>SIDEBAR CONTAINER</p>
+      {separator}
       {serversList.map((server, index) => (
         <ServerSidebarItem server={server} key={index} />
       ))}
+      {separator}
         <ServerFormAddModal />
     </div>
 
