@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal';
 import setting from '../../images/settings.png'
 import "../css/setting_bar.css"
 import UserEditForm from "./setting_bar_form"
-function SetttingsBarModal() {
+function SettingsBarModal() {
   const [showModal, setShowModal] = useState(false);//false
 
   return (
@@ -18,4 +18,4 @@ function SetttingsBarModal() {
   );
 }
 
-export default SetttingsBarModal;
+export default SettingsBarModal;

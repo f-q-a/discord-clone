@@ -36,7 +36,7 @@ export const addServerUsers = (serverId, name) => async (dispatch) => {
     })
 
     const data = await response.json();
-    console.log("this is thunk________",data.errors)
+    
     if (data.errors){
       return data
     } else {
