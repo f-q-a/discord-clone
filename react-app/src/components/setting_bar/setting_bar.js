@@ -31,6 +31,7 @@ const SettingBar = () => {
                 <div>
                     <SettingsBarModal />
                 </div>
+
             </div>
 
     )

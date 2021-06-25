@@ -1,25 +1,20 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
-import LogoutButton from '../auth/LogoutButton';
 import LoginFormModal from '../auth/LoginSigninFormModal';
 // import OpenAppButton from '../auth/OpenAppButton'
 import "../css/navigation.css"
 
+
 const NavBar = () => {
   return (
     <div className="Navigation">
-    <div className="Navigation__grid">
       <div className="Navigation_LoginForm">
         <LoginFormModal/>
       </div>
       <div className="Navigation_OpenApp">
         <OpenAppButton />
       </div>
-      <div className="Navigation_Logout">
-        <LogoutButton />
-      </div>
-    </div>
     </div>
     // <nav>
     //   <ul>
