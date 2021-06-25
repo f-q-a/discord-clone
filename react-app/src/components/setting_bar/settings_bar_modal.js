@@ -3,6 +3,11 @@ import { Modal } from '../../context/Modal';
 import setting from '../../images/settings.png'
 import "../css/setting_bar.css"
 import UserEditForm from "./setting_bar_form"
+import LogoutButton from '../auth/LogoutButton';
+
+
+
+
 function SettingsBarModal() {
   const [showModal, setShowModal] = useState(false);//false
 
@@ -12,6 +17,7 @@ function SettingsBarModal() {
         {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <UserEditForm />
+          <LogoutButton />
         </Modal>
         )}
     </>
