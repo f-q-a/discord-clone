@@ -34,6 +34,18 @@
     align-self: center;
 
 }
+
+.current_active_pip__div{
+    background-color: white;
+    width: 20px;
+    position: absolute;
+    align-self: center;
+    height: 20px;
+    border-radius: 25%;
+    right: 55px;
+    visibility: hidden;
+}
+
 .hidden_servername{
     position:absolute;
     left: 84px;
@@ -78,6 +90,16 @@
 }
 
 
+.active {
+    background-color: #5865F2;
+    border-radius: 25%;
+}
+
+.active > .current_active_pip__div {
+
+    visibility: visible;
+
+}
 
 containers {
     display: flex;

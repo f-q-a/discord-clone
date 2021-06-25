@@ -216,3 +216,36 @@ div.active__div{
   width:100%
 
 }
+
+.server_create__container {
+  width:48px;
+  height: 48px;
+  background-color:#2F3136;
+  color: #F3FFFF;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  align-self: center;
+  justify-self: center;
+   position: relative;
+   left: 10px;
+   font-size: 1.5rem;
+}
+
+.server_create__container a {
+  height:100%;
+  width: 100%;
+  color: #F3FFFF;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  overflow: hidden;
+}
+
+.server_create__container:hover {
+  transition: border-radius .5s, background-color .25s;
+    background-color: #3A8D56;
+    border-radius: 25%;
+}
