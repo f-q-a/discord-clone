@@ -25,7 +25,7 @@ function EditMessage({props}) {
 
         console.log('what will I find here?', data)
         setMessage("");
-        
+
       })
       .catch((res) => {
         //
@@ -40,7 +40,7 @@ function EditMessage({props}) {
     <div>
       {errors.length > 0 &&
         errors.map((error) => <div key={error}>{error}</div>)}
-        <h2>Edit Channel Name</h2>
+        <h2>edit</h2>
       <form
         style={{ display: "flex", flexFlow: "column" }}
         onSubmit={handleSubmit}
@@ -54,7 +54,7 @@ function EditMessage({props}) {
             onChange={(e) => setMessage(e.target.value)}
           />
         </label>
-        <button type="submit">Set Channel Name</button>
+        <button type="submit">Submit Edit</button>
       </form>
     </div>
   );

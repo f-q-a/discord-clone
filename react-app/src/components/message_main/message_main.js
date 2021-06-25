@@ -20,8 +20,12 @@ const MessageMain = () => {
   const [channelMessages, setChannelMessages] = useState([]);
 
   useEffect(() => {
-    dispatch(messageActions.getMessages(channelId)).then((data) =>
-      setChannelMessages(data)
+    dispatch(messageActions.getMessages(channelId)).then((data) =>{
+      const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      console.log('These messages are sorted?', sortedChannelMessages)
+      setChannelMessages(sortedChannelMessages)
+    }
+
     );
 
     socket = io();
