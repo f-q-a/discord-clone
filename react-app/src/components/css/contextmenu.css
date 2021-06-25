@@ -14,20 +14,14 @@
 }
 
 .container a {
+    height:100%;
+    width: 100%;
     color: #F3FFFF;
     text-decoration: none;
-}
-
-.container:hover {
-    transition: border-radius .5s, background-color .25s;
-    background-color: #5865F2;
-    border-radius: 25%;
-}
-
-.container:hover + .active_pip__div {
-    transition: height .1s, border-radius .1s;
-    height: 20px;
-    border-radius: 25%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    overflow: hidden;
 }
 
 .active_pip__div {
@@ -40,6 +34,50 @@
     align-self: center;
 
 }
+.hidden_servername{
+    position:absolute;
+    left: 84px;
+    padding-left: 5px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    align-self: center;
+    /* visibility: hidden; */
+    background-color: #18191C;
+    display: flex;
+    align-items: center;
+    border-radius:5px;
+    visibility: hidden;
+
+}
+
+.servername_triangle {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-right: 10px solid #18191C;
+    border-bottom: 5px solid transparent;
+    position: relative;
+    left: -15px;
+    align-self: center;
+  }
+
+.container:hover ~ .hidden_servername {
+    visibility:visible;
+}
+.container:hover {
+    transition: border-radius .5s, background-color .25s;
+    background-color: #5865F2;
+    border-radius: 25%;
+}
+
+.container:hover + .active_pip__div {
+    transition: height .1s, border-radius .1s;
+    height: 20px;
+    border-radius: 25%;
+}
+
+
 
 containers {
     display: flex;
