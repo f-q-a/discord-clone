@@ -13,18 +13,19 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(100), nullable=False)
     avatar_link = db.Column(db.String(200))
 
+    servers = db.relationship('Server', secondary='server_users', back_populates='users', cascade="all,delete")
+    memberships = db.relationship('ServerUser', back_populates='users')
+
     def to_dict(self):
         return {
             "id": self.id,
             "username": self.username,
             "email": self.email,
             "hashed_password": self.hashed_password,
-            "avatar_link": self.avatar_link
+            "avatar_link": self.avatar_link,
+            "personal_server":  [server.to_dict() for server in self.servers if server.user_id==self.id and server.type == "Private"]
         }
-
-    servers = db.relationship('Server', secondary='server_users', back_populates='users', cascade="all,delete")
-    memberships = db.relationship('ServerUser', back_populates='users')
-
+#if
     @property
     def password(self):
         return self.hashed_password

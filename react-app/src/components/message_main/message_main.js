@@ -5,7 +5,7 @@ import {io} from 'socket.io-client';
 import * as messageActions from '../../store/message';
 import Messages from './messages';
 
-// import { Redirect } from "react-router-dom";
+
 let socket;
 
 const MessageMain = () => {
@@ -13,8 +13,11 @@ const MessageMain = () => {
   const dispatch = useDispatch();
 
   let { serverId, channelId } = useParams();
-
+  console.log(serverId)
+  console.log(channelId )
   const user = useSelector((state) => state.session.user);
+  const server = useSelector((state) => state.server.servers)
+  const serverType = Object.values(server);
 
   const [chatInput, setChatInput] = useState('');
   const [channelMessages, setChannelMessages] = useState([]);
@@ -84,7 +87,10 @@ const MessageMain = () => {
 
   return (
     <>
-      <div className="channel__context">MESSAGES CONTAINER</div>
+
+
+
+      {/* <div className="channel__context">MESSAGES CONTAINER</div> */}
 
       <div className="messages_body__div" ref={latest} id='scrollyboi'>
         {/* {channelMessages &&
