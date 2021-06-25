@@ -34,7 +34,15 @@ def edit_relationships ():
     userRelations = db.session.query(Relationship).filter(and_(Relationship.first_user_id==userId, Relationship.second_user_id==res["second_user_id"])).one()
     user_relation_dict = userRelations.to_dict()
     userRelations.relationship = res["relationship"]
+
+    relation = Relationship(
+        first_user_id=res["secondUserId"],
+        second_user_id= userId,
+        relationship= res["relationshipType"]
+    )
+    db.session.add(relation)
     db.session.commit()
+
     return user_relation_dict
 
 @relationship_routes.route('/', methods=['DELETE'])
