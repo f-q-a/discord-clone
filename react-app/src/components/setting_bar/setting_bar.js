@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import headphone from '../../images/headphone.png'
 import microphone from '../../images/microphone.png'
-import SetttingsBarModal from '../setting_bar/settings_bar_modal'
+import SettingsBarModal from '../setting_bar/settings_bar_modal'
 import "../css/setting_bar.css"
 import defaultLogo from "../../images/default.png"
 
 const SettingBar = () => {
+
     const user = useSelector(state => state.session.user)
+
     return(
         <div className ="user_status_bar">
 
@@ -17,13 +19,17 @@ const SettingBar = () => {
 
 
                 <div>
-                    <img className="settingbar_icon" src={ headphone }/>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                        <img className="settingbar_icon" src={ headphone }/>
+                    </a>
                 </div>
                 <div>
-                    <img className="settingbar_icon" src={microphone}/>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                        <img className="settingbar_icon" src={ microphone }/>
+                    </a>
                 </div>
                 <div>
-                    <SetttingsBarModal />
+                    <SettingsBarModal />
                 </div>
             </div>
 

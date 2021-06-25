@@ -22,7 +22,7 @@ const ServerUsers = () => {
 
   if(serverUsersList.length > 0){
     list = serverUsersList.map((user) => {
-           return <UserList key={user.id} props={user} />
+           return <UserList key={`userlist_key__${user.id}`} props={user} />
     })
 }
   return (
