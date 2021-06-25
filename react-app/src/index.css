@@ -23,7 +23,6 @@ a {
     'server_list channels_list channel_body users_list'
     'server_list channels_list channel_body users_list'
     'server_list user_status chat_input users_list';
-  border: solid red;
 }
 
 /* Sidebar styling */
@@ -46,7 +45,9 @@ a {
 .sidebar_item__div {
   display: flex;
   justify-content: center;
-  padding: 0px 0px 8px
+  padding: 0px 0px 8px;
+  position: static;
+
 }
 
 .sidebar_container__div {
@@ -214,4 +215,50 @@ div.active__div{
   display: flex;
   width:100%
 
+}
+
+.server_create__container {
+  width:48px;
+  height: 48px;
+  background-color:#2F3136;
+  color: #F3FFFF;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  align-self: center;
+  justify-self: center;
+   position: relative;
+   left: 10px;
+   font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+.server_create__container a {
+  height:100%;
+  width: 100%;
+  color: #F3FFFF;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  overflow: hidden;
+}
+
+.server_create__container:hover {
+  transition: border-radius .5s, background-color .25s;
+    background-color: #3A8D56;
+    border-radius: 25%;
+}
+
+.separator__div {
+  height: 2px;
+  width: 36px;
+  border-radius: 1px;
+  background-color: #2F3136;
+  justify-self: center;
+  align-self: center;
+  position: relative;
+  left: 12px;
+  margin: 4px;
 }

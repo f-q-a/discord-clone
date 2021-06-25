@@ -1,20 +1,115 @@
 .container {
     width:48px;
     height: 48px;
-    background-color:#e0e0e0;
+    background-color:#2F3136;
+    color: #F3FFFF;
     display:flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     align-self: center;
+    justify-self: center;
+     position: relative;
+     left: 10px;
+}
+
+.container a {
+    height:100%;
+    width: 100%;
+    color: #F3FFFF;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    overflow: hidden;
+}
+
+.active_pip__div {
+    background-color: white;
+    width: 20px;
+    height: 0px;
+    position: relative;
+    right: 65px;
+    border-radius: 50%;
+    align-self: center;
+
+}
+
+.current_active_pip__div{
+    background-color: white;
+    width: 20px;
+    position: absolute;
+    align-self: center;
+    height: 20px;
+    border-radius: 25%;
+    right: 55px;
+    visibility: hidden;
+}
+
+.hidden_servername{
+    position:absolute;
+    left: 84px;
+    padding-left: 5px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    align-self: center;
+    /* visibility: hidden; */
+    background-color: #18191C;
+    display: flex;
+    align-items: center;
+    border-radius:5px;
+    visibility: hidden;
+
+}
+
+.servername_triangle {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-right: 10px solid #18191C;
+    border-bottom: 5px solid transparent;
+    position: relative;
+    left: -15px;
+    align-self: center;
+  }
+
+.container:hover ~ .hidden_servername {
+    visibility:visible;
+}
+.container:hover {
+    transition: border-radius .5s, background-color .25s;
+    background-color: #5865F2;
+    border-radius: 25%;
+}
+
+.container:hover + .active_pip__div {
+    transition: height .1s, border-radius .1s;
+    height: 20px;
+    border-radius: 25%;
+}
+
+
+.active {
+    background-color: #5865F2;
+    border-radius: 25%;
+}
+
+.active > .current_active_pip__div {
+
+    visibility: visible;
+
 }
 
 containers {
     display: flex;
 }
 
+
 .context-menu {
     position: fixed;
     border: 1px solid black;
     background-color: white;
 }
+
+

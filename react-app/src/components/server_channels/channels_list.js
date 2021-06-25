@@ -2,9 +2,9 @@ import React, { createFactory, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NormalChannel from "./normal_server__channel";
 import * as messageActions from "../../store/message";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory,Link } from "react-router-dom";
 import * as channelActions from '../../store/channel';
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router";
 
 function ChannelsList() {
   const { serverId } = useParams();
@@ -16,14 +16,15 @@ function ChannelsList() {
   const [createChannelState, setCreateChannelState] = useState(false)
   const [channelCreated, setChannelCreated] = useState(false)
   const [channelDeleted, setChannelDeleted] = useState(false)
-  console.log("WHAT IS CURRSERVER???", server)
+  const [channelisloaded, setChannelisloaded,] = useState(false)
+  // console.log("WHAT IS CURRSERVER???", server)
   let channelIds = [];
   let channelsList
 
   if (channelsState) {
-    console.log('LOOK OVER HERE PAL ------> ', channelsList)
+    // console.log('LOOK OVER HERE PAL ------> ', channelsList)
     channelsList = Object.values(channelsState);
-    console.log('LOOK OVER HERE AGAIN PAL ------> ', channelsList)
+    // console.log('LOOK OVER HERE AGAIN PAL ------> ', channelsList)
     // channelIds = channelsList.map(e => e.id
   }
   // const [messages, setMessages] = useState([])
@@ -47,9 +48,10 @@ function ChannelsList() {
   //     console.log(channelIds[i].id);
   //     dispatch(messageActions.getMessages(channelIds[i].id));
 
-  //   }
+    }
+  }, [serverId, channelCreated, channelDeleted]);
 
-  // }, [serverId, channelCreated, channelDeleted]);
+  if((window.location.href.endsWith(`/@me/${serverId}/`) ||  window.location.href.endsWith(`/@me/${serverId}`)) && channelsList) history.push(`/@me/${serverId}/${channelsList[0].id}`)
 
 
   let newChannel
@@ -108,19 +110,22 @@ function ChannelsList() {
   }
 
   return (
-    <div className="channels__list">
-      <div className ="server_title--channel_list__div">{server && `${server.name}`}</div>
-      {/* {(user && user.id === server.user_id) ? (channelsList && */}
-      {channelsList &&
-        channelsList.map((channel, index) => (
-          <>
-            <NormalChannel channel={channel} key={`channel_key__${index}`} id={`channel_${channel.id}`} />
-            <button key={`button_key__${index}`} onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
-          </>
-        ))}
-      <button onClick={()=>setCreateChannelState(!createChannelState)}>New Channel?</button>
-      {createChannelState && <CreateChannel props={{createChannelState, setCreateChannelState}}/>}
-    </div>
+    <>
+      <div className="channels__list">
+        <div className ="server_title--channel_list__div">{server && `${server.name}`}</div>
+        {/* {(user && user.id === server.user_id) ? (channelsList && */}
+        {channelsList &&
+          channelsList.map((channel, index) => (
+            <>
+              <NormalChannel channel={channel} key={`channel_key__${index}`} id={`channel_${channel.id}`} />
+              <button key={`button_key__${index}`} onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
+            </>
+          ))}
+        <button onClick={()=>setCreateChannelState(!createChannelState)}>New Channel?</button>
+        {createChannelState && <CreateChannel props={{createChannelState, setCreateChannelState}}/>}
+      </div>
+
+    </>
   )
 }
 
