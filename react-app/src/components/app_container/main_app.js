@@ -8,7 +8,7 @@ import * as serverActions from "../../store/server";
 function MainApp() {
   // const {serverId} = useParams();
 
-  
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(serverActions.getServers()).then((data) => console.log(data));
@@ -16,7 +16,7 @@ function MainApp() {
   return (
     <div className="sidebar__container">
       <ServerSidebar />
-
+        
     </div>
   );
 }

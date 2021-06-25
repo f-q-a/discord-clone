@@ -1,7 +1,8 @@
 .container {
     width:48px;
     height: 48px;
-    background-color:#e0e0e0;
+    background-color:#2F3136;
+    color: #F3FFFF;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -9,9 +10,21 @@
     align-self: center;
 }
 
+.container a {
+    color: #F3FFFF;
+    text-decoration: none;
+}
+
+.container:hover {
+    transition: border-radius .5s, background-color .25s;
+    background-color: #5865F2;
+    border-radius: 25%;
+}
+
 containers {
     display: flex;
 }
+
 
 .context-menu {
     position: fixed;
