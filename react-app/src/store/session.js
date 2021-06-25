@@ -107,7 +107,6 @@ export const editUser = (userId,username,email,image,password,repeatPassword) =>
 const initialState = {user: null}
 
 export default function reducer(state = initialState, action) {
-        console.log(action.payload)
     switch (action.type) {
         case SET_USER:
             return {user: action.payload}
