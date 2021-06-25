@@ -231,6 +231,7 @@ div.active__div{
    position: relative;
    left: 10px;
    font-size: 1.5rem;
+  margin-top: 10px;
 }
 
 .server_create__container a {
@@ -248,4 +249,16 @@ div.active__div{
   transition: border-radius .5s, background-color .25s;
     background-color: #3A8D56;
     border-radius: 25%;
+}
+
+.separator__div {
+  height: 2px;
+  width: 36px;
+  border-radius: 1px;
+  background-color: #2F3136;
+  justify-self: center;
+  align-self: center;
+  position: relative;
+  left: 12px;
+  margin: 4px;
 }
