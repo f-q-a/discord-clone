@@ -24,6 +24,7 @@ const ServerSidebarItem = ({server}) => {
           {serverAbbr(server.name)}
         </NavLink>
       </Container>
+      <div className='active_pip__div'/>
     </div>
   );
 };

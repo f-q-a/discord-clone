@@ -8,6 +8,9 @@
     align-items: center;
     border-radius: 50%;
     align-self: center;
+    justify-self: center;
+     position: relative;
+     left: 10px;
 }
 
 .container a {
@@ -19,6 +22,23 @@
     transition: border-radius .5s, background-color .25s;
     background-color: #5865F2;
     border-radius: 25%;
+}
+
+.container:hover + .active_pip__div {
+    transition: height .1s, border-radius .1s;
+    height: 20px;
+    border-radius: 25%;
+}
+
+.active_pip__div {
+    background-color: white;
+    width: 20px;
+    height: 0px;
+    position: relative;
+    right: 65px;
+    border-radius: 50%;
+    align-self: center;
+
 }
 
 containers {
