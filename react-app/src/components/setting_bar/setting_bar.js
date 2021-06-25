@@ -11,12 +11,11 @@ const SettingBar = () => {
     const user = useSelector(state => state.session.user)
     return(
         <div className ="user_status_bar">
-            <div>
+
                 <div> {user.avatar_link ? <img className="settingbar_icon" src={user.avatar_link}/> : <img className="settingbar_icon" src={defaultLogo}/>} </div>
-                <div> {user.username}</div>
-                <div> {user.id}</div>
-            </div>
-            <div>
+                <div> {user.username}#{user.id}</div>
+
+
                 <div>
                     <img className="settingbar_icon" src={ headphone }/>
                 </div>
@@ -27,7 +26,7 @@ const SettingBar = () => {
                     <SetttingsBarModal />
                 </div>
             </div>
-        </div>
+
     )
 }
 

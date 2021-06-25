@@ -109,15 +109,15 @@ function ChannelsList() {
 
   return (
     <div className="channels__list">
-      <p>Channel List</p>
+      <div className ="server_title--channel_list__div">{server && `${server.name}`}</div>
       {/* {(user && user.id === server.user_id) ? (channelsList && */}
       {channelsList &&
         channelsList.map((channel, index) => (
-          <div>
+          <>
             <NormalChannel channel={channel} key={index} id={`channel_${channel.id}`} />
             <Link key={index} to={`/@me/${server.id}/${channel.id}/edit`}>Edit Channel Name</Link>{' '}
             <button onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
-          </div>
+          </>
         ))}
       <button onClick={()=>setCreateChannelState(!createChannelState)}>New Channel?</button>
       {createChannelState && <CreateChannel props={{createChannelState, setCreateChannelState}}/>}
