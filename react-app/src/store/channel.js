@@ -51,13 +51,13 @@ export const editChannel = (data) => async (dispatch) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ id: data.id, name: data.name })
+    body: JSON.stringify({ id: data.id, name: data.name, server_id: data.server_id })
   })
 
   if (response.ok) {
     data = await response.json()
     console.log("IS EDIT CHANNEL RESPONSE OK?", data.server_id)
-    dispatch(editChannelAction(data.id, data.name))
+    return dispatch(editChannelAction(data.id, data.name))
   }
 }
 
