@@ -23,7 +23,6 @@ a {
     'server_list channels_list channel_body users_list'
     'server_list channels_list channel_body users_list'
     'server_list user_status chat_input users_list';
-  border: solid red;
 }
 
 /* Sidebar styling */
@@ -46,7 +45,9 @@ a {
 .sidebar_item__div {
   display: flex;
   justify-content: center;
-  padding: 0px 0px 8px
+  padding: 0px 0px 8px;
+  position: static;
+
 }
 
 .sidebar_container__div {

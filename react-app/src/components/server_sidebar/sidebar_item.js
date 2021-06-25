@@ -9,6 +9,9 @@ const ServerSidebarItem = ({server}) => {
   }
   function serverAbbr(name) {
     const words = name.split(' ');
+    let abbr = '';
+    words.forEach(e => abbr.length ? abbr+=('-' + e[0]) : abbr+=(e[0]))
+    return abbr;
   }
   return (
     <div className={`sidebar_item__div `}>
@@ -18,9 +21,10 @@ const ServerSidebarItem = ({server}) => {
           exact
           to={`/@me/${server.id}`}
         >
-          {server.name}
+          {serverAbbr(server.name)}
         </NavLink>
       </Container>
+      <div className='active_pip__div'/>
     </div>
   );
 };
