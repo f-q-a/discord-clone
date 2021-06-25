@@ -1,7 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import EditMessage from './edit_message'
+import ReactMessage from './react_message'
 
-function Messages({props}) {
-  const {message, index, current} = props
+function Messages({ props }) {
+  const { message, index, current } = props
+  const [editMessage, setEditMessage] = useState(false);
+  const [reactMessage, setReactMessage] = useState(false)
   const timeNow = new Date();
   const messageDate = new Date(message.created_at);
   const messageLocalTime = Date(message.created_at).toLocaleString();
@@ -12,8 +16,8 @@ function Messages({props}) {
 
 
 
-  useEffect(()=>{
-  },[])
+  useEffect(() => {
+  }, [])
 
   function monthParse(monthNum) {
     switch (monthNum) {
@@ -73,7 +77,7 @@ function Messages({props}) {
     // else if (minutes < 60) return minutes + ' minutes ago';
     // else if (hours < 24) return hours + ' hours ago';
     // else if (days < 7) return days + ' days ago';
-    if (messageHours > 12){
+    if (messageHours > 12) {
       meridian = 'PM';
       messageHours -= 12;
     }
@@ -88,7 +92,7 @@ function Messages({props}) {
 
   return (
     // <div className={`message__div author_${message.username}`} id={`${index}`}>
-      <>
+    <>
       <div className="message_avatar__div">
         <img className="message_avatar__img" src={`${message.user_avatar}`} />
       </div>
@@ -99,10 +103,24 @@ function Messages({props}) {
         </span>
       </div>
       <div className="message_content__div">{message.content}</div>
-      <div className="message_context__div">EDIT/REACT</div>
-   
+      <div className="message_context__div">
+        <button onClick={(() => {
+          if (reactMessage) {
+            setReactMessage(false)
+          }
+          setEditMessage(!editMessage);
+        })}>EDIT</button>
+        {editMessage && <EditMessage props={{ currMessage: message }} />}
+        <button onClick={(() => {
+          if (editMessage) {
+            setEditMessage(false)
+          }
+          setReactMessage(!reactMessage);
+        })}>REACT</button>
+        {reactMessage && <ReactMessage props={{ currMessage: message }} />}
+      </div>
     </>
-      // </div>
+    // </div>
   );
 }
 

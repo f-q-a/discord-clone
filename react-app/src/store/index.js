@@ -6,8 +6,9 @@ import channel from "./channel"
 import message from "./message"
 import relationship from "./relationship"
 import serveruser from "./serveruser"
-
-
+import { composeWithDevTools } from "redux-devtools-extension";
+import * as actionsCreators from './store'
+rootReducer.actionsCreators
 const rootReducer = combineReducers({
     session,
     server,
@@ -26,8 +27,9 @@ if (process.env.NODE_ENV === 'production') {
 } else {
     const logger = require('redux-logger').default;
     const composeEnhancers =
-        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-    enhancer = composeEnhancers(applyMiddleware(thunk, logger));
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 }) || compose;
+        enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 }
 
 const configureStore = (preloadedState) => {

@@ -27,10 +27,9 @@ export const addMessageAction = (message) => ({
     message
 })
 
-export const editMessageAction = (messageId, content) => ({
+export const editMessageAction = (message) => ({
     type: EDIT_MESSAGE,
-    messageId,
-    content
+    message
 })
 
 export const getMessages = (channelId) => async (dispatch) => {
@@ -55,16 +54,15 @@ export const createMessage = (content, channelId) => async (dispatch) => {
 
     const data = await response.json();
     if (data.errors) {
-        return;
+        return data;
     }
     dispatch(createMessageAction(data))
-    // dispatch(createChannelAction(data.channel))
-    return data;
+    // dispatch(createChannelAction(data.channel)
 }
 
 
 export const deleteMessage = (messageId) => async (dispatch) => {
-    const response = await fetch(`api/messages/${messageId}`, {
+    const response = await fetch(`/api/messages/${messageId}`, {
         method: 'DELETE',
     });
 
@@ -75,10 +73,20 @@ export const deleteMessage = (messageId) => async (dispatch) => {
     dispatch(deleteMessageAction(messageId))
 }
 
-export const editMessage = (messageId) => async(dispatch) =>{
-    const response = await fetch(`api/messages/${messageId}`, {
-        method: 'PUT'
+export const editMessage = (message) => async(dispatch) =>{
+    const response = await fetch(`/api/messages/${message.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id: message.id, user_id: message.user_id, content: message.content, channel_id: message.channel_id })
     })
+    const data = await response.json();
+    if (data.errors){
+        return data.errors;
+    }
+    dispatch(editMessageAction(message))
+    return {};
 }
 
 const NormalizeMessage = (messages) => {
@@ -113,7 +121,7 @@ export default function reducer(state = initialState, action) {
             return newState;
         case EDIT_MESSAGE:
             newState = { messages: { ...state.messages } }
-            newState.messages[action.messageId].content = action.content;
+            newState.messages[action.message.id].content = action.message.content;
             return newState;
         default:
             return state;
