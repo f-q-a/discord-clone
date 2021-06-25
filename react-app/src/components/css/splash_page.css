@@ -24,6 +24,9 @@
     height: 100vh;
     width: 100vw;
 }
+.MainPage_SplashPage1{
+    height: 600px;
+}
 
 .MainPage_SplashPage-text{
     grid-area: splash;
@@ -35,8 +38,9 @@
 }
 
 .MainPage_SplashPage-text > h1{
-   font-size: 4em;
-   margin: 0px;
+    font-family: Ginto Nord,Helvetica,Arial,sans-serif;
+    font-size: 4em;
+    margin: 0px;
 }
 
 .MainPage_SplashPage-text > h1{
@@ -46,8 +50,9 @@
 }
 
 .MainPage_SplashPage-text > h3{
-    margin-left: 25%;
-    margin-right:25%;
+    margin-top:50px;
+    margin-left: 35%;
+    margin-right:35%;
     color:white;
 }
 
@@ -61,18 +66,21 @@
 .MainPage_SplashPage2{
     grid-area: splash;
     width:100vw;
+    height: 600px;
+    background-color:rgb(67, 67, 235);
     display:flex;
     justify-content: center;
+    z-index: -1;
 
 }
 .MainPage_SplashPage3-image{
     grid-area: splash;
     width:100vw;
-    height:100vh;
-    z-index: -1;
+    height:700px;
+
     display:flex;
     justify-content: center;
-    background-color: rgb(83, 83, 248);
+
 }
 
 
