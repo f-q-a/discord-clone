@@ -21,10 +21,17 @@ const ServerSidebarItem = ({server}) => {
           exact
           to={`/@me/${server.id}`}
         >
-          {serverAbbr(server.name)}
+          <div className='server_abbrev'>
+            {serverAbbr(server.name)}
+            </div>
+          <div className='current_active_pip__div' />
         </NavLink>
       </Container>
       <div className='active_pip__div'/>
+      <div className='hidden_servername'>
+        <div className='servername_triangle' />
+        {server.name}
+      </div>
     </div>
   );
 };
