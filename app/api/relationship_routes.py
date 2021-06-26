@@ -32,22 +32,21 @@ def edit_relationships ():
     res = request.get_json()
     print ("WHAT THE FUCK________", res)
     if(res["relationshipType"]=="Blocked"):
-         userRelations = db.session.query(Relationship).filter((Relationship.first_user_id==userId, Relationship.second_user_id==res['secondUserId'])).one()
-         userRelations.relationship = "None"# None/Accepted/Blocked/Pending
-         db.session.add(userRelations)
-         db.session.commit()
+        userRelations = db.session.query(Relationship).filter(Relationship.first_user_id==userId, Relationship.second_user_id==res['secondUserId']).one()
+        userRelations.relationship = "None"# None/Accepted/Blocked/Pending
+        #  db.session.add(userRelations)
 
 
     elif(res["relationshipType"]=="Pending"):
-        userRelations1 = db.session.query(Relationship).filter((Relationship.first_user_id==userId, Relationship.second_user_id==res['secondUserId'])).one()
+        userRelations1 = db.session.query(Relationship).filter(Relationship.first_user_id==userId, Relationship.second_user_id==res['secondUserId']).one()
         userRelations1.relationship = "Accept"# None/Accepted/Blocked/Pending
-        userRelations2 = db.session.query(Relationship).filter((Relationship.first_user_id==res['secondUserId'], Relationship.second_user_id==userId)).one()
+
+        userRelations2 = db.session.query(Relationship).filter(Relationship.first_user_id==res['secondUserId'], Relationship.second_user_id==userId).one()
         userRelations2.relationship = "Accept"# None/Accepted/Blocked/Pending
-        db.session.add(userRelations1)
-        db.session.add(userRelations2)
-        db.session.commit()
 
-
+        # db.session.add(userRelations1)
+        # db.session.add(userRelations2)
+    db.session.commit()
     UserRelationship = Relationship.query.filter(Relationship.first_user_id==userId).all()
     relationships = [relationship.to_dict() for relationship in UserRelationship]
     return {'relationships': relationships}

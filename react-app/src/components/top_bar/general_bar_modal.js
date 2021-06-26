@@ -8,14 +8,12 @@ import {getAllUsers} from "../../store/user"
 import "../css/general_bar.css"
 function GeneralBarModal() {
     const dispatch = useDispatch();
-
-
     const [showModal, setShowModal] = useState(false);
     const [target, setTarget] = useState(false);
-    const [block, setBlock] = useState("");
-    const [pending, setPending] = useState("");
-
-
+    const [blockid, setBlockid] = useState(null);
+    const [pendingid, setPendingid] = useState(null);
+    console.log("FRONT______1",blockid)
+    console.log("FRONT______2",pendingid)
     const relationshipObject= useSelector((state) => state.relationship.relationships);
     const user = useSelector(state => state.session.user)
     const allusers =  useSelector(state => state.user.users)
@@ -65,26 +63,22 @@ function GeneralBarModal() {
     }
 
 
-    const targetQ = (e) => {
+    const targetQ = async (e) => {
         setTarget(e.target.innerText)
-        console.log(e.target.value)
         setShowModal(true)
-      }
-
-    const onPendingSubmit = async (e) => {
-        e.preventDefault();
-        setPending(e.target.value)
-        let relationshipType= "Pending"
-        dispatch(editRelationship(pending, relationshipType ));
-        // await history.push("/@me/");
     }
 
-    const onBlockedSubmit = async (e) => {
-        e.preventDefault();
-        setBlock(e.target.value)
-        let relationshipType= "Blocked"
-        dispatch(editRelationship(block, relationshipType));
-        // await history.push("/@me/");
+    const onPendingSubmit = async (e) => {
+        setPendingid(e.target.value)
+        console.log("Why is this null Pending", pendingid)
+        dispatch(editRelationship(pendingid, "Pending"));
+    }
+
+    const onBlockedSubmit = (e) => {
+        setBlockid(e.target.value)
+        console.log("Why is this null BLOCK",blockid)
+        dispatch(editRelationship(blockid, "Blocked"));
+
     }
 
 
@@ -107,10 +101,9 @@ function GeneralBarModal() {
                 <div className="General_Modal scroll">
                     <h3 className="modaltitle">Pending Requests</h3>
                     {Pendingpushlist.map((el,i)=>(
-                    <div key={i} >{el[0]}---{el[1]}
-                    <form onSubmit={onPendingSubmit} value={el[1]} className='pending'>
-                        <button > Accept Request </button>
-                    </form>
+                    <div key={i}>
+                        <button onClick={onPendingSubmit} value={el[1]}> Accept Request </button>
+                        <div>{el[0]}---{el[1]}</div>
                     </div>
                     ))}
                 </div>
@@ -123,11 +116,11 @@ function GeneralBarModal() {
                 <div className="General_Modal scroll">
                     <h3 className="modaltitle">Blocked Users</h3>
                     {Blockedpushlist.map((el,i)=>(
-                    <div key={i} >{el[0]}---{el[1]}
-                    <form onSubmit={onBlockedSubmit} value={el[1]} className='blocked'>
-                        <button key={i} > Unblock </button>
-                    </form>
-                    </div>))}
+                        <div key={i}>
+                            <button onClick={onBlockedSubmit} value={el[1]}> Unblock </button>
+                            <div >{el[0]}---{el[1]}</div>
+                        </div>
+                    ))}
                 </div>
             </Modal>)}
         </div>

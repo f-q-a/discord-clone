@@ -18,3 +18,9 @@ class Relationship(db.Model):
             "second_user_id": self.second_user_id,
             "relationship": self.relationship, # None/Accepted/Blocked/Pending
         }
+
+
+# INSERT INTO relationships (first_user_id, second_user_id, relationship) VALUES (10, 1, 'Pending');
+
+# UPDATE relationships SET relationship='Pending' WHERE first_user_id=1 AND second_user_id=7;
+# UPDATE relationships SET relationship='Pending' WHERE first_user_id=7 AND second_user_id=1;
