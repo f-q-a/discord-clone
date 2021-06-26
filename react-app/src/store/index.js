@@ -6,7 +6,7 @@ import channel from "./channel"
 import message from "./message"
 import relationship from "./relationship"
 import serveruser from "./serveruser"
-
+import user from "./user"
 
 const rootReducer = combineReducers({
     session,
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     message,
     relationship,
     serveruser,
-
+    user
 });
 
 
