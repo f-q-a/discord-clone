@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     servers = db.relationship('Server', secondary='server_users', back_populates='users', cascade="all,delete")
     memberships = db.relationship('ServerUser', back_populates='users')
 
+
     def to_dict(self):
         return {
             "id": self.id,
