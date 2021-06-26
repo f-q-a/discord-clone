@@ -1,0 +1,12 @@
+
+.modaltitle {
+    margin:0px 0px 15px 0px;
+    padding:0px 0px 0px 0px;
+
+}
+
+.scroll {
+    overflow-y: scroll;
+    height: 290px;
+    width: 310px;
+}

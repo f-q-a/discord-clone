@@ -27,9 +27,7 @@ const MessageMain = () => {
       const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
       console.log('These messages are sorted?', sortedChannelMessages)
       setChannelMessages(sortedChannelMessages)
-    }
-
-    );
+    });
 
     socket = io();
     socket.emit('join', {channelId: channelId, username: user.username});
@@ -43,7 +41,7 @@ const MessageMain = () => {
     return () => {
       socket.disconnect();
     };
-  });
+  },[]);
 
   const updateChatInput = (e) => {
     e.preventDefault();

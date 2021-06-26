@@ -59,20 +59,17 @@ export const createRelationship = (secondUserId,relationshipType) => async (disp
     return data.relationship.id;
 }
 
-export const editRelationship = (secondUserId) => async (dispatch) => {
+export const editRelationship = (secondUserId, relationshipType ) => async (dispatch) => {
     const response = await fetch('/api/relationships/', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({secondUserId})
+        body: JSON.stringify({ secondUserId, relationshipType })
     })
-
-    if (response.ok) {
-        const relation = await response.json();
-        dispatch(editRelationshipAction(relation))
-    };
-
+    const data = await response.json();
+    dispatch(getRelationshipsAction(data.relationships))
+    return {}
 }
 
 export const deleteRelationship = (userId) => async (dispatch) => {

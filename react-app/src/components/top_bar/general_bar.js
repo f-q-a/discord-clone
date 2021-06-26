@@ -4,6 +4,8 @@ import { Redirect, useParams, useHistory} from "react-router-dom";
 import {createRelationship} from "../../store/relationship"
 import {getRelationships} from "../../store/relationship"
 import GeneralBarModal from "../top_bar/general_bar_modal"
+import "../css/general_bar.css"
+
 const GeneralBar = () => {
     const dispatch = useDispatch();
     const history = useHistory()
@@ -26,30 +28,12 @@ const GeneralBar = () => {
     }
 
 
-    // const allButton = (e) => {
-    //     setPassword(e.target.value);
-    //   };
-
-    // const pendingButton = (e) => {
-
-    // };
-
-    // const blockedButton = (e) => {
-    //   setRelationships("Blocked");
-    // };
-
-    // const addFriends = async (e) => {
-
-    //   setRelationships("Pending");
-    //   const data = await dispatch(createRelationship(relationships));
-    // }
-
     return(
         <>
             {specificChannel &&
             <div className="channel__context">
                 {specificChannel}
-                {relationshipObject && <GeneralBarModal props={relationshipObject}/>}
+                {relationshipObject && <GeneralBarModal />}
             </div>}
 
         </>
