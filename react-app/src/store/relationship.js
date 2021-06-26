@@ -47,16 +47,15 @@ export const createRelationship = (secondUserId,relationshipType) => async (disp
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ secondUserId,relationshipType })
+        body: JSON.stringify({ secondUserId, relationshipType })
     })
 
     const data = await response.json();
-    if (data.errors) {
-        return;
+    if (data && data.errors) {
+        return data.errors;
     }
-    dispatch(createRelationshipAction(data.relationship))
-
-    return data.relationship.id;
+    dispatch(getRelationshipsAction(data.relationships))
+    return {}
 }
 
 export const editRelationship = (secondUserId, relationshipType ) => async (dispatch) => {
