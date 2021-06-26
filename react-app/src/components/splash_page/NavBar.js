@@ -8,7 +8,7 @@ import "../css/navigation.css"
 
 const NavBar = () => {
   return (
-    <div className="Navigation">
+    <div className="Navigation Navigation__grid">
       <div className="Navigation_LoginForm">
         <LoginFormModal/>
       </div>
@@ -16,33 +16,6 @@ const NavBar = () => {
         <OpenAppButton />
       </div>
     </div>
-    // <nav>
-    //   <ul>
-    //     <li>
-    //       <OpenAppButton />
-    //     </li>
-    //     <li>
-    //       {/* <LoginButton /> */}
-
-    //       {/* <NavLink to="/login" exact={true} activeClassName="active">
-    //         Login
-    //       </NavLink> */}
-    //     </li>
-    //     <li>
-    //       {/* <NavLink to="/sign-up" exact={true} activeClassName="active">
-    //         Sign Up
-    //       </NavLink> */}
-    //     </li>
-    //     {/* <li>
-    //       <NavLink to="/users" exact={true} activeClassName="active">
-    //         Users
-    //       </NavLink>
-    //     </li> */}
-    //     <li>
-    //       <LogoutButton />
-    //     </li>
-    //   </ul>
-    // </nav> */}
   );
 }
 
@@ -52,7 +25,6 @@ const OpenAppButton = () => {
   const redirect = () => {
       history.push('/')
     }
-
 
 return <button className="OpenButton button" onClick={redirect}>Open App in Your Browser</button>;
 };

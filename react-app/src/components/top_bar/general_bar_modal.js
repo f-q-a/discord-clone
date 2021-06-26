@@ -134,7 +134,7 @@ function GeneralBarModal() {
             </Modal>)}
         </div>
         <div>
-            <button className="General_Button" onClick={targetModalvalue}>Add Friend</button>
+            <button className="General_Button button" onClick={targetModalvalue}>Add Friend</button>
             {showModal && target==="Add Friend" &&(
             <Modal onClose={() => setShowModal(false)}>
                 <div className="General_Modal ">
