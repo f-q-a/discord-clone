@@ -18,8 +18,7 @@ function NormalChannel({channel}) {
     const { serverId } = useParams()
     const { channelId}  = props
     const channelLink = document.getElementById(`channel_${channelId}`)
-    console.log(`THIS IS CHANNELLINK`, channelLink)
-    console.log('WHAT ARE THESE VALUES', serverId, channelId)
+
     const currServer = useSelector(state => state.channel.channels[serverId]);
     const currChannel = currServer[channelId];
     const [channelName, setChannelName] = useState(currChannel.name);

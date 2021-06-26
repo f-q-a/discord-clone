@@ -6,6 +6,7 @@ import channel from "./channel"
 import message from "./message"
 import relationship from "./relationship"
 import serveruser from "./serveruser"
+import user from "./user"
 
 
 const rootReducer = combineReducers({
@@ -15,7 +16,7 @@ const rootReducer = combineReducers({
     message,
     relationship,
     serveruser,
-
+    user
 });
 
 
@@ -26,7 +27,8 @@ if (process.env.NODE_ENV === 'production') {
 } else {
     const logger = require('redux-logger').default;
     const composeEnhancers =
-        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 }) || compose;
     enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 }
 

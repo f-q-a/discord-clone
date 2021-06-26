@@ -11,15 +11,35 @@ const UserEditForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
 
-  const onProfileEdit= async (e) => {
+  const onProfileEdit = async (e) => {
     e.preventDefault();
-    const data = await dispatch(editUser(userId,username,email,image,password,repeatPassword));
+    const formData = new FormData();
+    formData.append("avatar_link", image);
+    setImageLoading(true);
+    const res = await fetch('/api/avatar', {
+      method: "POST",
+      body: formData,
+    });
+
+    if (res.ok) {
+      const response = await res.json();
+      console.log('WHAT IS RESPONSE', response)
+      setImageLoading(false);
+      const data = await dispatch(editUser(userId, username, email, response["url"], password, repeatPassword));
     if (data && data.errors) {
       setErrors(data.errors)
+    }
+
+    } else {
+      setImageLoading(false);
+      // a real app would probably use more advanced
+      // error handling
+      console.log("error");
     }
     history.push(`/@me`);
   }
@@ -78,7 +98,7 @@ const UserEditForm = () => {
           <input
             name="image"
             type="file"
-            accept="*"
+            accept="image/*"
             onChange={updateImage}
             className='server_input_image'
           />
@@ -86,25 +106,25 @@ const UserEditForm = () => {
         <div>
           <label>Password</label>
           <input
-          type="password"
-          name="password"
-          onChange={updatePassword}
-          value={password}
+            type="password"
+            name="password"
+            onChange={updatePassword}
+            value={password}
           ></input>
         </div>
         <div>
           <label>Repeat Password</label>
           <input
-          type="password"
-          name="repeat_password"
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
+            type="password"
+            name="repeat_password"
+            onChange={updateRepeatPassword}
+            value={repeatPassword}
+            required={true}
           ></input>
         </div>
-
         <div className="create">
           <button className="server-button" type="submit">Submit</button>
+          {(imageLoading) && <p>Loading...</p>}
         </div>
       </form>
 
@@ -112,4 +132,4 @@ const UserEditForm = () => {
   )
 }
 
-export default UserEditForm ;
+export default UserEditForm;
