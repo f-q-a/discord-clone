@@ -77,7 +77,7 @@ function App() {
           <ProtectedRoute path="/@me/:serverId/:channelId" exact={true} >
             <GeneralBar />
           </ProtectedRoute>
-        </Switch>
+        </Switch> */}
 
 
       </div>

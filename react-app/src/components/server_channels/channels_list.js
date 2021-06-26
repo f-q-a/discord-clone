@@ -43,13 +43,13 @@ function ChannelsList() {
 
  const rerenderRef = useRef()
 
-  // useEffect(() => {
-  //   for (let i = 0; i < channelIds.length; i++) {
-  //     console.log(channelIds[i].id);
-  //     dispatch(messageActions.getMessages(channelIds[i].id));
+  // // useEffect(() => {
+  // //   for (let i = 0; i < channelIds.length; i++) {
+  // //     console.log(channelIds[i].id);
+  // //     dispatch(messageActions.getMessages(channelIds[i].id));
 
-    }
-  }, [serverId, channelCreated, channelDeleted]);
+  //   }
+  // }, [serverId, channelCreated, channelDeleted]);
 
   if((window.location.href.endsWith(`/@me/${serverId}/`) ||  window.location.href.endsWith(`/@me/${serverId}`)) && channelsList) history.push(`/@me/${serverId}/${channelsList[0].id}`)
 
