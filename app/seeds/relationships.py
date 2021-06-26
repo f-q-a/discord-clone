@@ -13,7 +13,7 @@ def seed_relationships():
     # db.session.add(demo)
 
     for i in range(2, 100):
-        temp = Relationship(first_user_id=1, second_user_id=i, relationship='Accept')
+        temp = Relationship(first_user_id=1, second_user_id=i, relationship='None') # None/Accepted/Blocked/Pending
         db.session.add(temp)
 
 

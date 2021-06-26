@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from app.models import db, Server, User, Channel, Message, ServerUser, Relationship
 from flask_login import current_user, login_required
-# from sqlalchemy import or_, and_
+from sqlalchemy import or_, and_
 
 
 relationship_routes = Blueprint('relationships', __name__)
@@ -30,20 +30,27 @@ def create_relationships ():
 def edit_relationships ():
     userId= int(current_user.id)
     res = request.get_json()
-    # need to figure out why _and and how _or works
-    userRelations = db.session.query(Relationship).filter(and_(Relationship.first_user_id==userId, Relationship.second_user_id==res["second_user_id"])).one()
-    user_relation_dict = userRelations.to_dict()
-    userRelations.relationship = res["relationship"]
+    print ("WHAT THE FUCK________", res)
+    if(res["relationshipType"]=="Blocked"):
+         userRelations = db.session.query(Relationship).filter((Relationship.first_user_id==userId, Relationship.second_user_id==res['secondUserId'])).one()
+         userRelations.relationship = "None"# None/Accepted/Blocked/Pending
+         db.session.add(userRelations)
+         db.session.commit()
 
-    relation = Relationship(
-        first_user_id=res["secondUserId"],
-        second_user_id= userId,
-        relationship= res["relationshipType"]
-    )
-    db.session.add(relation)
-    db.session.commit()
 
-    return user_relation_dict
+    elif(res["relationshipType"]=="Pending"):
+        userRelations1 = db.session.query(Relationship).filter((Relationship.first_user_id==userId, Relationship.second_user_id==res['secondUserId'])).one()
+        userRelations1.relationship = "Accept"# None/Accepted/Blocked/Pending
+        userRelations2 = db.session.query(Relationship).filter((Relationship.first_user_id==res['secondUserId'], Relationship.second_user_id==userId)).one()
+        userRelations2.relationship = "Accept"# None/Accepted/Blocked/Pending
+        db.session.add(userRelations1)
+        db.session.add(userRelations2)
+        db.session.commit()
+
+
+    UserRelationship = Relationship.query.filter(Relationship.first_user_id==userId).all()
+    relationships = [relationship.to_dict() for relationship in UserRelationship]
+    return {'relationships': relationships}
 
 @relationship_routes.route('/', methods=['DELETE'])
 def delete_relationships ():

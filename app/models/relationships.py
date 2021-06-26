@@ -16,5 +16,5 @@ class Relationship(db.Model):
         return {
             "first_user_id": self.first_user_id,
             "second_user_id": self.second_user_id,
-            "relationship": self.relationship,
+            "relationship": self.relationship, # None/Accepted/Blocked/Pending
         }
