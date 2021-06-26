@@ -10,3 +10,27 @@
     height: 290px;
     width: 310px;
 }
+
+
+
+.channel__context {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+
+
+}
+.general_bar_content_name{
+
+    justify-content: flex-start;
+}
+
+.general_bar_content_button{
+
+    justify-content: flex-end;
+}
+
+.Topbar_Buttons{
+    display:flex;
+    justify-content: space-evenly;
+}
