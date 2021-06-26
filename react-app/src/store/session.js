@@ -1,8 +1,16 @@
 // constants
+const GET_USERS = "session/GET_USERS"
 const SET_USER = "session/SET_USER"
 const REMOVE_USER = "session/REMOVE_USER"
 const EDIT_USER = "user/EDIT_USER"
 // action creators
+
+
+const getUsers = (users) => ({
+    type: GET_USERS,
+    payload: users
+})
+
 const setUser = (user) => ({
     type: SET_USER,
     payload: user
@@ -96,18 +104,37 @@ export const editUser = (userId,username,email,image,password,repeatPassword) =>
         body: JSON.stringify({ username,email,image,password,repeatPassword })
     })
     const data = await response.json();
-    console.log("THUNK_____",data)
     if (data && data.errors){
         return data
     } else {
-        dispatch(setUser(data))
+        dispatch(setUser(data.users))
     }
 }
 
+export const getAllUsers = () => async (dispatch) => {
+    const response = await fetch(`/api/users/`)
+    const data = await response.json();
+    if (data && data.errors){
+        return data
+    } else {
+        dispatch(getUsers(data))
+    }
+}
+
+
+const NormalizeUser = (users) => {
+    const normUser = {}
+    users.forEach(user => {
+        normUser[user.id] = user
+    })
+    return normUser
+}
 const initialState = {user: null}
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
+        case GET_USERS:
+            return {user: NormalizeUser(action.payload) }
         case SET_USER:
             return {user: action.payload}
         case REMOVE_USER:

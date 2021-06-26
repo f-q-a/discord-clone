@@ -36,6 +36,7 @@ export const getRelationships = () => async (dispatch) => {
     if (data.errors) {
         return;
     }
+
     dispatch(getRelationshipsAction(data.relationships))
     return data.relationships;
 }
@@ -100,7 +101,7 @@ export default function reducer(state = initialState, action) {
     let newState
     switch (action.type) {
         case GET_ALL_RELATIONSHIPS:
-            return { relationships: NormalizeRelationship(action.payload) }
+            return { relationships: action.payload }
         case CREATE_RELATIONSHIPS:
             newState = { relationships: { ...state.relationships } }
             newState.relationships[action.payload.id] = action.payload
