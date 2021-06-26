@@ -15,7 +15,6 @@ import ServerUsers from "./components/active_users_sidebar/active_users_sidebar"
 import { authenticate } from "./store/session";
 import Chat from "./components/chat/chat";
 import EditChannel from "./components/server_channels/edit_channel";
-import CreateChannel from "./components/server_channels/create_channel";
 import SettingBar from "./components/setting_bar/setting_bar"
 import GeneralBar from "./components/top_bar/general_bar"
 import UserBar from "./components/top_bar/user_bar"
@@ -68,7 +67,7 @@ function App() {
         <ProtectedRoute path="/@me/:serverId/:channelId/edit" exact={true}>
           <EditChannel/>
         </ProtectedRoute>
-        <ProtectedRoute path="/@me/:serverId/add" exact={true}>
+        {/* <ProtectedRoute path="/@me/:serverId/add" exact={true}>
           <CreateChannel/>
         </ProtectedRoute>
         <Switch>
@@ -78,7 +77,7 @@ function App() {
           <ProtectedRoute path="/@me/:serverId/:channelId" exact={true} >
             <GeneralBar />
           </ProtectedRoute>
-        </Switch>
+        </Switch> */}
 
 
       </div>
