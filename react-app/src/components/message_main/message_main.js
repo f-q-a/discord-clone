@@ -43,7 +43,7 @@ const MessageMain = () => {
     return () => {
       socket.disconnect();
     };
-  });
+  },[channelId]);
 
   const updateChatInput = (e) => {
     e.preventDefault();
