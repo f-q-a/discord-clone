@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteMessage } from '../../store/message';
 import EditMessage from './edit_message'
 import ReactMessage from './react_message'
 
 function Messages({ props }) {
   const { message, index, current } = props
+  const dispatch = useDispatch()
   const [editMessage, setEditMessage] = useState(false);
   const [reactMessage, setReactMessage] = useState(false)
   const timeNow = new Date();
@@ -15,7 +18,10 @@ function Messages({ props }) {
   let messageMinutes = messageDate.getMinutes();
 
 
-
+  const deleteMessage = (e) => {
+    e.preventDefault();
+    dispatch(deleteMessage(message))
+  }
   useEffect(() => {
   }, [])
 
@@ -118,6 +124,7 @@ function Messages({ props }) {
           setReactMessage(!reactMessage);
         })}>REACT</button>
         {reactMessage && <ReactMessage props={{ currMessage: message }} />}
+        <button onClick={deleteMessage}>DELETE</button>
       </div>
     </>
     // </div>

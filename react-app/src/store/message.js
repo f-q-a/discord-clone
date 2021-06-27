@@ -19,7 +19,7 @@ const createMessageAction = (message) => ({
 
 export const deleteMessageAction = (message) => ({
     type: DELETE_MESSAGE,
-    payload: message
+    message
 })
 
 export const addMessageAction = (message) => ({
@@ -61,16 +61,14 @@ export const createMessage = (content, channelId) => async (dispatch) => {
 }
 
 
-export const deleteMessage = (messageId) => async (dispatch) => {
-    const response = await fetch(`/api/messages/${messageId}`, {
+export const deleteMessage = (message) => async (dispatch) => {
+    const response = await fetch(`/api/messages/${message.id}`, {
         method: 'DELETE',
     });
 
-    const data = await response.json();
-    if (data.errors) {
-        return;
-    }
-    dispatch(deleteMessageAction(messageId))
+    dispatch(deleteMessageAction(message))
+    return {};
+
 }
 
 export const editMessage = (message) => async(dispatch) =>{
@@ -101,6 +99,7 @@ const initialState = { messages: {} }
 
 export default function reducer(state = initialState, action) {
     let newState
+    let elementsIndex
     switch (action.type) {
         case GET_ALL_MESSAGES:
             newState = {...state}
@@ -113,20 +112,25 @@ export default function reducer(state = initialState, action) {
             return newState
         case DELETE_MESSAGE:
             newState = { messages: { ...state.messages } }
-            delete newState.messages[action.payload]
+            elementsIndex = newState.messages[action.message.channel_id].findIndex(element => element.id == action.message.id)
+            delete newState.messages[action.message.channel_id][elementsIndex]
             return newState
         case ADD_MESSAGE:
             newState = { messages: { ...state.messages } }
             newState.messages[action.message.id] = action.message
+            newState.messages[action.message.channel_id][elementsIndex].content = action.message.content;
             return newState;
         case EDIT_MESSAGE:
             newState = { messages: { ...state.messages } }
-            newState.messages[action.message.channel_id].forEach((el) => {
-                if(el["id"] === action.message.id){
-                    el.content = action.message.content
-                }
-            })
-            return newState;
+            console.log('HERE IS THE MESSAGE LIST ====>', newState.messages[action.message.channel_id])
+            elementsIndex = newState.messages[action.message.channel_id].findIndex(element => element.id == action.message.id)
+            console.log('THIS IS ELEMENTS INDEX=======>', elementsIndex);
+            newState.messages[action.message.channel_id][elementsIndex].content = action.message.content;
+            console.log(newState.messages[action.message.channel_id][elementsIndex]);
+
+            // let temp = {...newState, messages: {msgArr}}
+            // console.log(temp)
+            return newState
         default:
             return state;
     }
