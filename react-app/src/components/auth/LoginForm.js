@@ -41,7 +41,7 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="LoginFormCOntai">
+    <div className="LoginFormContainer">
     <form onSubmit={onLogin}>
       <div>
         {errors.map((error) => (
@@ -67,10 +67,11 @@ const LoginForm = () => {
           value={password}
           onChange={updatePassword}
         />
-        <button type="submit">Login</button>
-        <button className="form-button-modals" type="submit" onClick={handleDemoSubmit}>Demo User</button>
       </div>
+      <button type="submit">Login</button>
+      <button className="form-button-modals" type="submit" onClick={handleDemoSubmit}>Demo User</button>
     </form>
+
     </div>
   );
 };

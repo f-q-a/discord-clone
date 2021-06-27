@@ -17,7 +17,8 @@ import Chat from "./components/chat/chat";
 import EditChannel from "./components/server_channels/edit_channel";
 import SettingBar from "./components/setting_bar/setting_bar"
 import GeneralBar from "./components/top_bar/general_bar"
-import CreateChannel from "./components/server_channels/create_channel"
+import CreateChannel from "./components/top_bar/general_bar"
+import whumpus_image from "./images/Wumpus.png"
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -42,7 +43,8 @@ function App() {
         <SplashPage />
       </Route>
       <div className="app__container">
-         <ProtectedRoute path="/">
+
+        <ProtectedRoute path="/">
           <MainApp />
           <SettingBar />
         </ProtectedRoute>
@@ -73,6 +75,14 @@ function App() {
         <Switch>
           <ProtectedRoute path="/@me/:serverId/:channelId" exact={true} >
             <GeneralBar />
+          </ProtectedRoute>
+          <ProtectedRoute path="/@me/" exact={true} >
+            <ChannelsList />
+            <img className="whumpus" src={whumpus_image}></img>
+          </ProtectedRoute>
+          <ProtectedRoute path="/" exact={true} >
+            <img className="whumpus" src={whumpus_image}></img>
+            <ChannelsList />
           </ProtectedRoute>
         </Switch>
 

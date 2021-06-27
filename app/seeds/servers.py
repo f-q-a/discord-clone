@@ -13,7 +13,7 @@ def seed_servers():
     #             hashed_password='password', avatar_link="")
     # db.session.add(demo)
 
-    for i in range(1, 10):
+    for i in range(1, 100):
         temp = Server(name= faker.company(), user_id=i,
                 type='Private')
         db.session.add(temp)

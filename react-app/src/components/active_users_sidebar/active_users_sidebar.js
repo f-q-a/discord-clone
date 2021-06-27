@@ -36,16 +36,16 @@ const ServerUsers = () => {
 const UserList = ({props}) => {
     return(
     <div className="server_users">
-        <div>
-            <img
-                className="user_image user_image_bar"
-                src={
-                props.avatar_link
-                    ? props.avatar_link
-                    : defaultLogo
-                }
-            ></img>
-        </div>
+
+        <img
+            className="user_image user_image_bar"
+            src={
+            props.avatar_link
+                ? props.avatar_link
+                : defaultLogo
+            }
+        ></img>
+
         <div className="server_username">{props.username}</div>
     </div>
     )
