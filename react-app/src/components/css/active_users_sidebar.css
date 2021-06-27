@@ -2,3 +2,33 @@
     height: 25%;
     width: 25%
 }
+
+.server_users{
+    display:grid;
+    grid-template-columns: 1fr 3fr;
+  }
+
+.user_image{
+    grid-column: 1 /2;
+    width:48px;
+    height: 48px;
+    background-color:#2F3136;
+    color: #F3FFFF;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    align-self: center;
+    justify-self: center;
+     position: relative;
+     left: 10px;
+     font-size: 1.5rem;
+    margin-top: 10px;
+  }
+
+.server_username{
+    grid-column: 2 /3;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}

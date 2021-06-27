@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
+import "../css/LoginLogoutForm.css";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const LoginForm = () => {
   }
 
   return (
-    <>
+    <div className="LoginFormCOntai">
     <form onSubmit={onLogin}>
       <div>
         {errors.map((error) => (
@@ -70,8 +71,7 @@ const LoginForm = () => {
         <button className="form-button-modals" type="submit" onClick={handleDemoSubmit}>Demo User</button>
       </div>
     </form>
-
-    </>
+    </div>
   );
 };
 

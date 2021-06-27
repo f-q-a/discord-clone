@@ -17,8 +17,7 @@
     display:flex;
     flex-direction: row;
     align-items: center;
-
-
+    justify-content: space-between;
 }
 .general_bar_content_name{
 
@@ -33,4 +32,13 @@
 .Topbar_Buttons{
     display:flex;
     justify-content: space-evenly;
+    margin-right: 30px;
+    align-items: center;
+}
+
+.General_Button{
+    padding: 0px 15px 0px 15px;
+    font-family: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: rgb(54,57,63);
+    color: #b9bbbe;
 }

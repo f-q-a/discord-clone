@@ -13,12 +13,10 @@ def seed_userservers():
     #             hashed_password='password', avatar_link="")
     # db.session.add(demo)
 
-    for i in range(1, 100):
-
-        temp = ServerUser(server_id=i, user_id=i)
-        db.session.add(temp)
-
-
+    for i in range(1, 10):
+        for j in range(1, 10):
+            temp = ServerUser(server_id=i, user_id=j)
+            db.session.add(temp)
 
     db.session.commit()
 
