@@ -13,8 +13,8 @@ def seed_channels():
     #             hashed_password='password', avatar_link="")
     # db.session.add(demo)
 
-    for j in range(1, 10):
-        for i in range(1, 10):
+    for j in range(1, 100):
+        for i in range(1, 100):
             temp = Channel(name= faker.job(), server_id=i)
             db.session.add(temp)
 

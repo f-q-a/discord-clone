@@ -18,7 +18,6 @@ def create_relationships ():
     userId = int(current_user.id)
     res = request.get_json()
     userIdCheck = db.session.query(db.session.query(User).filter(User.id==res['secondUserId']).exists()).scalar()
-    print("HERE_________",res)
     if(userIdCheck) :
         print (userIdCheck)
         relation1 = Relationship(
@@ -53,26 +52,23 @@ def edit_relationships ():
         userRelations = db.session.query(Relationship).filter(Relationship.first_user_id==userId, Relationship.second_user_id==res['secondUserId']).one()
         userRelations.relationship = "None"# None/Accepted/Blocked/Pending
         #  db.session.add(userRelations)
-
+        db.session.commit()
 
     elif(res["relationshipType"]=="Pending"):
 
         relation = Relationship(
         first_user_id=res["secondUserId"],
         second_user_id=userId,
-        relationship= "Accept"
+        relationship= "Accepted"
         )
-
         userRelations1 = db.session.query(Relationship).filter(Relationship.first_user_id==userId, Relationship.second_user_id==res['secondUserId']).one()
-        userRelations1.relationship = "Accept"# None/Accepted/Blocked/Pending
-
+        userRelations1.relationship = "Accepted"# None/Accepted/Blocked/Pending
+        db.session.add(relation)
+        db.session.commit()
         # userRelations2 = db.session.query(Relationship).filter(Relationship.first_user_id==res['secondUserId'], Relationship.second_user_id==userId).one()
         # userRelations2.relationship = "Accept"# None/Accepted/Blocked/Pending
-
         # db.session.add(userRelations1)
         # db.session.add(userRelations2)
-    db.session.add(relation)
-    db.session.commit()
     UserRelationship = Relationship.query.filter(Relationship.first_user_id==userId).all()
     relationships = [relationship.to_dict() for relationship in UserRelationship]
     return {'relationships': relationships}

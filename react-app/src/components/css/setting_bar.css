@@ -1,6 +1,7 @@
 .user_status_bar{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    background-color:#2E3338;
 }
 
 
@@ -22,7 +23,7 @@
     font-size: 1.5rem;
     margin-top: 7px;
     margin-bottom: 3px;
-    
+
 
 }
 

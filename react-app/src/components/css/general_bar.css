@@ -14,10 +14,13 @@
 
 
 .channel__context {
+    grid-area: channel_context;
+    border: solid black;
     display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  
 }
 .general_bar_content_name{
 

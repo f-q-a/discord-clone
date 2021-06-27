@@ -1,3 +1,7 @@
+.user_list{
+    background-color:#2E3338;
+}
+
 .user_image {
     height: 25%;
     width: 25%
@@ -5,7 +9,7 @@
 
 .server_users{
     display:grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr, 3fr;
   }
 
 .user_image{
@@ -15,11 +19,11 @@
     background-color:#2F3136;
     color: #F3FFFF;
     display:flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     border-radius: 50%;
-    align-self: center;
-    justify-self: center;
+    /* align-self: flex-start;
+    justify-self: center; */
      position: relative;
      left: 10px;
      font-size: 1.5rem;
@@ -27,8 +31,9 @@
   }
 
 .server_username{
-    grid-column: 2 /3;
+    grid-column: 2 / 4;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-right: 10px;
 }

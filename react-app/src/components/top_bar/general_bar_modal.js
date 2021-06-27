@@ -21,16 +21,24 @@ function GeneralBarModal() {
     const allusers =  useSelector(state => state.user.users)
     const alluserList = Object.values(allusers)
 
+    console.log(relationshipObject)
+    console.log(alluserList)
+    console.log(user)
+
+
     useEffect(() => {
         dispatch(getRelationships());
         dispatch(getAllUsers())
       }, [dispatch , username]);
 
 /////////////////////////////////////////////////
-    const Accepted = Object.values(relationshipObject).filter((el)=>(el.second_user_id === Number(user.id) && el.relationship ==="Accept" ))
-    const Blocked = Object.values(relationshipObject).filter((el)=>(el.first_user_id === Number(user.id) && el.relationship ==="Blocked"   ))
-    const Pending = Object.values(relationshipObject).filter((el)=>(el.first_user_id === Number(user.id) && el.relationship ==="Pending"   ))
+    const Accepted = Object.values(relationshipObject).filter((el)=>(el.first_user_id === Number(user.id) && el.relationship ==="Accepted"))
+    const Blocked = Object.values(relationshipObject).filter((el)=>(el.first_user_id === Number(user.id) && el.relationship ==="Blocked" ))
+    const Pending = Object.values(relationshipObject).filter((el)=>(el.first_user_id === Number(user.id) && el.relationship ==="Pending" ))
 
+    console.log(Accepted)
+    console.log(Blocked)
+    console.log(Pending)
 
     const Acceptedpushlist =[]
     for (let i=0; i < Accepted.length; i++){
@@ -57,6 +65,9 @@ function GeneralBarModal() {
         }
     }
 ///////////////////////////////////////////////////
+    console.log(Acceptedpushlist)
+    console.log(Blockedpushlist)
+    console.log(Pendingpushlist)
 
     const targetModalvalue = (e) => {
         setTarget(e.target.innerText)
@@ -65,7 +76,7 @@ function GeneralBarModal() {
 
     const onPendingSubmit = (e) => {
         setPendingid(e.target.value)
-        dispatch(editRelationship(pendingid, "Pending"));
+        if(pendingid) dispatch(editRelationship(pendingid, "Pending"));
     }
 
     const onBlockedSubmit = (e) => {
@@ -74,7 +85,6 @@ function GeneralBarModal() {
     }
 
     const onFriendSubmit = async (e)=> {
-        e.preventDefault();
         if(username.includes("#")){
             let secondUserId = username.split("#")
             console.log(secondUserId[1])
@@ -99,7 +109,8 @@ function GeneralBarModal() {
             <Modal onClose={() => setShowModal(false)}>
                 <div className="General_Modal scroll">
                     <h3 className="modaltitle">All Friends</h3>
-                    {Acceptedpushlist.map((el,i)=>(<div key={i} >{el}</div>))}
+                    {Acceptedpushlist.map((el,i)=>(
+                        <div key={i}>{el}</div>))}
                 </div>
             </Modal>)}
         </div>
@@ -134,7 +145,7 @@ function GeneralBarModal() {
             </Modal>)}
         </div>
         <div>
-            <button className="General_Button button" onClick={targetModalvalue}>Add Friend</button>
+            <button className="General_Button" onClick={targetModalvalue}>Add Friend</button>
             {showModal && target==="Add Friend" &&(
             <Modal onClose={() => setShowModal(false)}>
                 <div className="General_Modal ">
