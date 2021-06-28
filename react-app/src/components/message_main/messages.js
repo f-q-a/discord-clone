@@ -117,7 +117,7 @@ function Messages({ props }) {
     <>
       {message ? (<>
         <div className="message_avatar__div">
-        <img className="message_avatar__img" src={`${message.avatar_link}`} />
+        <img className="message_avatar__img" src={`${message.user_avatar}`} />
       </div>
       <div> {/*  clasName="message_username_date__div" */}
         <span className="message_username__span">{`${message.username} `}</span>
