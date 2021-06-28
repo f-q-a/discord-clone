@@ -15,12 +15,10 @@ const SplashPage = () => {
 
     return(
         <div>
-
-            <div className="NavigationBar">
-                <NavBar />
-            </div>
-
             <div className="MainPageABC">
+                <div className="NavigationBar">
+                    <NavBar />
+                </div>
                 <div className="MainPage_SplashPage1" >
                     <img className="MainPage_SplashPage2-image"src={splash_left_image}></img>
                     <img className="MainPage_SplashPage1-image" src={splash_right_image}></img>

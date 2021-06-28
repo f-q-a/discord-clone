@@ -18,6 +18,9 @@ function ChannelsList() {
   const [channelDeleted, setChannelDeleted] = useState(false)
   const [channelisloaded, setChannelisloaded,] = useState(false)
 
+  useEffect(()=>{
+
+  },[])
 
   // console.log("WHAT IS CURRSERVER???", server)
   let channelIds = [];

@@ -3,6 +3,7 @@ from app.models import db, Relationship
 from faker import Faker
 faker = Faker()
 
+
 # Adds a demo user, you can add other users here if you want
 
 
@@ -12,14 +13,10 @@ def seed_relationships():
     #             hashed_password='password', avatar_link="")
     # db.session.add(demo)
 
-    for i in range(2, 100):
-        temp = Relationship(first_user_id=1, second_user_id=i, relationship='Accept')
+    for i in range(2, 90):
+        temp = Relationship(first_user_id=1, second_user_id=i, relationship='Pending') # None/Accepted/Blocked/Pending
         db.session.add(temp)
-
-
-
     db.session.commit()
-
 # Uses a raw SQL query to TRUNCATE the users table.
 # SQLAlchemy doesn't have a built in function to do this
 # TRUNCATE Removes all the data from the table, and resets

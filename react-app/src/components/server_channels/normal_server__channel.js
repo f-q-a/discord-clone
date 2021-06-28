@@ -12,6 +12,7 @@ function NormalChannel({channel}) {
   const [editChannel, setEditChannel] = useState(false)
   useEffect(() => {
     dispatch(messageActions.getMessages(channel.id));
+    
   }, [serverId]);
 
   function EditChannel({props}) {
@@ -69,7 +70,7 @@ function NormalChannel({channel}) {
     );
   }
 
-
+  // document.querySelector('.channels__list').closest('.server_sidebar__link').classList.add('active')
   return (
     <>
       <NavLink
