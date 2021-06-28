@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -8,7 +8,7 @@ import * as messageActions from '../../store/message'
 function EditMessage({props}) {
   const { currMessage } = props
   const messages = useSelector(state => state.message.messages[currMessage.id]);
-
+  const [showEditForm, setShowEditForm] = useState(true);
   console.log('Am I doing this right?', currMessage);
 
   const [message, setMessage] = useState(currMessage.content);
@@ -26,6 +26,7 @@ function EditMessage({props}) {
         console.log('what will I find here?', data)
         setMessage("");
 
+
       })
       .catch((res) => {
         //
@@ -35,16 +36,19 @@ function EditMessage({props}) {
         }
       });
   };
-
-  return (
-    <div>
+  useEffect(() => {
+    setMessage("")
+    setShowEditForm(false)
+  })
+  const preEdit =
+     (
+      <div>
       {errors.length > 0 &&
         errors.map((error) => <div key={error}>{error}</div>)}
         <h2>edit</h2>
       <form
         style={{ display: "flex", flexFlow: "column" }}
-        onSubmit={handleSubmit}
-      >
+        onSubmit={handleSubmit}>
         <label>
           <input
             type="text"
@@ -56,6 +60,18 @@ function EditMessage({props}) {
         </label>
         <button type="submit">Submit Edit</button>
       </form>
+      </div>
+     );
+
+  const postEdit = '';
+
+  return (
+    <div>
+    {
+    (showEditForm === true) ?
+    <div> {preEdit} </div> :
+      <div> {postEdit} </div>
+    }
     </div>
   );
 }
