@@ -18,7 +18,7 @@ function Messages({ props }) {
   let messageMinutes = messageDate.getMinutes();
 
 
-  const deleteMessage = (e) => {
+  const deletedMessage = (e) => {
     e.preventDefault();
     dispatch(deleteMessage(message))
   }
@@ -124,7 +124,7 @@ function Messages({ props }) {
           setReactMessage(!reactMessage);
         })}>REACT</button>
         {reactMessage && <ReactMessage props={{ currMessage: message }} />}
-        <button onClick={deleteMessage}>DELETE</button>
+        <button onClick={deletedMessage}>DELETE</button>
       </div>
     </>
     // </div>

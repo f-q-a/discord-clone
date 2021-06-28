@@ -8,8 +8,9 @@ const EDIT_MESSAGE = "message/EDIT_MESSAGE"
 
 const getMessagesAction = (channelId, messages) => ({
     type: GET_ALL_MESSAGES,
-    messages,
-    channelId
+    channelId,
+    messages
+
 })
 
 const createMessageAction = (message) => ({
@@ -99,6 +100,7 @@ const initialState = { messages: {} }
 
 export default function reducer(state = initialState, action) {
     let newState
+    let newArr
     let elementsIndex
     switch (action.type) {
         case GET_ALL_MESSAGES:
@@ -106,15 +108,30 @@ export default function reducer(state = initialState, action) {
             newState.messages[action.channelId] = action.messages
             return newState;
         case CREATE_MESSAGE:
-            newState = { messages: { ...state.messages } }
-            newState.messages[action.message.id] = action.payload
+            newState = { ...state }
+            newArr = [].concat(newState.messages[action.message.channel_id])
+            newArr.concat(action.message);
+            newState.messages[action.message.channel_id] = newArr
             // thunk action not working, may be unnecessary
-            return newState
+            return {...state, messages: newState.messages}
         case DELETE_MESSAGE:
-            newState = { messages: { ...state.messages } }
-            elementsIndex = newState.messages[action.message.channel_id].findIndex(element => element.id == action.message.id)
-            delete newState.messages[action.message.channel_id][elementsIndex]
-            return newState
+            newState = { ...state }
+            let tempArr = newState.messages[action.message.channel_id]
+            elementsIndex = tempArr.findIndex(element => element.id == action.message.id)
+            newArr = [].concat(newState.messages[action.message.channel_id]);
+            newArr.splice(elementsIndex, 1);
+            newState.messages[action.message.channel_id] = newArr;
+            return {...state, messages: newState.messages}
+            console.log('Test Number 4', newState.messages[action.message.channel_id][action.message.id])
+            //
+            // if (elementsIndex !== -1){
+            //     let newMessageArr = tempArr.splice(elementsIndex, 1)
+            //     console.log('Is this the correct channel id?', newState.messages[action.message.channel_id])
+            //     return newState;
+            // }else{
+            //     return newState;
+            // }
+            return newState;
         case ADD_MESSAGE:
             newState = { messages: { ...state.messages } }
             newState.messages[action.message.id] = action.message
