@@ -10,8 +10,8 @@ const separator = <div className="separator__div"></div>
 
 const ServerSidebar = () => {
   const servers = useSelector((state) => state.server.servers);
-  // const user = useSelector(state => state.session.user)
-
+  const user = useSelector(state => state.session.user)
+  console.log("what is this",user)
   // const dispatch = useDispatch();
   // useEffect(() => {
   //   dispatch(getServers());
@@ -22,14 +22,18 @@ const ServerSidebar = () => {
   console.log("Where",servers)
   const serversList = servers ? Object.values(servers) : [];
 
-  const Private = serversList.filter((el) => el.type === "private")
-  const Public= serversList.filter((el) => (el.type === "public")  )
-  // && el.user_id ===user.id
+  const Private = serversList.filter((el) => (el.type === "Private") && (el.user_id ===user.id))
+  const Public= serversList.filter((el) => (el.type === "Public") && (el.user_id ===user.id)  )
+  // // && el.user_id ===user.id
   return (
     <div className="sidebar__div">
       <p>SIDEBAR CONTAINER</p>
       {separator}
-      {serversList.map((server, index) => (
+      {Private.map((server, index) => (
+        <ServerSidebarItem server={server} key={index} />
+      ))}
+      {separator}
+      {Public.map((server, index) => (
         <ServerSidebarItem server={server} key={index} />
       ))}
       {separator}

@@ -18,7 +18,10 @@ def seed_servers():
                 type='Private')
         db.session.add(temp)
 
-
+    for j in range(1, 10):
+        for i in range(1, 10):
+            temp1 = Server(name= faker.company(), user_id=i, type='Public')
+            db.session.add(temp1)
 
     db.session.commit()
 
