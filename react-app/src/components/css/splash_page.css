@@ -165,3 +165,9 @@
     justify-content: center;
 
 }
+
+.NavigationBar{
+    grid-area: splash;
+    height: 600px;
+    width: 100vw;
+}

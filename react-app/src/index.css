@@ -5,6 +5,7 @@ body {
   font-family: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-color: rgb(54,57,63);
   color: #b9bbbe;
+
 }
 a {
   color: #4f545c;
@@ -101,19 +102,26 @@ div.active__div{
 
 /* Chat messages area styling */
 .channel__context {
-  grid-area: channel_context;
-  border: solid black;
+
 }
 .messages_area__div {
-}
 
+}
 /* Chat messages body styling */
 .messages_body__div {
+
+
   grid-area: channel_body;
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+}
+
+.whumpus{
+  grid-area: channel_body;
+  height: 100%;
+  width: 100%;
 }
 
 .scroll__div{
@@ -261,4 +269,10 @@ div.active__div{
   position: relative;
   left: 12px;
   margin: 4px;
+}
+
+.modaltitle {
+  margin:0px 0px 0px 0px;
+  padding:0px 0px 0px 0px;
+
 }

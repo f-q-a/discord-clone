@@ -1,4 +1,50 @@
+.user_status_bar{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    background-color:#2E3338;
+}
+
+
+
 .settingbar_icon {
     height: 35px;
     width: 36px;
+    background-color:#2F3136;
+
+    color: #F3FFFF;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    align-self: center;
+    justify-self: center;
+    position: relative;
+    /* left: 5px; */
+    font-size: 1.5rem;
+    margin-top: 7px;
+    margin-bottom: 3px;
+
+
+}
+
+#settingbar_name{
+    grid-column: 2 /3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#settingbar_username {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#settingbar_userid{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

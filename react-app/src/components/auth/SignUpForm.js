@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import "../css/LoginLogoutForm.css"
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ const SignUpForm = () => {
         <input
           type="text"
           name="username"
+          placeholder="Username"
           onChange={updateUsername}
           value={username}
         ></input>
@@ -59,6 +61,7 @@ const SignUpForm = () => {
         <input
           type="text"
           name="email"
+          placeholder="Email"
           onChange={updateEmail}
           value={email}
         ></input>
@@ -68,6 +71,7 @@ const SignUpForm = () => {
         <input
           type="password"
           name="password"
+          placeholder="Password"
           onChange={updatePassword}
           value={password}
         ></input>
@@ -77,6 +81,7 @@ const SignUpForm = () => {
         <input
           type="password"
           name="repeat_password"
+          placeholder="Password"
           onChange={updateRepeatPassword}
           value={repeatPassword}
           required={true}

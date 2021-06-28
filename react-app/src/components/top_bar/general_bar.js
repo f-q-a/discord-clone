@@ -1,55 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams, useHistory} from "react-router-dom";
-import {createRelationship} from "../../store/relationship"
 import {getRelationships} from "../../store/relationship"
 import GeneralBarModal from "../top_bar/general_bar_modal"
+import "../css/general_bar.css"
+
 const GeneralBar = () => {
     const dispatch = useDispatch();
-    const history = useHistory()
     const {serverId, channelId} = useParams();
-
-
+    const [specificChannel, setSpecificChannel] =useState();
     const relationshipObject= useSelector((state) => state.relationship.relationships);
 
-    let specificChannel
-    let channel= useSelector((state)=> state.channel.channels[serverId])
+    // let specificChannel
+    const channel= useSelector((state)=> state.channel.channels[serverId])
     const user = useSelector(state => state.session.user)
 
     useEffect(() => {
         dispatch(getRelationships());
-      }, [dispatch]);
+        if(channel){
+            setSpecificChannel(channel[channelId].name);
+        }
+      }, [dispatch, channel, user ]);
 
 
-    if(channel){
-        specificChannel=channel[channelId].name
-    }
-
-
-    // const allButton = (e) => {
-    //     setPassword(e.target.value);
-    //   };
-
-    // const pendingButton = (e) => {
-
-    // };
-
-    // const blockedButton = (e) => {
-    //   setRelationships("Blocked");
-    // };
-
-    // const addFriends = async (e) => {
-
-    //   setRelationships("Pending");
-    //   const data = await dispatch(createRelationship(relationships));
+    // if(channel){
+    //     specificChannel=channel[channelId].name
     // }
+
 
     return(
         <>
             {specificChannel &&
             <div className="channel__context">
-                {specificChannel}
-                {relationshipObject && <GeneralBarModal props={relationshipObject}/>}
+                <div className="general_bar_content_name">{specificChannel}</div>
+                <div className="general_bar_content_button">{relationshipObject && <GeneralBarModal />}</div>
             </div>}
 
         </>

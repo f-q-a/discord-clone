@@ -17,7 +17,7 @@ const ServerSidebarItem = ({server}) => {
     <div className={`sidebar_item__div `}>
       <Container serverId={server.id} className="sidebar_container__div">
         <NavLink
-          className="server_sidebar__link"
+          className={`server_sidebar__link server_num${server.id}`}
           exact
           to={`/@me/${server.id}`}
         >

@@ -15,7 +15,10 @@ const SettingBar = () => {
         <div className ="user_status_bar">
 
                 <div> {user.avatar_link ? <img className="settingbar_icon" src={user.avatar_link}/> : <img className="settingbar_icon" src={defaultLogo}/>} </div>
-                <div> {user.username}#{user.id}</div>
+                <div id="settingbar_name">
+                    <div id="settingbar_username"> {user.username} </div>
+                    <div id="settingbar_userid"> #{user.id} </div>
+                </div>
 
 
                 <div>
