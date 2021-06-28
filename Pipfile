@@ -32,6 +32,7 @@ flask-socketio = "*"
 eventlet = "==0.30.2"
 sqlalchemy-utc = "*"
 boto3 = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 psycopg2-binary = "==2.8.6"

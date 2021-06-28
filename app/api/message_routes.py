@@ -26,9 +26,10 @@ def create_message():
 @message_routes.route('/<int:id>', methods=['DELETE'])
 def delete_message(id):
     message = db.session.query(Message).get(id)
+    temp = message.to_dict()
     db.session.delete(message)
     db.session.commit()
-    return 'Message deleted'
+    return temp
 
 @message_routes.route('/<int:id>', methods=['PUT'])
 def edit_message(id):
@@ -38,4 +39,4 @@ def edit_message(id):
     message.updated_at = db.func.now()
     db.session.add(message)
     db.session.commit()
-    return {"message": message.to_dict()}
+    return message.to_dict()

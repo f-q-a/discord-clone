@@ -17,6 +17,11 @@ function ChannelsList() {
   const [channelCreated, setChannelCreated] = useState(false)
   const [channelDeleted, setChannelDeleted] = useState(false)
   const [channelisloaded, setChannelisloaded,] = useState(false)
+
+  useEffect(()=>{
+
+  },[])
+
   // console.log("WHAT IS CURRSERVER???", server)
   let channelIds = [];
   let channelsList
@@ -73,6 +78,7 @@ function ChannelsList() {
       let newErrors = [];
       dispatch(channelActions.createChannel({ name: channelName, server_id: serverId }))
         .then(() => {
+          dispatch(channelActions.getChannels(serverId))
           setChannelName("");
           setChannelCreated(!channelCreated)
         })
@@ -117,8 +123,8 @@ function ChannelsList() {
         {channelsList &&
           channelsList.map((channel, index) => (
             <>
-              <NormalChannel channel={channel} key={`channel_key__${index}`} id={`channel_${channel.id}`} />
-              <button key={`button_key__${index}`} onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
+              <NormalChannel channel={channel} key={`channel_key__${channel.id}`}/>
+              <button key={`button_key__${channel.name}`} onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
             </>
           ))}
         <button onClick={()=>setCreateChannelState(!createChannelState)}>New Channel?</button>

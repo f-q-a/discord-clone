@@ -8,7 +8,7 @@ function MainApp() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(serverActions.getServers()).then((data) => console.log(data));
+    dispatch(serverActions.getServers())
 
 
 
@@ -19,9 +19,9 @@ function MainApp() {
     <>
       <div className="sidebar__container">
         <ServerSidebar />
+
       </div>
-      
-     </>
+    </>
   );
 }
 
