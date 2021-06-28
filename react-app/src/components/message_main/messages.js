@@ -115,7 +115,7 @@ function Messages({ props }) {
   return (
     // <div className={`message__div author_${message.username}`} id={`${index}`}>
     <>
-      {message ? (<div>
+      {message ? (<>
         <div className="message_avatar__div">
         <img className="message_avatar__img" src={`${message.avatar_link}`} />
       </div>
@@ -136,7 +136,7 @@ function Messages({ props }) {
         {editMessage && <EditMessage props={{ currMessage, channelMessages }} />}
         <button onClick={deletedMessage}>DELETE</button>
       </div>
-      </div>):(
+      </>):(
       <div>
         Loading...
       </div>)}
