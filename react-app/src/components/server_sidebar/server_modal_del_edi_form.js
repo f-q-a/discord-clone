@@ -21,7 +21,7 @@ function ServerFormModal({item,serverId}) {
 
   return (
     <>
-        <a className="Context_Menu--items" onClick={() => setShowModal(true)}>{item.text}</a>
+        <a className="context_menu_popup-items" onClick={() => setShowModal(true)}>{item.text}</a>
         {showModal && (
         <Modal onClose={() => setShowModal(false)}>
             {display ?

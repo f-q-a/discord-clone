@@ -110,7 +110,18 @@ containers {
     position: fixed;
     border: 1px solid black;
     background-color: white;
-    /* font-family: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+}
+
+
+#context-menu-popup {
+    position: fixed;
+    font-family: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: rgb(54,57,63);
-    color: #b9bbbe; */
+    color: #b9bbbe;
+    margin: 10px 10px 10px 10px;
+}
+
+.context_menu_popup-items {
+    margin: 10px 35px 10px 0px;
 }

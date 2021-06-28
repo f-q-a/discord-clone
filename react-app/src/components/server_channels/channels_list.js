@@ -27,7 +27,7 @@ function ChannelsList() {
   let channelsList
 
   if (channelsState) {
-    // console.log('LOOK OVER HERE PAL ------> ', channelsList)
+    console.log('LOOK OVER HERE PAL ------> ', channelsList)
     channelsList = Object.values(channelsState);
     // console.log('LOOK OVER HERE AGAIN PAL ------> ', channelsList)
     // channelIds = channelsList.map(e => e.id
