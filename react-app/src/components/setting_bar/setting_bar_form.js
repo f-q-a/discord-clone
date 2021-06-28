@@ -67,7 +67,7 @@ const UserEditForm = () => {
 
   return (
     <div>
-      <form onSubmit={onProfileEdit} className='server_form'>
+      <form onSubmit={onProfileEdit} className='server_form modalbackground'>
         <div>
           {errors.map((error) => (
             <div>{error}</div>

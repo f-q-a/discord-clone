@@ -13,7 +13,7 @@ def seed_users():
                 hashed_password=hash_password, avatar_link="")
     db.session.add(demo)
 
-    for i in range(0, 100):
+    for i in range(2, 100):
         hash_password = generate_password_hash('password')
         temp = User(username=faker.user_name(), email=faker.email(),
                     hashed_password=hash_password, avatar_link="https://discord.com/assets/6f26ddd1bf59740c536d2274bb834a05.png")

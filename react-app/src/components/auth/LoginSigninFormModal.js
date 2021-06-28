@@ -17,6 +17,7 @@ function LoginFormModal() {
   const toSignUp = async (e) => {
     setformState(false)
   };
+
   return (
     <>
       <button className="LoginButton button" onClick={() => setShowModal(true)}>Log In</button>
@@ -24,13 +25,15 @@ function LoginFormModal() {
         <Modal onClose={() => setShowModal(false)}>
           {formState ?
           <div>
+            <h3 className="ButtonLink" >Login In</h3>
             <LoginForm />
-            <a onClick={toSignUp}>Need to Sign Up?</a>
+            <a className="ButtonLink" onClick={toSignUp}>Need to Sign Up?</a>
           </div>
           :
           <div>
+            <h3 className="ButtonLink" >Sign Up</h3>
             <SignUpForm />
-            <a onClick={toLogin}>Already Have An Account?</a>
+            <a className="ButtonLink"onClick={toLogin}>Already Have An Account?</a>
           </div>}
         </Modal>
       )}

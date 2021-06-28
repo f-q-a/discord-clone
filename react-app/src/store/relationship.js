@@ -59,7 +59,7 @@ export const createRelationship = (secondUserId,relationshipType) => async (disp
 }
 
 export const editRelationship = (secondUserId, relationshipType ) => async (dispatch) => {
-    const response = await fetch('/api/relationships/', {
+    const response = await fetch(`/api/relationships/`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
