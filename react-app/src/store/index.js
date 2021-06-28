@@ -27,15 +27,8 @@ if (process.env.NODE_ENV === 'production') {
     enhancer = applyMiddleware(thunk);
 } else {
     const logger = require('redux-logger').default;
-    // const composeEnhancers =
-    //     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-    //     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 }) || compose;
-    const composeEnhancers = composeWithDevTools({
-        realtime: true,
-        name: 'Discord',
-        hostname: 'localhost',
-        port: 3000 // the port your remotedev server is running at
-      })
+    const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 }
 

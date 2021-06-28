@@ -14,7 +14,7 @@ def seed_messages():
     #             hashed_password='password', avatar_link="")
     # db.session.add(demo)
 
-    for i in range(1, 100):
+    for i in range(1, 10):
         temp = Message(content= faker.text(), user_id=i, channel_id=i)
         db.session.add(temp)
 

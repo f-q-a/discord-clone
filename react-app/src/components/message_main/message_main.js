@@ -17,17 +17,36 @@ const MessageMain = () => {
   console.log(channelId )
   const user = useSelector((state) => state.session.user);
   const server = useSelector((state) => state.server.servers)
+  const messages = useSelector(state => state.message.messages[channelId])
+
+  console.log('These are our messages', messages)
+  const msgCopy = [].concat(messages)
   const serverType = Object.values(server);
 
   const [chatInput, setChatInput] = useState('');
-  const [channelMessages, setChannelMessages] = useState([]);
+  const [channelMessages, setChannelMessages] = useState([...msgCopy]);
+  const [reload, setReload] = useState(false)
+
+  const updateChatOutput = () => {
+    dispatch(messageActions.getMessages(channelId)).then((data) =>{
+      setChatInput('');
+      const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      console.log('These messages are sorted?', sortedChannelMessages)
+      setChannelMessages([...sortedChannelMessages])
+    });
+  }
 
   useEffect(() => {
     dispatch(messageActions.getMessages(channelId)).then((data) =>{
+
       const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
       console.log('These messages are sorted?', sortedChannelMessages)
-      setChannelMessages(sortedChannelMessages)
-    });
+      setChannelMessages([...sortedChannelMessages])
+      return () => {
+        setChatInput('');;
+
+      };
+    })
 
     socket = io();
     socket.emit('join', {channelId: channelId, username: user.username});
@@ -41,7 +60,7 @@ const MessageMain = () => {
     return () => {
       socket.disconnect();
     };
-  },[]);
+  },[channelId]);
 
   const updateChatInput = (e) => {
     e.preventDefault();
@@ -51,15 +70,17 @@ const MessageMain = () => {
   const sendChat = (e) => {
     e.preventDefault();
     socket.emit('chat', {
-      user: user,
-      content: chatInput,
-      channelId: channelId,
-      user_avatar: user.user_avatar,
-      username: user.username,
-      created_at: Date(),
+      "user": user,
+      "content": chatInput,
+      "channelId": channelId,
+      "avatar_link": user.avatar_link,
+      "username": user.username,
+      "created_at": Date(),
     });
-    dispatch(messageActions.createMessage(chatInput, channelId));
-    setChatInput('');
+    dispatch(messageActions.createMessage(channelId, chatInput));
+    setChatInput("")
+    setChannelMessages("")
+    setReload(true)
   };
 
   function timeConvert(time) {
@@ -91,9 +112,6 @@ const MessageMain = () => {
     <>
 
 
-
-      {/* <div className="channel__context">MESSAGES CONTAINER</div> */}
-
       <div className="messages_body__div" ref={latest} id='scrollyboi'>
         {/* {channelMessages &&
           channelMessages
@@ -104,12 +122,17 @@ const MessageMain = () => {
             </div>
             ))
           .reverse()} */}
-        {channelMessages &&
-          channelMessages.map((message, index) => (
+        {channelMessages  ? (<div>
+          {channelMessages.map((message, index) => (
             <div className="message__div">
-              <Messages props={{message, index}} key={index} />
+              <Messages props={{message, index, reload, setReload, updateChatOutput, channelMessages, setChannelMessages, serverId, channelId}} key={message} />
             </div>
           ))}
+        </div>) :
+        (<div>
+          Loading....
+        </div>)}
+
           <AlwaysScrollToBottom />
       </div>
 
