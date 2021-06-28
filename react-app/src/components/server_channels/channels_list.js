@@ -18,16 +18,16 @@ function ChannelsList() {
   const [channelDeleted, setChannelDeleted] = useState(false)
   const [channelisloaded, setChannelisloaded,] = useState(false)
 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-  },[])
+  // },[])
 
   // console.log("WHAT IS CURRSERVER???", server)
   let channelIds = [];
   let channelsList
 
   if (channelsState) {
-    console.log('LOOK OVER HERE PAL ------> ', channelsList)
+    // console.log('LOOK OVER HERE PAL ------> ', channelsList)
     channelsList = Object.values(channelsState);
     // console.log('LOOK OVER HERE AGAIN PAL ------> ', channelsList)
     // channelIds = channelsList.map(e => e.id

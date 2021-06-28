@@ -9,7 +9,7 @@ import friends_role_image from '../../images/friends_role_image.svg'
 import splash_left_image from '../../images/splash_left_image.svg'
 import splash_middle_image from '../../images/splash_midde_image.svg'
 import NavBar from "./NavBar.js"
-
+import Footer from "../../components/footer/footer"
 import "../css/splash_page.css"
 const SplashPage = () => {
 
@@ -58,7 +58,11 @@ const SplashPage = () => {
                 <div className="MainPage_BottomImage">
                     <img src={main_bottom_image}></img>
                 </div>
+                <div className="MainPage_Footer">
+                    <Footer />
+                </div>
             </div>
+
         </div>
     );
 }

@@ -1,4 +1,4 @@
-// import { createChannelAction } from './channels'
+import { createChannelAction } from './channel'
 import * as ChannelActions from './channel'
 
 const GET_ALL_SERVERS = "server/GET_ALL_SERVERS"
@@ -59,8 +59,9 @@ export const createServer = (name, image) => async (dispatch) => {
     })
     const data = await response.json();
     if (response.ok){
-        dispatch(createServerAction(data.server))
-        return {}
+         dispatch(createServerAction(data.server))
+         dispatch(ChannelActions.getChannels(data.server.id))
+        // not sure if i can double disptach
     } else {
         return {}
     }
