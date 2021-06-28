@@ -1,29 +1,45 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import * as messageActions from '../../store/message'
 import { deleteMessage } from '../../store/message';
 import EditMessage from './edit_message'
 import ReactMessage from './react_message'
 
 function Messages({ props }) {
-  const { message, index, current } = props
+  const { message, index, reload, setReload, handleChange, channelMessages, setChannelMessages, serverId, channelId } = props;
+  console.log('PROPS ====>', message, reload, setReload, handleChange);
   const dispatch = useDispatch()
   const [editMessage, setEditMessage] = useState(false);
   const [reactMessage, setReactMessage] = useState(false)
+  const [currMessage, setCurrMessage] = useState(message)
   const timeNow = new Date();
-  const messageDate = new Date(message.created_at);
-  const messageLocalTime = Date(message.created_at).toLocaleString();
-  const messageDay = messageDate.getDate();
-  const messageMonth = messageDate.getMonth();
-  let messageHours = messageDate.getHours();
-  let messageMinutes = messageDate.getMinutes();
+  let messageDate, messageLocalTime, messageDay, messageMonth, messageHours, messageMinutes;
+  if(message){
+    messageDate = new Date(message.created_at);
+    messageLocalTime = Date(message.created_at).toLocaleString();
+    messageDay = messageDate.getDate();
+    messageMonth = messageDate.getMonth();
+    messageHours = messageDate.getHours();
+    messageMinutes = messageDate.getMinutes();
+  }
+
+
 
 
   const deletedMessage = (e) => {
     e.preventDefault();
-    dispatch(deleteMessage(message))
-  }
+    console.log('WHAT IS CONTAINED HERE', message)
+    dispatch(messageActions.deleteMessage(message))
+    dispatch(messageActions.getMessages(channelId)).then((data) =>{
+    const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    console.log('These messages are sorted?', sortedChannelMessages)
+    setChannelMessages(sortedChannelMessages)
+    setCurrMessage("")
+  })
+}
   useEffect(() => {
-  }, [])
+    dispatch(messageActions.getMessages(Number(channelId)))
+  }, [dispatch])
 
   function monthParse(monthNum) {
     switch (monthNum) {
@@ -99,10 +115,11 @@ function Messages({ props }) {
   return (
     // <div className={`message__div author_${message.username}`} id={`${index}`}>
     <>
-      <div className="message_avatar__div">
-        <img className="message_avatar__img" src={`${message.user_avatar}`} />
+      {message ? (<div>
+        <div className="message_avatar__div">
+        <img className="message_avatar__img" src={`${message.avatar_link}`} />
       </div>
-      <div clasName="message_username_date__div">
+      <div> {/*  clasName="message_username_date__div" */}
         <span className="message_username__span">{`${message.username} `}</span>
         <span className="message_timestamp__span">
           {timeConvert(Date.now() - new Date(message.created_at))}, {index}
@@ -116,16 +133,14 @@ function Messages({ props }) {
           }
           setEditMessage(!editMessage);
         })}>EDIT</button>
-        {editMessage && <EditMessage props={{ currMessage: message }} />}
-        <button onClick={(() => {
-          if (editMessage) {
-            setEditMessage(false)
-          }
-          setReactMessage(!reactMessage);
-        })}>REACT</button>
-        {reactMessage && <ReactMessage props={{ currMessage: message }} />}
+        {editMessage && <EditMessage props={{ currMessage, channelMessages }} />}
         <button onClick={deletedMessage}>DELETE</button>
       </div>
+      </div>):(
+      <div>
+        Loading...
+      </div>)}
+
     </>
     // </div>
   );

@@ -43,17 +43,18 @@ export const getMessages = (channelId) => async (dispatch) => {
     return data.messages;
 }
 
-export const createMessage = (content, channelId) => async (dispatch) => {
+export const createMessage = (channelId, content) => async (dispatch) => {
     const response = await fetch('/api/messages/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ content, channelId })
+        body: JSON.stringify({channelId, content})
     })
 
 
     const data = await response.json();
+    console.log('hello from create message', data)
     if (data.errors) {
         return data;
     }
@@ -63,28 +64,31 @@ export const createMessage = (content, channelId) => async (dispatch) => {
 
 
 export const deleteMessage = (message) => async (dispatch) => {
+    console.log('WHEN I ARRIVE', message)
     const response = await fetch(`/api/messages/${message.id}`, {
         method: 'DELETE',
     });
-
-    dispatch(deleteMessageAction(message))
-    return {};
+    const data = await response.json();
+    console.log('BEFORE I LEAVE', data)
+    dispatch(deleteMessageAction(data))
+    return data
 
 }
 
 export const editMessage = (message) => async(dispatch) =>{
+    console.log('ARE WE EVER REACHING THIS PART?', message)
     const response = await fetch(`/api/messages/${message.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ id: message.id, user_id: message.user_id, content: message.content, channel_id: message.channel_id })
+          body: JSON.stringify(message)
     })
     const data = await response.json();
     if (data.errors){
         return data.errors;
     }
-    dispatch(editMessageAction(message))
+    dispatch(editMessageAction(data))
     return {};
 }
 
@@ -106,27 +110,30 @@ export default function reducer(state = initialState, action) {
         case GET_ALL_MESSAGES:
             newState = {...state}
             newState.messages[action.channelId] = action.messages
-            return newState;
+            return {...state, messages: newState.messages}
         case CREATE_MESSAGE:
             newState = { ...state }
             newArr = [].concat(newState.messages[action.message.channel_id])
-            newArr.concat(action.message);
+            newArr.push(action.message);
             newState.messages[action.message.channel_id] = newArr
             // thunk action not working, may be unnecessary
+            console.log('WHATS HANNENIN', newState)
             return {...state, messages: newState.messages}
         case DELETE_MESSAGE:
             newState = { ...state }
             let tempArr = newState.messages[action.message.channel_id]
+            console.log('WHAT THE HELL IS THIS', tempArr);
             elementsIndex = tempArr.findIndex(element => element.id == action.message.id)
             newArr = [].concat(newState.messages[action.message.channel_id]);
             newArr.splice(elementsIndex, 1);
             newState.messages[action.message.channel_id] = newArr;
+            console.log('Are we reaching this?')
             return {...state, messages: newState.messages}
             console.log('Test Number 4', newState.messages[action.message.channel_id][action.message.id])
             //
             // if (elementsIndex !== -1){
             //     let newMessageArr = tempArr.splice(elementsIndex, 1)
-            //     console.log('Is this the correct channel id?', newState.messages[action.message.channel_id])
+
             //     return newState;
             // }else{
             //     return newState;
