@@ -7,9 +7,12 @@ server_routes = Blueprint('servers', __name__)
 @server_routes.route('/')
 def getting_servers():
     userId = int(current_user.id)
-    serverObjects = Server.query.filter(Server.user_id==userId).all()
+    serverObjects = db.session.query(Server).all()
+
     servers = [servers.to_dict() for servers in serverObjects]
+
     return {'servers':servers}
+
 
 @server_routes.route('/', methods=['POST'])
 def create_server():
