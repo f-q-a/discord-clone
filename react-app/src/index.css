@@ -39,6 +39,10 @@ a {
   background-color: #202225;
 }
 
+.sidebar__div {
+  max-height: 100%;
+}
+
 .sidebar__container::-webkit-scrollbar {
   display: none;
 }
