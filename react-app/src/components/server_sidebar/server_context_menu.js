@@ -55,7 +55,7 @@ const ContextMenu = ({parentRef, serverId}) => {
     // turnary i created the component but simply hid it away
     return Visible?
     (
-        <div className='context-menu' style={style}>
+        <div id='context-menu-popup' style={style}>
             {items.map((item,index) => {
                 return (
                     <div key={index}>
