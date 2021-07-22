@@ -7,7 +7,7 @@ import ReactMessage from './react_message'
 
 function Messages({ props }) {
   const { message, index, reload, setReload, handleChange, channelMessages, setChannelMessages, serverId, channelId } = props;
-  console.log('PROPS ====>', message, reload, setReload, handleChange);
+
   const dispatch = useDispatch()
   const [editMessage, setEditMessage] = useState(false);
   const [reactMessage, setReactMessage] = useState(false)
