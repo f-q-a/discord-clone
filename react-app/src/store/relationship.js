@@ -59,8 +59,20 @@ export const createRelationship = (secondUserId,relationshipType) => async (disp
 }
 
 export const editRelationship = (secondUserId, relationshipType ) => async (dispatch) => {
-    const response = await fetch(`/api/relationships/`, {
-        method: 'PUT',
+    console.log(secondUserId, relationshipType )
+    if(relationshipType === "Pending"){
+        const response2 = await fetch(`/api/relationships/edit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ secondUserId, relationshipType })
+        })
+        const data2 = await response2.json();
+        dispatch(getRelationshipsAction(data2.relationships))
+    }
+    const response = await fetch(`/api/relationships/edit`, {
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -68,20 +80,83 @@ export const editRelationship = (secondUserId, relationshipType ) => async (disp
     })
     const data = await response.json();
     dispatch(getRelationshipsAction(data.relationships))
-    return {}
+    return data
+
 }
 
-export const deleteRelationship = (userId) => async (dispatch) => {
-    const response = await fetch(`api/relationships/`, {
-        method: 'DELETE'
-    });
-
+export const blockRelationship = (secondUserId) => async (dispatch) => {
+    const response = await fetch('/api/relationships/block', {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ secondUserId})
+    })
     const data = await response.json();
-    if (data.errors) {
-        return;
+    dispatch(getRelationshipsAction(data.relationships))
+    if (data && data.checkerArray.length > 0) {
+        dispatch(postblockRelationship(data.checkerArray))
     }
-    dispatch(deleteRelationshipAction(userId))
+    return data
+
 }
+
+export const postblockRelationship = (checkerArray) => async (dispatch) => {
+    const response = await fetch('/api/relationships/postblock', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(checkerArray)
+    })
+    const data = await response.json();
+    dispatch(getRelationshipsAction(data.relationships))
+    return data
+
+}
+
+export const unblockRelationship = (blockid) => async (dispatch) => {
+    const response = await fetch('/api/relationships/unblock', {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({blockid})
+    })
+    const data = await response.json();
+    dispatch(getRelationshipsAction(data.relationships))
+    return data
+
+}
+
+export const addRelationship = (addid) => async (dispatch) => {
+    const response = await fetch('/api/relationships/add', {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({addid})
+    })
+    const data = await response.json();
+    dispatch(getRelationshipsAction(data.relationships))
+    return data
+
+}
+// export const deleteRelationship = (blockid) => async (dispatch) => {
+//     const response = await fetch(`/api/relationships/`, {
+//         method: 'DELETE',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({blockid})
+//     });
+
+//     const data = await response.json();
+//     if (data.errors) {
+//         return;
+//     }
+//     dispatch(getRelationshipsAction(data.relationships))
+// }
 
 const NormalizeRelationship = (relationships) => {
     const normRelationship = {}
