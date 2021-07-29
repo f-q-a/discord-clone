@@ -1,12 +1,18 @@
 /* TODO Add site wide styles */
 /* Main body layout */
+*{
+  box-sizing: border-box;
 
+}
 body {
   font-family: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-color: rgb(54,57,63);
   color: #b9bbbe;
-
+  box-sizing: border-box;
+  margin: 0px;
+  overflow-x: hidden;
 }
+
 a {
   color: #4f545c;
 }
