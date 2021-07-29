@@ -6,3 +6,11 @@
 - for websockets: https://hackmd.io/@jpshafto/r1BLkFVwu
 - for aws image upload with flask: https://hackmd.io/@jpshafto/SyWY45KGu
 - for flask-sqlalchemy: https://hackmd.io/@jpshafto/H1VbmP3yO
+
+how to switch to my branch:
+<!-- git checkout stephen -->
+
+flask seed undo
+flask seed all
+
+\c discord_db

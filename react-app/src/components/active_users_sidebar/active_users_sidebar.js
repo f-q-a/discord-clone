@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getServerUsers } from "../../store/serveruser";
 import { useParams } from "react-router-dom";
 import defaultLogo from "../../images/default.png"
+import Container from '../active_users_sidebar/userList_context_container';
 
 import "../css/active_users_sidebar.css"
 
@@ -22,9 +23,14 @@ const ServerUsers = () => {
 
   if(serverUsersList.length > 0){
     list = serverUsersList.map((user) => {
-           return <UserList key={`userlist_key__${user.id}`} props={user} />
+          return(
+          <Container user={user}>
+             <UserList key={`userlist_key__${user.id}`} props={user} />
+          </Container>
+          )
     })
 }
+
   return (
     <div className ="user_list">
         <h1>ServerUsers:</h1>
@@ -34,20 +40,22 @@ const ServerUsers = () => {
   }
 
 const UserList = ({props}) => {
+  console.log("WHAT ARE YOU",{props})
     return(
-    <div className="server_users">
 
-        <img
-            className="user_image user_image_bar"
-            src={
-            props.avatar_link
-                ? props.avatar_link
-                : defaultLogo
-            }
-        ></img>
+        <div className="server_users">
+            <img
+                className="user_image user_image_bar"
+                src={
+                props.avatar_link
+                    ? props.avatar_link
+                    : defaultLogo
+                }
+            ></img>
+            <div className="server_username">{props.username}</div>
 
-        <div className="server_username">{props.username}</div>
-    </div>
+        </div>
+
     )
 }
 

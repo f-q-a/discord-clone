@@ -123,11 +123,10 @@ export default function reducer(state = initialState, action) {
       newStateChannels[action.channel.id] = action.channel
       newState.channels[action.channel.server_id] = newStateChannels
       return newState
+
     case DELETE_CHANNEL:
       newState = { ...state }
-      console.log('delete---', newState, action.serverId, action.channelId)
       delete newState.channels[action.serverId][action.channelId]
-      console.log('delete++++', newState)
       return newState
     case EDIT_CHANNEL:
       newState = { ...state }

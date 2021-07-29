@@ -26,9 +26,9 @@ def delete_channel(id):
 @channel_routes.route('/<int:id>/edit', methods=['POST'])
 def edit_channel(id):
     res = request.get_json()
-    print('HELLO IS ANYONE HOME', res)
+    # print('HELLO IS ANYONE HOME', res)
     channel = db.session.query(Channel).get(id)
     channel.name = res["name"]
     db.session.commit()
-    print('THIS IS CHANNEL.TO_DICT =======>', channel.to_dict())
+    # print('THIS IS CHANNEL.TO_DICT =======>', channel.to_dict())
     return channel.to_dict()

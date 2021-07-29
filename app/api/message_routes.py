@@ -21,7 +21,7 @@ def create_message():
                       channel_id= res["channelId"])
     db.session.add(message)
     db.session.commit()
-    print('This is a call to to_dict', message.to_dict())
+    # print('This is a call to to_dict', message.to_dict())
     return message.to_dict()
 
 @message_routes.route('/<int:id>', methods=['DELETE'])
