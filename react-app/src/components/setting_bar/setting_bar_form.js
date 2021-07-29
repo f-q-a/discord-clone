@@ -28,10 +28,9 @@ const UserEditForm = () => {
 
     if (res.ok) {
       const response = await res.json();
-      console.log('WHAT IS RESPONSE', response)
       setImageLoading(false);
       const data = await dispatch(editUser(userId, username, email, response["url"], password, repeatPassword));
-    if (data && data.errors) {
+      if (data && data.errors) {
       setErrors(data.errors)
     }
 
@@ -39,7 +38,6 @@ const UserEditForm = () => {
       setImageLoading(false);
       // a real app would probably use more advanced
       // error handling
-      console.log("error");
     }
     history.push(`/@me`);
   }

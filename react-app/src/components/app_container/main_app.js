@@ -5,21 +5,16 @@ import { useDispatch } from "react-redux";
 import * as serverActions from "../../store/server";
 
 function MainApp() {
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(serverActions.getServers())
 
-
-
   }, [dispatch]);
-
 
   return (
     <>
       <div className="sidebar__container">
         <ServerSidebar />
-
       </div>
     </>
   );

@@ -24,7 +24,8 @@ function App() {
   // const [authenticated, setAuthenticated] = useState(false);
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-
+  const [url, setUrl] = useState(window.location.href);
+  console.log("WAHY!!!!!!!!!!!!!!!!!!!!!!!!!!!!",url)
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
@@ -36,13 +37,18 @@ function App() {
     return null;
   }
 
+  // const helper = (newUrl) =>{
+  //   return setUrl(newUrl)
+  // }
+
   // bill test <NavBar />
   return (
     <BrowserRouter>
       <Route path="/splash-page" exact={true}>
-        <SplashPage />
+        <SplashPage setUrl={setUrl}/>
       </Route>
-      <div className="app__container">
+
+      { url.endsWith("page") ?  null : <div className="app__container">
 
         <ProtectedRoute path="/">
           <MainApp />
@@ -87,7 +93,7 @@ function App() {
         </Switch>
 
 
-      </div>
+      </div>}
     </BrowserRouter>
   );
 }

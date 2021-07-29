@@ -10,3 +10,7 @@
 how to switch to my branch:
 <!-- git checkout stephen -->
 
+flask seed undo
+flask seed all
+
+\c discord_db

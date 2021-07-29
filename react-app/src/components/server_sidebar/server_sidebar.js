@@ -24,7 +24,7 @@ const ServerSidebar = () => {
 
   const Private = serversList.filter((el) => (el.type === "Private") && (el.user_id ===user.id))
   const Public= serversList.filter((el) => (el.type === "Public") && (el.user_id ===user.id)  )
-  // // && el.user_id ===user.id
+ 
   return (
     <div className="sidebar__div">
       <p>SIDEBAR CONTAINER</p>
