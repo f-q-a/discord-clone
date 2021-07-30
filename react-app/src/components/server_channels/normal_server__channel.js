@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory, useParams } from "react-router-dom";
 import * as messageActions from "../../store/message";
 import * as channelActions from "../../store/channel";
+import { Modal } from "../../context/Modal";
 
 function NormalChannel({ channel }) {
   const channelRef = useRef();
@@ -10,6 +11,8 @@ function NormalChannel({ channel }) {
   const dispatch = useDispatch();
   const [activeDiv, setActiveDiv] = useState("");
   const [editChannel, setEditChannel] = useState(false);
+  const [showModal, setShowModal] = useState(false)
+  const [channelDeleted, setChannelDeleted] = useState(false)
   useEffect(() => {
     dispatch(messageActions.getMessages(channel.id));
   }, [serverId]);
@@ -68,6 +71,12 @@ function NormalChannel({ channel }) {
     );
   }
 
+  const deleteChannel = (e, channelId) => {
+    e.preventDefault()
+    dispatch(channelActions.deleteChannel(channelId, serverId))
+    .then(()=>setChannelDeleted(!channelDeleted))
+  }
+
   // document.querySelector('.channels__list').closest('.server_sidebar__link').classList.add('active')
   return (
     <>
@@ -86,13 +95,21 @@ function NormalChannel({ channel }) {
                   class="far fa-edit channel__icon"
                   onClick={() => setEditChannel(!editChannel)}
                 ></i>
-                <i class="far fa-trash-alt channel__icon"></i>
+                <i class="far fa-trash-alt channel__icon"
+                onClick={()=> setShowModal(!showModal)}></i>
               </span>
             </p>
           </div>
         </NavLink>
       </div>
       {editChannel && <EditChannel props={{ channelId: channel.id }} />}
+      {showModal && (
+        <Modal onClose={()=> setShowModal(false)}>
+          Are you sure you want to delete this channel? This action is permanent and destroys all messages that have been sent to this channel.
+          <button onClick={()=>setShowModal(false)}>No, I'm not sure</button>
+          <button onClick={(e)=>deleteChannel(e, channel.id)}>Yes, I'm sure</button>
+        </Modal>
+      )}
     </>
   );
 }
