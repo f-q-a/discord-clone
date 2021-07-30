@@ -37,8 +37,14 @@ def edit_relationships ():
     userId= int(current_user.id)
     res = request.get_json()
     userIdCheck = db.session.query(db.session.query(Relationship).filter((Relationship.first_user_id==userId) & (Relationship.second_user_id==res["secondUserId"]) & (Relationship.relationship != "Blocked")).exists()).scalar()
-
-    if((userIdCheck)):
+    PendingCheckRec = db.session.query(db.session.query(Relationship).filter((Relationship.first_user_id==userId) & (Relationship.second_user_id==res["secondUserId"]) & (Relationship.relationship == "Pending")).exists()).scalar()
+    PendingCheckSen = db.session.query(db.session.query(Relationship).filter((Relationship.first_user_id==res["secondUserId"]) & (Relationship.second_user_id==userId) & (Relationship.relationship == "Pending")).exists()).scalar()
+    if (PendingCheckRec and PendingCheckSen):
+        userRelations1 = db.session.query(Relationship).filter((Relationship.first_user_id==res["secondUserId"]) & (Relationship.second_user_id==userId)).first()
+        userRelations1.relationship = "Accepted"# None/Accepted/Blocked/PendinguserRelations1 = db.session.query(Relationship).filter((Relationship.first_user_id==res["secondUserId"]) & (Relationship.second_user_id==userId)).first()
+        userRelations2 = db.session.query(Relationship).filter((Relationship.first_user_id==userId) & (Relationship.second_user_id==res["secondUserId"])).first()
+        userRelations2.relationship = "Accepted"#
+    elif (userIdCheck):
             userRelations1 = db.session.query(Relationship).filter((Relationship.first_user_id==res["secondUserId"]) & (Relationship.second_user_id==userId)).first()
             userRelations1.relationship = "Accepted"# None/Accepted/Blocked/Pending
     else:
@@ -86,20 +92,21 @@ def postblock_relationships ():
 
     userId= int(current_user.id)
     res = request.get_json()
+    print( res )
 
-    # print("CheckerArray",res)
-    if(res.checkerArray[0]):
+    print("CheckerArray++++++++++++++++++++++++++++++++++",res)
+    if(res[0]):
         relation1 = Relationship(
-        first_user_id=checkerArray[0][0],
-        second_user_id=checkerArray[0][1],
+        first_user_id=res[0][0],
+        second_user_id=res[0][1],
         relationship= "Blocked"
         )
         db.session.add(relation1)
 
-    if(res.checkerArray[1]):
+    if(res[1]):
         relation2 = Relationship(
-        first_user_id=checkerArray[1][0],
-        second_user_id=checkerArray[1][1],
+        first_user_id=res[1][0],
+        second_user_id=res[1][1],
         relationship= "Blocked"
         )
         db.session.add(relation2)

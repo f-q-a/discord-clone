@@ -83,17 +83,17 @@ export const editRelationship = (secondUserId, relationshipType ) => async (disp
 
 }
 
-export const blockRelationship = (secondUserId) => async (dispatch) => {
+export const blockRelationship = (secondUserId,relationshipType) => async (dispatch) => {
     const response = await fetch('/api/relationships/block', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ secondUserId})
+        body: JSON.stringify({ secondUserId,relationshipType})
     })
     const data = await response.json();
     dispatch(getRelationshipsAction(data.relationships))
-    if (data && data.checkerArray.length > 0) {
+    if (data && data['checkerArray'].length > 0) {
         dispatch(postblockRelationship(data.checkerArray))
     }
     return data
