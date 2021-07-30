@@ -32,22 +32,22 @@ def create_relationships ():
     else :
         return {'errors':["Not A Valid User"]}
 
-@relationship_routes.route('/edit', methods=['PATCH', 'POST'])
+@relationship_routes.route('/edit', methods=['POST'])
 def edit_relationships ():
     userId= int(current_user.id)
     res = request.get_json()
-    if(res["relationshipType"]=="Pending" and request.method == 'POST'):
+    userIdCheck = db.session.query(db.session.query(Relationship).filter((Relationship.first_user_id==userId) & (Relationship.second_user_id==res["secondUserId"]) & (Relationship.relationship != "Blocked")).exists()).scalar()
+
+    if((userIdCheck)):
+            userRelations1 = db.session.query(Relationship).filter((Relationship.first_user_id==res["secondUserId"]) & (Relationship.second_user_id==userId)).first()
+            userRelations1.relationship = "Accepted"# None/Accepted/Blocked/Pending
+    else:
         relation = Relationship(
         first_user_id=userId,
         second_user_id=res["secondUserId"],
         relationship= "Accepted"
         )
         db.session.add(relation)
-
-    if(res["relationshipType"]=="Pending" and request.method == 'PATCH'):
-        userRelations1 = db.session.query(Relationship).filter((Relationship.first_user_id==res["secondUserId"]) & (Relationship.second_user_id==userId)).first()
-        userRelations1.relationship = "Accepted"# None/Accepted/Blocked/Pending
-
     db.session.commit()
     UserRelationship = Relationship.query.all()
     relationships = [relationship.to_dict() for relationship in UserRelationship]
@@ -123,6 +123,27 @@ def unblock_relationships ():
     UserRelationship = Relationship.query.all()
     relationships = [relationship.to_dict() for relationship in UserRelationship]
     return {'relationships': relationships}
+
+@relationship_routes.route('/add', methods=['POST'])
+def add_create_relationships ():
+    userId = int(current_user.id)
+    res = request.get_json()
+    addID = res['addid']
+    userIdCheck = db.session.query(db.session.query(Relationship).filter((Relationship.first_user_id==userId) & (Relationship.second_user_id==res['addid']) & (Relationship.relationship != "Blocked")).exists()).scalar()
+    userIdCheck2 = db.session.query(db.session.query(Relationship).filter((Relationship.first_user_id==res['addid']) & (Relationship.second_user_id==userId) & (Relationship.relationship != "Blocked")).exists()).scalar()
+    if(userIdCheck and userIdCheck2):
+        return {'addId': res['addid']}
+    else:
+        relation = Relationship(
+        first_user_id=userId,
+        second_user_id=res['addid'],
+        relationship= "Pending"
+        )
+        db.session.add(relation)
+        db.session.commit()
+        UserRelationship = Relationship.query.filter(Relationship.first_user_id==userId).all()
+        relationships = [relationship.to_dict() for relationship in UserRelationship]
+        return {'relationships': relationships}
 
 @relationship_routes.route('/add', methods=['PATCH'])
 def add_relationships ():

@@ -60,19 +60,8 @@ export const createRelationship = (secondUserId,relationshipType) => async (disp
 
 export const editRelationship = (secondUserId, relationshipType ) => async (dispatch) => {
     console.log(secondUserId, relationshipType )
-    if(relationshipType === "Pending"){
-        const response2 = await fetch(`/api/relationships/edit`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ secondUserId, relationshipType })
-        })
-        const data2 = await response2.json();
-        dispatch(getRelationshipsAction(data2.relationships))
-    }
     const response = await fetch(`/api/relationships/edit`, {
-        method: 'PATCH',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -81,6 +70,16 @@ export const editRelationship = (secondUserId, relationshipType ) => async (disp
     const data = await response.json();
     dispatch(getRelationshipsAction(data.relationships))
     return data
+    // const response = await fetch(`/api/relationships/edit`, {
+    //     method: 'PATCH',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({ secondUserId, relationshipType })
+    // })
+    // const data = await response.json();
+    // dispatch(getRelationshipsAction(data.relationships))
+    // return data
 
 }
 
@@ -128,7 +127,24 @@ export const unblockRelationship = (blockid) => async (dispatch) => {
     return data
 
 }
+export const addcreateRelationship = (addid) => async (dispatch) => {
+    const response = await fetch('/api/relationships/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({addid})
+    })
+    const data = await response.json();
+    if(data && data.addId){
+        dispatch(addRelationship(data.addId))
+    } else{
+        dispatch(getRelationshipsAction(data.relationships))
+        return data
+    }
 
+
+}
 export const addRelationship = (addid) => async (dispatch) => {
     const response = await fetch('/api/relationships/add', {
         method: 'PATCH',
