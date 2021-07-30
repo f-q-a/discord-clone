@@ -3,7 +3,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import {NavLink} from 'react-router-dom';
 import Container from './server_context_container';
 
-const ServerSidebarItem = ({server}) => {
+const PrivateServer = ({server}) => {
   {
     console.log('IS THIS INDIVD SERVER__________', server.id);
   }
@@ -12,9 +12,9 @@ const ServerSidebarItem = ({server}) => {
     let abbr = '';
     words.forEach(e => abbr.length ? abbr+=('-' + e[0]) : abbr+=(e[0]))
     return abbr;
-  } 
+  }
   return (
-    <div className={`sidebar_item__div `}>
+    <div className={`sidebar_item__div private_server__sidebar`}>
       <Container serverId={server.id} className="sidebar_container__div">
         <NavLink
           className={`server_sidebar__link server_num${server.id}`}
@@ -22,7 +22,7 @@ const ServerSidebarItem = ({server}) => {
           to={`/@me/${server.id}`}
         >
           <div className='server_abbrev'>
-            {serverAbbr(server.name)}
+            <img className='settingbar_icon' src='https://discord.com/assets/9f6f9cd156ce35e2d94c0e62e3eff462.png'/>
             </div>
           <div className='current_active_pip__div' />
         </NavLink>
@@ -36,4 +36,4 @@ const ServerSidebarItem = ({server}) => {
   );
 };
 
-export default ServerSidebarItem;
+export default PrivateServer;

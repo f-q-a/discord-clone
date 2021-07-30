@@ -79,6 +79,19 @@ a {
 
 .channel_list__link {
   padding: 1px 5px;
+  width: 100%;
+}
+
+.channel_list_item__div {
+  display: flex;
+}
+
+.channel__icon {
+  padding: 3px;
+}
+.channel_info__p {
+  display: flex;
+  justify-content: space-between;
 }
 
 .normal_channel__div {

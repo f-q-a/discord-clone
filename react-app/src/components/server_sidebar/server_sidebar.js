@@ -1,6 +1,7 @@
 // import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ServerSidebarItem from "./sidebar_item";
+import PrivateServer from "./private_server";
 import React, { useState, useEffect } from "react";
 import ContextMenu from "./server_context_menu";
 import ServerFormAddModal from "./server_modal_add"
@@ -24,13 +25,13 @@ const ServerSidebar = () => {
 
   const Private = serversList.filter((el) => (el.type === "Private") && (el.user_id ===user.id))
   const Public= serversList.filter((el) => (el.type === "Public") && (el.user_id ===user.id)  )
- 
+
   return (
     <div className="sidebar__div">
       <p>SIDEBAR CONTAINER</p>
       {separator}
       {Private.map((server, index) => (
-        <ServerSidebarItem server={server} key={index} />
+        <PrivateServer server={server} key={index} />
       ))}
       {separator}
       {Public.map((server, index) => (
