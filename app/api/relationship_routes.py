@@ -158,6 +158,10 @@ def add_relationships ():
     res = request.get_json()
     addID = res['addid']
 
+    AcceptedTest=db.session.query(Relationship).filter((Relationship.first_user_id == addID) & (Relationship.relationship == "Accepted")).first()
+    if(AcceptedTest):
+        return {'errors': "Already Friended"}
+
     blockedTest=db.session.query(Relationship).filter((Relationship.first_user_id == addID) & (Relationship.relationship == "Blocked")).first()
     if(blockedTest):
          return {'errors': "User in Unavailable"}
