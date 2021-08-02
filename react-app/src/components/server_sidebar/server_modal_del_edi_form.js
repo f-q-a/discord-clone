@@ -7,14 +7,17 @@ import ServerAddUserForm from './server_adduser_form'
 
 function ServerFormModal({item,serverId}) {
   const [showModal, setShowModal] = useState(false);//false
-  const [display, setDisplay] = useState(true);
+  const [display, setDisplay] = useState("");
 
   useEffect(() => {
-    if (item.text === "Edit Server Name" || item.text === "Delete Server"){
-      setDisplay(true)
+    if (item.text === "Edit Server Name"){
+      setDisplay("Edit")
+    }
+    else if (item.text === "Delete Server") {
+      setDisplay("Delete")
     }
     else if (item.text==="Add Friend") {
-      setDisplay(false)
+      setDisplay("Add")
     }
   },[])
 
@@ -24,15 +27,22 @@ function ServerFormModal({item,serverId}) {
         <a className="context_menu_popup-items" onClick={() => setShowModal(true)}>{item.text}</a>
         {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-            {display ?
+            {display==="Delete" ?
             <div>
               <ServerDeleteForm serverId={serverId}/>
-              <ServerEditForm serverId={serverId}/>
             </div>
             :
+            display==="Edit" ?
+            <div>
+               <ServerEditForm serverId={serverId}/>
+            </div>
+            :
+            display==="Add" ?
             <div>
                <ServerAddUserForm serverId ={serverId}/>
             </div>
+            :
+            null
             }
         </Modal>
         )}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import { deleteServer } from '../../store/server'
+import "../css/server_delete_form.css"
 
 const ServerDeleteForm = ({serverId}) => {
   const history = useHistory()
@@ -15,12 +16,11 @@ const ServerDeleteForm = ({serverId}) => {
     }
 
   return (
-    <div>
-        <div>Delete</div>
-        {serverId}
-        <form onSubmit={onDelete} className='delete_form'>
-          <button className="server-button" type="submit">Delete</button>
-        </form>
+    <div className="DeleteForm_ModalContent">
+      <div className="DeleteForm_ModalContent-titleholder">
+        <h3 id="DeleteForm_ModalContent-title"> Delete this server? </h3>
+      </div>  {/* {serverId} */}
+      <button className="server-delete-button" onClick={onDelete}>Confirm Delete</button>
     </div>
   )
 }
