@@ -73,6 +73,7 @@ function NormalChannel({ channel }) {
 
   const deleteChannel = (e, channelId) => {
     e.preventDefault()
+    setShowModal(false)
     dispatch(channelActions.deleteChannel(channelId, serverId))
     .then(()=>setChannelDeleted(!channelDeleted))
   }
