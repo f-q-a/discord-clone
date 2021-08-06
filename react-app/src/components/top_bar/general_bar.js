@@ -18,7 +18,7 @@ const GeneralBar = () => {
     useEffect(() => {
         dispatch(getRelationships());
         if(channel){
-            setSpecificChannel(channel[channelId].name);
+            setSpecificChannel(channel[channelId]?.name);
         }
       }, [dispatch, channel, user ]);
 

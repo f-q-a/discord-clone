@@ -4,6 +4,7 @@ from app.models import db, Server, User, Channel, Message, ServerUser, Relations
 from flask_login import current_user, login_required
 
 
+
 message_routes = Blueprint('messages', __name__)
 
 @message_routes.route('/<int:id>', methods=['GET'])

@@ -9,8 +9,8 @@
 .settingbar_icon {
     height: 35px;
     width: 36px;
-    background-color:#2F3136;
-
+    /* background-color:#2F3136; */
+    background-color: transparent;
     color: #F3FFFF;
     display:flex;
     justify-content: center;
