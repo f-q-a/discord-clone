@@ -124,4 +124,19 @@ containers {
 
 .context_menu_popup-items {
     margin: 10px 35px 10px 0px;
+    color: #b9bbbe;
 }
+
+#context-menu-popup2 {
+    position: fixed;
+    font-family: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: rgb(54,57,63);
+    color: #b9bbbe;
+}
+
+.context_menu_popup-items2 {
+    margin: 10px -25px 10px 10px;
+    color: #b9bbbe;
+    z-index: 5;
+}
+
