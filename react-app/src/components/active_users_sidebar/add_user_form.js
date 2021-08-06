@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import { deleteServer } from '../../store/server'
 import {getRelationships} from "../../store/relationship"
-import {addRelationship} from "../../store/relationship"
+import {addcreateRelationship} from "../../store/relationship"
 import {editRelationship} from "../../store/relationship"
 import {getAllUsers} from "../../store/user"
 
@@ -23,7 +23,7 @@ console.log("USER OBCJECT",{user})
   console.log(userstate)
 
   const onFriendSubmit = async (e)=> {
-    dispatch(addRelationship(user.id));
+    dispatch(addcreateRelationship(user.id));
     setShowModal(prev => !prev)
     };
 
@@ -37,6 +37,7 @@ useEffect(() => {
         <div className="General_Modal ">
             <h3 className="modaltitle">Add {user.username} ?</h3>
             <button className="friend-button" onClick={onFriendSubmit}>Submit</button>
+            {user.id}
         </div>
 
   )

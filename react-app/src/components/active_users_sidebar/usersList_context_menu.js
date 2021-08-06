@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import '../css/contextmenu.css'
-import ServerFormModal from './userlist_modal'
+import ActiveUserFormModal from './userlist_modal'
 
 
 const items = [
@@ -54,11 +54,11 @@ const ContextMenu = ({parentRef, user}) => {
     // turnary i created the component but simply hid it away
     return Visible?
     (
-        <div id='context-menu-popup' style={style}>
+        <div id='context-menu-popup2' style={style}>
             {items.map((item,index) => {
                 return (
-                    <div key={index}>
-                        <ServerFormModal item={item} user={user} />
+                    <div className = "context_menu_popup-items2" key={index}>
+                        <ActiveUserFormModal item={item} user={user} />
                     </div>
                 )
             })}
@@ -69,7 +69,7 @@ const ContextMenu = ({parentRef, user}) => {
             {items.map((item,index) => {
                 return (
                     <div key={index}>
-                        <ServerFormModal item={item} user={user} />
+                        <ActiveUserFormModal item={item} user={user} />
                     </div>
                 )
             })}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from '../../context/Modal';
-
+import '../css/contextmenu.css';
 import AddUserForm from "./add_user_form"
 import BlockUserForm from "./block_user_form"
 
