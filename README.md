@@ -9,6 +9,18 @@ by Stephen Choung, Bill Adams, and Felipe Araujo
 * [User Stories](https://github.com/f-q-a/discord-clone/wiki/User-Stories)
 
 ## Some Key Features
-* WebSockets
-* AWS
-* Context Menus
+<li>WebSockets</li>
+<li>AWS</li>
+<li>Context Menus</li>
+
+## Splash Page
+<img src="./react-app/src/components/images/DiscordIntroGif.gif" width=852px height=489px>
+
+## Basic Feaures
+<img src="./react-app/src/components/images/DiscordAWSContextGIFF.gif" width=852px height=489px>
+<li>AWS</li>
+<li>Context Menus</li>
+
+## WebSocket Features
+<!-- <img src="./react-app/src/components/images/YGOGachaCardFlipGIF.gif" width=852px height=489px>
+<li>WebSockets</li> -->
