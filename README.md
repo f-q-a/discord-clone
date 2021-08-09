@@ -14,10 +14,10 @@ by Stephen Choung, Bill Adams, and Felipe Araujo
 <li>Context Menus</li>
 
 ## Splash Page
-<img src="./react-app/src/images/DiscordIntroGif.gif" width=854px height=480px>
+<img src="./react-app/src/images/DiscordIntroGif.gif" width=640px height=360px>
 
 ## Basic Feaures
-<img src="./react-app/src/images/DiscordAWSContextGIF.gif" width=854px height=480px
+<img src="./react-app/src/images/DiscordAWSContextGIF.gif" width=640px height=360px>
 <li>AWS</li>
 <li>Context Menus</li>
 
