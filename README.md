@@ -1,6 +1,12 @@
 # Welcome to our Discord Clone
 by Stephen Choung, Bill Adams, and Felipe Araujo
 
+Discord Clone is a fullstack Postgres, Flask, React, Node app that lets the user talk to each other in private and public servers and channels
+
+As noted above, Discord Clone is a fullstack Postgres, Flask, React, Node application. The majority of the application logic occurs within front end's Redux store and its interactions with the Google Maps Javascript API via the react-google-maps library. Discord Clone uses pure css for styling components.
+
+The backend serves the frontend, responds to frontend requests, and fetches data from the Postgres database.
+
 ## Table of Contents
 * [MVP Feature List](https://github.com/f-q-a/discord-clone/wiki/Feature-List)
 * [Database Schema](https://github.com/f-q-a/discord-clone/wiki/Database-Schema)
@@ -13,11 +19,6 @@ by Stephen Choung, Bill Adams, and Felipe Araujo
 <li>AWS</li>
 <li>Context Menus</li>
 
-Discord Clone is a fullstack Postgres, Flask, React, Node app that lets the user explore rentals all around the world and book them
-
-As noted above, Discord Clone is a fullstack Postgres, Flask, React, Node application. The majority of the application logic occurs within front end's Redux store and its interactions with the Google Maps Javascript API via the react-google-maps library. Discord Clone uses pure css for styling components.
-
-The backend serves the frontend, responds to frontend requests, and fetches data from the Postgres database.
 
 ## Frontend Overview
 Discord Clone is very frontend heavy application. It makes extensive use of 3rd-party APIs and resources to create a dynamic and data-rich experience. Below are the frontend technologies that make this application possible.
