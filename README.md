@@ -13,7 +13,7 @@ by Stephen Choung, Bill Adams, and Felipe Araujo
 <li>AWS</li>
 <li>Context Menus</li>
 
-Discord Clone is a fullstack Postgres, Flask, React, Node app that lets the user explore rentals all around the world and book them
+Discord Clone is a fullstack Postgres, Flask, React, Node app that lets the user talk to each other in private and public servers and channels
 
 As noted above, Discord Clone is a fullstack Postgres, Flask, React, Node application. The majority of the application logic occurs within front end's Redux store and its interactions with the Google Maps Javascript API via the react-google-maps library. Discord Clone uses pure css for styling components.
 
