@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import { editServer } from '../../store/server'
-
+import "../css/server_edit_form.css";
 const ServerEditForm = ({serverId}) => {
 
   const history = useHistory()
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState("");
-  // const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null);
 
   const onServerEdit= async (e) => {
     e.preventDefault();
     const formData = new FormData();
-        // formData.append("image", image);
-        // ,image
-    const data = await dispatch(editServer(serverId,name));
+        formData.append("image", image);
+
+    const data = await dispatch(editServer(serverId,name)); //.image
     if (data) {
       history.push(`/`);
     }
@@ -26,16 +26,12 @@ const ServerEditForm = ({serverId}) => {
     setName(e.target.value);
   }
 
-  // const updateImage = (e) => {
-  //   const file = e.target.files[0];
-  //   setImage(file)
-  // }
-
+  const updateImage = (e) => {
+    setImage(e.target.value);
+  }
 
   return (
-    <div>
-
-
+    <div className="ServerEditForm">
       <form onSubmit={onServerEdit} className='server_form'>
         <div>
           {errors.map((error) => (
@@ -43,7 +39,7 @@ const ServerEditForm = ({serverId}) => {
           ))}
         </div>
         <div className='server_div'>
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">New Name</label>
           <input
             name="name"
             type="text"
@@ -53,22 +49,22 @@ const ServerEditForm = ({serverId}) => {
             className='server_input'
           />
         </div>
-        {/* <div className='server_div'>
-          <label htmlFor="image">Image</label>
+        <div className='server_div'>
+          <label htmlFor="image">New Image</label>
           <input
             name="image"
             type="file"
             accept="image/*"
             onChange={updateImage}
-            className='server_input_image'
+            className='server_edit_input_image'
           />
-        </div> */}
+        </div>
 
         <div className="create">
-          <button className="server-button" type="submit">Edit Server</button>
+          <button className="server-button" type="submit">Confirm</button>
         </div>
       </form>
-      {serverId}
+      {/* {serverId} */}
     </div>
   )
 }

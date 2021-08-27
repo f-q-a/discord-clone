@@ -41,7 +41,7 @@ const MessageMain = () => {
 
       const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
       console.log('These messages are sorted?', sortedChannelMessages)
-      setChannelMessages([...sortedChannelMessages])
+      setChannelMessages([...sortedChannelMessages.reverse()])
       return () => {
         setChatInput('');;
 
@@ -73,13 +73,13 @@ const MessageMain = () => {
       "user": user,
       "content": chatInput,
       "channelId": channelId,
-      "avatar_link": user.avatar_link,
+      "user_avatar": user.avatar_link,
       "username": user.username,
       "created_at": Date(),
     });
     dispatch(messageActions.createMessage(channelId, chatInput));
     setChatInput("")
-    setChannelMessages("")
+    // setChannelMessages("")
     setReload(true)
   };
 
@@ -125,7 +125,7 @@ const MessageMain = () => {
         {channelMessages  ? (<div>
           {channelMessages.map((message, index) => (
             <div className="message__div">
-              <Messages props={{message, index, reload, setReload, updateChatOutput, channelMessages, setChannelMessages, serverId, channelId}} key={message} />
+              <Messages props={{message, index, reload, setReload, channelMessages, setChannelMessages, serverId, channelId}} key={message} />
             </div>
           ))}
         </div>) :

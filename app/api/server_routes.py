@@ -23,7 +23,7 @@ def create_server():
     server = Server(
         name=name,
         user_id=int(current_user.id),
-        type='public'
+        type='Public'
         )
     db.session.add(server)
     db.session.commit()

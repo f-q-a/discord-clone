@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {getRelationships} from "../../store/relationship"
 import {createRelationship} from "../../store/relationship"
 import {editRelationship} from "../../store/relationship"
+import {unblockRelationship} from "../../store/relationship"
 import {getAllUsers} from "../../store/user"
 
 import "../css/general_bar.css"
@@ -11,10 +12,11 @@ function GeneralBarModal() {
     const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
     const [target, setTarget] = useState(false);
-    const [blockid, setBlockid] = useState(null);
-    const [pendingid, setPendingid] = useState(null);
+    // const [blockid, setBlockid] = useState(null);
+    // const [pendingid, setPendingid] = useState(null);
     const [username, setUsername] = useState("");
     const [errors, setErrors] = useState([]);
+    const [data, setData] = useState(false);
 
     const relationshipObject= useSelector((state) => state.relationship.relationships);
     const user = useSelector(state => state.session.user)
@@ -25,20 +27,14 @@ function GeneralBarModal() {
     console.log(alluserList)
     console.log(user)
 
-
-    useEffect(() => {
-        dispatch(getRelationships());
-        dispatch(getAllUsers())
-      }, [dispatch , username]);
-
 /////////////////////////////////////////////////
     const Accepted = Object.values(relationshipObject).filter((el)=>(el.first_user_id === Number(user.id) && el.relationship ==="Accepted"))
     const Blocked = Object.values(relationshipObject).filter((el)=>(el.first_user_id === Number(user.id) && el.relationship ==="Blocked" ))
-    const Pending = Object.values(relationshipObject).filter((el)=>(el.first_user_id === Number(user.id) && el.relationship ==="Pending" ))
+    const Pending = Object.values(relationshipObject).filter((el)=>(el.second_user_id === Number(user.id) && el.relationship ==="Pending" ))
 
-    console.log(Accepted)
-    console.log(Blocked)
-    console.log(Pending)
+    console.log("Accepted",Accepted)
+    console.log("Blocked",Blocked)
+    console.log("Pending",Pending)
 
     const Acceptedpushlist =[]
     for (let i=0; i < Accepted.length; i++){
@@ -59,7 +55,7 @@ function GeneralBarModal() {
     const Pendingpushlist =[]
     for (let i=0; i < Pending.length; i++){
         for (let j=0; j<alluserList.length; j++){
-            if( Pending[i].second_user_id===alluserList[j].id){
+            if( Pending[i].first_user_id===alluserList[j].id){
                 Pendingpushlist.push([alluserList[j].username, alluserList[j].id])
             }
         }
@@ -74,20 +70,20 @@ function GeneralBarModal() {
         setShowModal(true)
     }
 
-    const onPendingSubmit = (e) => {
-        setPendingid(e.target.value)
-        if(pendingid) dispatch(editRelationship(pendingid, "Pending"));
+    const onPendingSubmit =  async (e) => {
+        let pendingid = e.target.value
+        dispatch(editRelationship(pendingid, "Pending"));
+        // }   if(pendingid){
     }
 
     const onBlockedSubmit = (e) => {
-        setBlockid(e.target.value)
-        dispatch(editRelationship(blockid, "Blocked"));
+        let blockid = e.target.value
+        dispatch(unblockRelationship(blockid));
     }
 
     const onFriendSubmit = async (e)=> {
         if(username.includes("#")){
             let secondUserId = username.split("#")
-            console.log(secondUserId[1])
             dispatch(createRelationship(secondUserId[1],"Pending"));
         }
     };
@@ -101,6 +97,11 @@ function GeneralBarModal() {
         }
     }
 
+    useEffect(() => {
+        dispatch(getRelationships());
+        dispatch(getAllUsers())
+      }, [dispatch]); //username
+
     return (
     <div className="Topbar_Buttons">
         <div>
@@ -109,7 +110,7 @@ function GeneralBarModal() {
             <Modal onClose={() => setShowModal(false)}>
                 <div className="General_Modal scroll">
                     <h3 className="modaltitle">All Friends</h3>
-                    {Acceptedpushlist.map((el,i)=>(
+                    {Acceptedpushlist?.map((el,i)=>(
                         <div key={i}>{el}</div>))}
                 </div>
             </Modal>)}
@@ -120,7 +121,7 @@ function GeneralBarModal() {
             <Modal onClose={() => setShowModal(false)}>
                 <div className="General_Modal scroll">
                     <h3 className="modaltitle">Pending Requests</h3>
-                    {Pendingpushlist.map((el,i)=>(
+                    {Pendingpushlist?.map((el,i)=>(
                     <div key={i}>
                         <button onClick={onPendingSubmit} value={el[1]}> Accept Request </button>
                         <div>{el[0]}---{el[1]}</div>
@@ -135,7 +136,7 @@ function GeneralBarModal() {
             <Modal onClose={() => setShowModal(false)}>
                 <div className="General_Modal scroll">
                     <h3 className="modaltitle">Blocked Users</h3>
-                    {Blockedpushlist.map((el,i)=>(
+                    {Blockedpushlist?.map((el,i)=>(
                         <div key={i}>
                             <button onClick={onBlockedSubmit} value={el[1]}> Unblock </button>
                             <div >{el[0]}---{el[1]}</div>

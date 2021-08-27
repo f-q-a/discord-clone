@@ -4,6 +4,7 @@ from app.models import db, Server, User, Channel, Message, ServerUser, Relations
 from flask_login import current_user, login_required
 
 
+
 message_routes = Blueprint('messages', __name__)
 
 @message_routes.route('/<int:id>', methods=['GET'])
@@ -20,7 +21,7 @@ def create_message():
                       channel_id= res["channelId"])
     db.session.add(message)
     db.session.commit()
-    print('This is a call to to_dict', message.to_dict())
+    # print('This is a call to to_dict', message.to_dict())
     return message.to_dict()
 
 @message_routes.route('/<int:id>', methods=['DELETE'])

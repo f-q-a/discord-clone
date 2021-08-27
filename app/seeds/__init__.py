@@ -11,7 +11,7 @@ from .relationships import seed_relationships, undo_relationships
 
 
 # Creates a seed group to hold our commands
-# So we can type `flask seed --help`
+# So we can type `flask seed --help`cd
 seed_commands = AppGroup('seed')
 
 # Creates the `flask seed all` command

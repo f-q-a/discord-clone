@@ -18,9 +18,9 @@ function ChannelsList() {
   const [channelDeleted, setChannelDeleted] = useState(false)
   const [channelisloaded, setChannelisloaded,] = useState(false)
 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-  },[])
+  // },[])
 
   // console.log("WHAT IS CURRSERVER???", server)
   let channelIds = [];
@@ -124,7 +124,7 @@ function ChannelsList() {
           channelsList.map((channel, index) => (
             <>
               <NormalChannel channel={channel} key={`channel_key__${channel.id}`}/>
-              <button key={`button_key__${channel.name}`} onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
+              <button className='delete_channel__button' key={`button_key__${channel.name}`} onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
             </>
           ))}
         <button onClick={()=>setCreateChannelState(!createChannelState)}>New Channel?</button>
