@@ -18,7 +18,7 @@ def seed_users():
         temp = User(username=faker.user_name(), email=faker.email(),
                     hashed_password=hash_password, avatar_link="https://discord.com/assets/6f26ddd1bf59740c536d2274bb834a05.png")
         db.session.add(temp)
-    db.session.commit()
+        db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the users table.
 # SQLAlchemy doesn't have a built in function to do this
