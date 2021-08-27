@@ -15,9 +15,11 @@ function UsersList() {
 
   const userComponents = users.map((user) => {
     return (
-      <li key={user.id}>
-        <NavLink to={`/users/${user.id}`}>{user.username}</NavLink>
-      </li>
+
+        <li key={user.id}>
+          <NavLink to={`/users/${user.id}`}>{user.username}</NavLink>
+        </li>
+
     );
   });
 

@@ -12,7 +12,7 @@ const ServerSidebarItem = ({server}) => {
     let abbr = '';
     words.forEach(e => abbr.length ? abbr+=('-' + e[0]) : abbr+=(e[0]))
     return abbr;
-  }
+  } 
   return (
     <div className={`sidebar_item__div `}>
       <Container serverId={server.id} className="sidebar_container__div">

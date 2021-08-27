@@ -12,11 +12,10 @@ def seed_relationships():
     # demo = User(username='Demo', email='demo@aa.io',
     #             hashed_password='password', avatar_link="")
     # db.session.add(demo)
-
     for i in range(2, 90):
-        temp = Relationship(first_user_id=1, second_user_id=i, relationship='Pending') # None/Accepted/Blocked/Pending
+        temp = Relationship(first_user_id=i, second_user_id=1, relationship='Pending') # None/Accepted/Blocked/Pending
         db.session.add(temp)
-    db.session.commit()
+        db.session.commit()
 # Uses a raw SQL query to TRUNCATE the users table.
 # SQLAlchemy doesn't have a built in function to do this
 # TRUNCATE Removes all the data from the table, and resets

@@ -11,7 +11,7 @@
 .MainPageABC {
     display: grid;
     grid-template-columns: 15% 1fr 1fr 15%;
-    grid-template-rows: repeat(6,1fr);
+    grid-template-rows: repeat(7,1fr);
     gap: 0px 0px;
     grid-auto-flow: dense;
     grid-template-areas:
@@ -20,7 +20,8 @@
     "extra3 note2 image2 extra9"
     "extra4 image3 note3 extra10"
     "extra5 note4 note4 extra11"
-    "extra6 image4 image4 extra12";
+    "extra6 image4 image4 extra12"
+    "footer footer footer footer";
     height: 100vh;
     width: 100vw;
 }
@@ -170,4 +171,9 @@
     grid-area: splash;
     height: 600px;
     width: 100vw;
+}
+
+.MainPage_Footer{
+    grid-area: footer;
+
 }

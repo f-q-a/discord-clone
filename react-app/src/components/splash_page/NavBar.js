@@ -1,29 +1,34 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect} from 'react-router-dom';
 import LoginFormModal from '../auth/LoginSigninFormModal';
 // import OpenAppButton from '../auth/OpenAppButton'
 import "../css/navigation.css"
 
 
-const NavBar = () => {
+
+
+const NavBar = ({setUrl}) => {
+
+
   return (
     <div className="Navigation Navigation__grid">
       <div className="Navigation_LoginForm">
         <LoginFormModal/>
       </div>
       <div className="Navigation_OpenApp">
-        <OpenAppButton />
+        <OpenAppButton setUrl={setUrl}/>
       </div>
     </div>
   );
 }
 
-const OpenAppButton = () => {
-  let history = useHistory();
-
+const OpenAppButton = ({setUrl}) => {
+  const history =useHistory()
   const redirect = () => {
-      history.push('/')
+    setUrl(" ")
+    history.push('/')
+
     }
 
 return <button className="OpenButton button" onClick={redirect}>Open App in Your Browser</button>;
