@@ -19,7 +19,6 @@ The backend serves the frontend, responds to frontend requests, and fetches data
 <li>AWS</li>
 <li>Context Menus</li>
 
-
 ## Frontend Overview
 Discord Clone is very frontend heavy application. It makes extensive use of 3rd-party APIs and resources to create a dynamic and data-rich experience. Below are the frontend technologies that make this application possible.
 

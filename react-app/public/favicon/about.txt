@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Wellfleet
+- Font Author: Copyright (c) 2011, Sorkin Type Co (www.sorkintype.com), with Reserved Font Name Wellfleet
+- Font Source: http://fonts.gstatic.com/s/wellfleet/v10/nuF7D_LfQJb3VYgX6eyT42aLDhO2HA.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL)
