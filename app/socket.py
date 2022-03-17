@@ -26,8 +26,6 @@ def handle_chat(data):
                       channel_id = data.channelId)
     msgArr.append(message)
     """
-
-    print('SOCKETIO DATA HERE ------>', data)
     room = data['channelId']
     emit("chat", data, room=room)
 
