@@ -39,9 +39,9 @@ function Messages({ props }) {
       setCurrMessage("")
     })
   }
-  useEffect(() => {
-    dispatch(messageActions.getMessages(Number(channelId)))
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(messageActions.getMessages(Number(channelId)))
+  // }, [dispatch])
 
   function monthParse(monthNum) {
     switch (monthNum) {

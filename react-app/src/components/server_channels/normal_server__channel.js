@@ -14,9 +14,9 @@ function NormalChannel({ channel }) {
   const [editChannel, setEditChannel] = useState(false);
   const [showModal, setShowModal] = useState(false)
   const [channelDeleted, setChannelDeleted] = useState(false)
-  useEffect(() => {
-    dispatch(messageActions.getMessages(channel.id));
-  }, [serverId]);
+  // useEffect(() => {
+  //   dispatch(messageActions.getMessages(channel.id));
+  // }, [serverId]);
 
   function EditChannel({ props }) {
     const { serverId } = useParams();
