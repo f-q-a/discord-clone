@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory, useParams } from "react-router-dom";
+import { NavLink, Route, useHistory, useParams } from "react-router-dom";
 import * as messageActions from "../../store/message";
 import * as channelActions from "../../store/channel";
 import { Modal } from "../../context/Modal";
+import MessageMain from "../message_main/message_main";
 
 function NormalChannel({ channel }) {
   const channelRef = useRef();
@@ -75,7 +76,7 @@ function NormalChannel({ channel }) {
     e.preventDefault()
     setShowModal(false)
     dispatch(channelActions.deleteChannel(channelId, serverId))
-    .then(()=>setChannelDeleted(!channelDeleted))
+      .then(() => setChannelDeleted(!channelDeleted))
   }
 
   // document.querySelector('.channels__list').closest('.server_sidebar__link').classList.add('active')
@@ -85,30 +86,30 @@ function NormalChannel({ channel }) {
         <NavLink
           className="channel_list__link"
           exact
-          to={`/@me/${channel.server_id}/${channel.id}`}
+          to={`/channels/${channel.server_id}/${channel.id}`}
           activeClassName="active_channel"
         >
           <div className={`normal_channel__div ${activeDiv}`}>
             <p className="channel_info__p" ref={channelRef}>
               # {channel.name}
-              <span className="channel_icons__span">
-                <i
-                  class="far fa-edit channel__icon"
-                  onClick={() => setEditChannel(!editChannel)}
-                ></i>
-                <i class="far fa-trash-alt channel__icon"
-                onClick={()=> setShowModal(!showModal)}></i>
-              </span>
             </p>
           </div>
         </NavLink>
+        <span className="channel_icons__span">
+          <i
+            class="far fa-edit channel__icon"
+            onClick={() => setEditChannel(!editChannel)}
+          ></i>
+          <i class="far fa-trash-alt channel__icon"
+            onClick={() => setShowModal(!showModal)}></i>
+        </span>
       </div>
       {editChannel && <EditChannel props={{ channelId: channel.id }} />}
       {showModal && (
-        <Modal onClose={()=> setShowModal(false)}>
+        <Modal onClose={() => setShowModal(false)}>
           Are you sure you want to delete this channel? This action is permanent and destroys all messages that have been sent to this channel.
-          <button onClick={()=>setShowModal(false)}>No, I'm not sure</button>
-          <button onClick={(e)=>deleteChannel(e, channel.id)}>Yes, I'm sure</button>
+          <button onClick={() => setShowModal(false)}>No, I'm not sure</button>
+          <button onClick={(e) => deleteChannel(e, channel.id)}>Yes, I'm sure</button>
         </Modal>
       )}
     </>

@@ -10,7 +10,12 @@ const ServerSidebarItem = ({server}) => {
   function serverAbbr(name) {
     const words = name.split(' ');
     let abbr = '';
-    words.forEach(e => abbr.length ? abbr+=('-' + e[0]) : abbr+=(e[0]))
+    words.forEach(e => {
+      const firstLetter = e[0]
+      if (!abbr.length) abbr+=firstLetter
+      else if (firstLetter === firstLetter.toLowerCase()) return
+      else abbr+=firstLetter
+    })
     return abbr;
   } 
   return (
@@ -19,7 +24,7 @@ const ServerSidebarItem = ({server}) => {
         <NavLink
           className={`server_sidebar__link server_num${server.id}`}
           exact
-          to={`/@me/${server.id}`}
+          to={`/channels/${server.id}`}
         >
           <div className='server_abbrev'>
             {serverAbbr(server.name)}

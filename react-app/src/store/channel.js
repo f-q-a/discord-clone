@@ -38,7 +38,7 @@ const editChannelAction = (channelId, name) => ({
 });
 
 export const getChannels = (serverId) => async (dispatch) => {
-  const response = await fetch(`/api/channels/:${serverId}`);
+  const response = await fetch(`/api/channels/${serverId}`);
   const data = await response.json();
   if (data.errors) return;
   dispatch(getChannelsAction(data.channels));

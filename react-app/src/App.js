@@ -54,7 +54,7 @@ function App() {
           <MainApp />
           <SettingBar />
         </ProtectedRoute>
-        <ProtectedRoute path="/@me/">
+        {/* <ProtectedRoute path="/@me/">
         </ProtectedRoute>
         <ProtectedRoute path="/@me/:serverId">
           <ChannelsList />
@@ -90,7 +90,7 @@ function App() {
             <img className="whumpus" src={whumpus_image}></img>
             <ChannelsList />
           </ProtectedRoute>
-        </Switch>
+        </Switch> */}
 
 
       </div>}

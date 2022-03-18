@@ -1,6 +1,6 @@
 {
     "python.pythonPath": "/home/stephenchoung/.pyenv/versions/3.9.4/bin/python",
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true,
+    "python.linting.enabled": false,
     "python.linting.pycodestyleEnabled": false
 }

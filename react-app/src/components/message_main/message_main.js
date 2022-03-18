@@ -16,7 +16,7 @@ const MessageMain = () => {
   console.log(serverId)
   console.log(channelId )
   const user = useSelector((state) => state.session.user);
-  const server = useSelector((state) => state.server.servers)
+  const server = useSelector((state) => state.server)
   const messages = useSelector(state => state.message.messages[channelId])
 
   console.log('These are our messages', messages)
