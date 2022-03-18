@@ -45,6 +45,11 @@ a {
   background-color: #202225;
 }
 
+.server_abbrev {
+  justify-items: center;
+  font-size: .6vw;
+}
+
 .sidebar__div {
   max-height: 100%;
 }

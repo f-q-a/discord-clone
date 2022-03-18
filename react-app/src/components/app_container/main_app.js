@@ -6,10 +6,13 @@ import * as serverActions from "../../store/server";
 
 function MainApp() {
   const dispatch = useDispatch();
+  const [serversLoaded, setServersLoaded] = useState(false)
   useEffect(() => {
-    dispatch(serverActions.getServers())
+    dispatch(serverActions.getServers()).then(()=>setServersLoaded(true))
 
   }, [dispatch]);
+
+  if (!serversLoaded) return null
 
   return (
     <>

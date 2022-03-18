@@ -10,7 +10,7 @@ import {getServers} from "../../store/server"
 const separator = <div className="separator__div"></div>
 
 const ServerSidebar = () => {
-  const servers = useSelector((state) => state.server.servers);
+  const servers = useSelector((state) => state.server);
   const user = useSelector(state => state.session.user)
   console.log("what is this",user)
   // const dispatch = useDispatch();
@@ -21,20 +21,15 @@ const ServerSidebar = () => {
 
 
   console.log("Where",servers)
-  const serversList = servers ? Object.values(servers) : [];
-
-  const Private = serversList.filter((el) => (el.type === "Private") && (el.user_id ===user.id))
-  const Public= serversList.filter((el) => (el.type === "Public") && (el.user_id ===user.id)  )
-
+  const serversList = Object.values(servers)
+  
   return (
     <div className="sidebar__div">
       <p>SIDEBAR CONTAINER</p>
       {separator}
-      {Private.map((server, index) => (
-        <PrivateServer server={server} key={index} />
-      ))}
+      {/* <PrivateServer /> */}
       {separator}
-      {Public.map((server, index) => (
+      {serversList.map((server, index) => (
         <ServerSidebarItem server={server} key={index} />
       ))}
       {separator}
