@@ -113,7 +113,7 @@ function Messages({ props }) {
   }
 
 
-
+  const closeEdit = () => setEditMessage(false)
   return (
     // <div className={`message__div author_${message.username}`} id={`${index}`}>
     <>
@@ -128,7 +128,7 @@ function Messages({ props }) {
             {/* {index} */}
           </span>
         </div>
-        <div className="message_content__div">{message.content}</div>
+        {!editMessage ? <div className="message_content__div">{message.content}</div> : <EditMessage props = {{currMessage, channelMessages, closeEdit}} />}
         {user.id === message.user_id && (<div className="message_context__div">
           <i
             class="far fa-edit channel__icon"
@@ -139,7 +139,7 @@ function Messages({ props }) {
               setEditMessage(!editMessage);
             })}
           ></i>
-          {editMessage && <EditMessage props={{ currMessage, channelMessages }} />}
+          {/* {editMessage && <EditMessage props={{ currMessage, channelMessages }} />} */}
           <i class="far fa-trash-alt channel__icon"
             onClick={deletedMessage}></i>
         </div>)}
