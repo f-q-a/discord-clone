@@ -105,5 +105,12 @@ def add_server_users(serverId):
         return {'servers':[server_user.id]}
     else:
         return{'errors':["Not A Valid User"]}
+    
+@server_routes.route('/user')
+@login_required
+def self_servers():
+    user_id = int(current_user.id)
+    user = User.query.get(user_id)
+    return {'servers': user.get_servers()}
 
     #send back the server and channel to update state maybe
