@@ -26,9 +26,9 @@ const createMessageAction = (message) => ({
     message
 })
 
-export const deleteMessageAction = (message) => ({
+export const deleteMessageAction = (id) => ({
     type: DELETE_MESSAGE,
-    message
+    id
 })
 
 export const addMessageAction = (message) => ({
@@ -80,7 +80,7 @@ export const deleteMessage = (message) => async (dispatch) => {
     });
     const data = await response.json();
     console.log('BEFORE I LEAVE', data)
-    dispatch(deleteMessageAction(data))
+    dispatch(deleteMessageAction(message.id))
     return data
 
 }
@@ -131,24 +131,8 @@ export default function reducer(state = initialState, action) {
             console.log('WHATS HANNENIN', newState)
             return {...state, messages: newState.messages}
         case DELETE_MESSAGE:
-            newState = { ...state }
-            let tempArr = newState.messages[action.message.channel_id]
-            console.log('WHAT THE HELL IS THIS', tempArr);
-            elementsIndex = tempArr.findIndex(element => element.id == action.message.id)
-            newArr = [].concat(newState.messages[action.message.channel_id]);
-            newArr.splice(elementsIndex, 1);
-            newState.messages[action.message.channel_id] = newArr;
-            console.log('Are we reaching this?')
-            return {...state, messages: newState.messages}
-            console.log('Test Number 4', newState.messages[action.message.channel_id][action.message.id])
-            //
-            // if (elementsIndex !== -1){
-            //     let newMessageArr = tempArr.splice(elementsIndex, 1)
-
-            //     return newState;
-            // }else{
-            //     return newState;
-            // }
+            newState = {...state}
+            delete newState[action.id]
             return newState;
         case ADD_MESSAGE:
             newState = { ...state }

@@ -8,14 +8,13 @@ import logo from '../../images/discord-logo-transparent.png'
 import { Modal } from '../../context/Modal';
 
 function Messages({ props }) {
-  const { message, index, reload, setReload, handleChange, channelMessages, setChannelMessages, serverId, channelId } = props;
+  const { message, channelMessages, setChannelMessages, channelId } = props;
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
   const [editMessage, setEditMessage] = useState(false);
   const [deleteMessage, setDeleteMessage] = useState(false)
   const [reactMessage, setReactMessage] = useState(false)
-  // const [message, setmessage] = useState(message)
   const timeNow = new Date();
   let messageDate, messageLocalTime, messageDay, messageMonth, messageHours, messageMinutes;
   if (message) {
@@ -32,17 +31,8 @@ function Messages({ props }) {
 
   const deletedMessage = (e) => {
     e.preventDefault();
-
-    dispatch(messageActions.deleteMessage(message))
-    dispatch(messageActions.getMessages(channelId)).then((data) => {
-      const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-      console.log('These messages are sorted?', sortedChannelMessages)
-      setChannelMessages(sortedChannelMessages)
-    })
+    dispatch(messageActions.deleteMessage(message)).then(()=>setDeleteMessage(false))
   }
-  // useEffect(() => {
-  //   dispatch(messageActions.getMessages(Number(channelId)))
-  // }, [dispatch])
 
   function monthParse(monthNum) {
     switch (monthNum) {
@@ -98,10 +88,6 @@ function Messages({ props }) {
       if (messageDay < 10) messageDay = '0' + messageDay;
       date = `${month} ${messageDay}, `;
     }
-    // if (seconds < 60) return seconds + ' seconds ago';
-    // else if (minutes < 60) return minutes + ' minutes ago';
-    // else if (hours < 24) return hours + ' hours ago';
-    // else if (days < 7) return days + ' days ago';
     if (messageHours > 12) {
       meridian = 'PM';
       messageHours -= 12;
@@ -116,17 +102,15 @@ function Messages({ props }) {
 
   const closeEdit = () => setEditMessage(false)
   return (
-    // <div className={`message__div author_${message.username}`} id={`${index}`}>
     <>
       {message ? (<>
         <div className="message_avatar__div">
           <img className="message_avatar__img" src={message.user_avatar ? message.user_avatar : logo} />
         </div>
-        <div> {/*  clasName="message_username_date__div" */}
+        <div>
           <span className="message_username__span">{`${message.username} `}</span>
           <span className="message_timestamp__span">
             {timeConvert(Date.now() - new Date(message.created_at))}
-            {/* {index} */}
           </span>
         </div>
         {!editMessage ? <div className="message_content__div">{message.content}</div> : <EditMessage props={{ message, channelMessages, closeEdit }} />}
@@ -140,22 +124,20 @@ function Messages({ props }) {
               setEditMessage(!editMessage);
             })}
           >{editMessage ? " X " : ""}</i>
-          {/* {editMessage && <EditMessage props={{ message, channelMessages }} />} */}
           <i class="far fa-trash-alt channel__icon"
             onClick={() => setDeleteMessage(!deleteMessage)}></i>
-          {deleteMessage && <Modal onClose={()=>setDeleteMessage(false)}><div>
+          {deleteMessage && <Modal onClose={() => setDeleteMessage(false)}><div>
             <p>
-            Are you sure you want to delete this message?
-          </p>
+              Are you sure you want to delete this message?
+            </p>
             <span className="message_timestamp__span">
               {timeConvert(Date.now() - new Date(message.created_at))}
-              {/* {index} */}
             </span>
             <div className="message_content__div">{message.content}</div>
             <button onClick={deletedMessage}>Yes</button>
             <button onClick={() => setDeleteMessage(false)}>No</button>
-            </div>
-            </Modal>}
+          </div>
+          </Modal>}
         </div>)
         }
       </>) : (
