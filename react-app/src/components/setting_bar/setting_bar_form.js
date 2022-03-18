@@ -18,28 +18,28 @@ const UserEditForm = () => {
 
   const onProfileEdit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("avatar_link", image);
-    setImageLoading(true);
-    const res = await fetch('/api/avatar', {
-      method: "POST",
-      body: formData,
-    });
+    const data = await dispatch(editUser({userId, username, email, password, repeatPassword, image}));
+    // const formData = new FormData();
+    // formData.append("avatar_link", image);
+    // setImageLoading(true);
+    // const res = await fetch('/api/avatar', {
+    //   method: "POST",
+    //   body: formData,
+    // });
 
-    if (res.ok) {
-      const response = await res.json();
-      setImageLoading(false);
-      const data = await dispatch(editUser(userId, username, email, response["url"], password, repeatPassword));
-      if (data && data.errors) {
-      setErrors(data.errors)
-    }
+    // if (res.ok) {
+    //   const response = await res.json();
+    //   setImageLoading(false);
+    //   if (data && data.errors) {
+    //   setErrors(data.errors)
+    // }
 
-    } else {
-      setImageLoading(false);
-      // a real app would probably use more advanced
-      // error handling
-    }
-    history.push(`/@me`);
+    // } else {
+    //   setImageLoading(false);
+    //   // a real app would probably use more advanced
+    //   // error handling
+    // }
+    history.push(`/channels/@me`);
   }
 
   const updateUsername = (e) => {

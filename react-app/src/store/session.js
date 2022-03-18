@@ -94,14 +94,18 @@ export const signUp = (username, email, password) => async (dispatch) => {
     return {}
 }
 
-export const editUser = (userId,username,email,image,password,repeatPassword) => async (dispatch) => {
+export const editUser = ({userId,username,email,image,password,repeatPassword}) => async (dispatch) => {
+    const formData = new FormData()
+    formData.append("userId", userId)
+    formData.append("username", username)
+    formData.append("email", email)
+    formData.append("password", password)
+    formData.append("repeatPassword", repeatPassword)
+    formData.append("image", image)
 
     const response = await fetch(`/api/users/${userId}`, {
         method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username,email,image,password,repeatPassword })
+        body: formData,
     })
     const data = await response.json();
     if (data && data.errors){
