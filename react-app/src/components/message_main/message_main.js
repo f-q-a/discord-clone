@@ -1,7 +1,7 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {useParams} from 'react-router';
-import React, {useEffect, useState, useRef} from 'react';
-import {io} from 'socket.io-client';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import React, { useEffect, useState, useRef } from 'react';
+import { io } from 'socket.io-client';
 import * as messageActions from '../../store/message';
 import Messages from './messages';
 
@@ -14,52 +14,55 @@ const MessageMain = () => {
 
   let { serverId, channelId } = useParams();
   console.log(serverId)
-  console.log(channelId )
+  console.log(channelId)
   const user = useSelector((state) => state.session.user);
   const server = useSelector((state) => state.server)
-  const messages = useSelector(state => state.message.messages[channelId])
+  const messages = useSelector(state => state.message)
   const msgCopy = [].concat(messages)
   const serverType = Object.values(server);
 
   const [chatInput, setChatInput] = useState('');
-  const [channelMessages, setChannelMessages] = useState([...msgCopy]);
+  // const [channelMessages, setChannelMessages] = useState([...msgCopy]);
   const [reload, setReload] = useState(false)
+  const channelMessages = Object.values(messages)
 
   const updateChatOutput = () => {
-    dispatch(messageActions.getMessages(channelId)).then((data) =>{
+    dispatch(messageActions.getMessages(channelId)).then((data) => {
       setChatInput('');
       const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
       console.log('These messages are sorted?', sortedChannelMessages)
-      setChannelMessages([...sortedChannelMessages])
+      // setChannelMessages([...sortedChannelMessages])
     });
   }
 
   useEffect(() => {
-    dispatch(messageActions.getMessages(channelId)).then((data) =>{
-
-      const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-      console.log('These messages are sorted?', sortedChannelMessages)
-      setChannelMessages([...sortedChannelMessages.reverse()])
-      return () => {
-        setChatInput('');;
-
-      };
-    })
-
+    dispatch(messageActions.getMessages(channelId))
     socket = io();
-    socket.emit('join', {channelId: channelId, username: user.username});
+    socket.emit('join', { channelId: channelId, username: user.username });
 
     socket.on('chat', (chat) => {
       // setChannelMessages((channelMessages) => [...channelMessages, chat]);
       // console.log();
       // dispatch(messageActions.createMessage(chat));
+      chat = JSON.parse(chat)
+      chat.updated_at = new Date()
+      chat.created_at = new Date()
       dispatch(messageActions.updateChannelMessagesAction(channelId, chat))
     });
 
     return () => {
       socket.disconnect();
+      dispatch(messageActions.clearMessagesAction());
     };
-  },[channelId]);
+  }, [dispatch, channelId]);
+
+  useEffect(() => {
+    if (latest.current) {
+
+      latest.current.scrollIntoView()
+      console.log('ref', latest.current)
+    }
+  })
 
   const updateChatInput = (e) => {
     e.preventDefault();
@@ -103,16 +106,16 @@ const MessageMain = () => {
     return <div ref={elementRef} ></div>;
   };
 
-  function gotoBottom(){
-    if(latest.current)
-    latest.current.scrollTop = latest.current.scrollHeight - latest.current.clientHeight;
- }
+  function gotoBottom() {
+    if (latest.current)
+      latest.current.scrollTop = latest.current.scrollHeight - latest.current.clientHeight;
+  }
 
   return (
     <>
 
 
-      <div className="messages_body__div" ref={latest} id='scrollyboi'>
+      <div className="messages_body__div" id='scrollyboi'>
         {/* {channelMessages &&
           channelMessages
           .map((message, index) => (
@@ -122,18 +125,18 @@ const MessageMain = () => {
             </div>
             ))
           .reverse()} */}
-        {channelMessages  ? (<div>
+        {channelMessages ? (<div>
           {channelMessages.map((message, index) => (
-            <div className="message__div">
-              <Messages props={{message, index, reload, setReload, channelMessages, setChannelMessages, serverId, channelId}} key={message} />
+            <div className="message__div" ref={latest}>
+              <Messages props={{ message, index, reload, setReload, channelMessages, serverId, channelId }} key={message} />
             </div>
           ))}
         </div>) :
-        (<div>
-          Loading....
-        </div>)}
+          (<div>
+            Loading....
+          </div>)}
 
-          <AlwaysScrollToBottom />
+        {/* <div ref={latest}/> */}
       </div>
 
       <form onSubmit={sendChat} className="chat_box">
@@ -144,7 +147,7 @@ const MessageMain = () => {
         />
       </form>
       <div className="chat_end" />
-    {  gotoBottom()}
+      {gotoBottom()}
     </>
   );
 };

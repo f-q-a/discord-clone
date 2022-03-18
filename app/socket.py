@@ -3,6 +3,7 @@ import os
 from datetime import date, datetime 
 from flask_socketio import SocketIO, emit, join_room, leave_room, send
 from .models import db, Message
+import json
 
 # create your SocketIO instance
 
@@ -41,14 +42,13 @@ def handle_chat(data):
     db.session.add(message)
     db.session.commit()
     print(message.to_dict())
-    chat_data = {
-        'username': data['username'],
-        'content': data['content'],
-        'created_at': str(datetime.now()),
-        'user_id': data['user_id']
-    }
+    chat_data = message.to_dict()
+    print('titties', chat_data['created_at'].time())
+    chat_data['created_at'] = chat_data['created_at'].time()
+    chat_data['updated_at'] = chat_data['updated_at'].time()
+    print(chat_data)
     room = str(data['channelId'])
-    emit("chat", chat_data, room=room)
+    emit("chat", json.dumps(chat_data, indent=4, sort_keys=True, default=str), room=room)
 
 @socketio.on('join')
 def on_join(data):

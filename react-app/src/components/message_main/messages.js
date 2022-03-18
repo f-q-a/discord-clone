@@ -5,6 +5,7 @@ import { deleteMessage } from '../../store/message';
 import EditMessage from './edit_message'
 import ReactMessage from './react_message'
 import logo from '../../images/discord-logo-transparent.png'
+import { Modal } from '../../context/Modal';
 
 function Messages({ props }) {
   const { message, index, reload, setReload, handleChange, channelMessages, setChannelMessages, serverId, channelId } = props;
@@ -12,8 +13,9 @@ function Messages({ props }) {
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
   const [editMessage, setEditMessage] = useState(false);
+  const [deleteMessage, setDeleteMessage] = useState(false)
   const [reactMessage, setReactMessage] = useState(false)
-  const [currMessage, setCurrMessage] = useState(message)
+  // const [message, setmessage] = useState(message)
   const timeNow = new Date();
   let messageDate, messageLocalTime, messageDay, messageMonth, messageHours, messageMinutes;
   if (message) {
@@ -30,13 +32,12 @@ function Messages({ props }) {
 
   const deletedMessage = (e) => {
     e.preventDefault();
-    console.log('WHAT IS CONTAINED HERE', message)
+
     dispatch(messageActions.deleteMessage(message))
     dispatch(messageActions.getMessages(channelId)).then((data) => {
       const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
       console.log('These messages are sorted?', sortedChannelMessages)
       setChannelMessages(sortedChannelMessages)
-      setCurrMessage("")
     })
   }
   // useEffect(() => {
@@ -124,25 +125,39 @@ function Messages({ props }) {
         <div> {/*  clasName="message_username_date__div" */}
           <span className="message_username__span">{`${message.username} `}</span>
           <span className="message_timestamp__span">
-            {timeConvert(Date.now() - new Date(message.created_at))} 
+            {timeConvert(Date.now() - new Date(message.created_at))}
             {/* {index} */}
           </span>
         </div>
-        {!editMessage ? <div className="message_content__div">{message.content}</div> : <EditMessage props = {{currMessage, channelMessages, closeEdit}} />}
+        {!editMessage ? <div className="message_content__div">{message.content}</div> : <EditMessage props={{ message, channelMessages, closeEdit }} />}
         {user.id === message.user_id && (<div className="message_context__div">
           <i
-            class="far fa-edit channel__icon"
+            class={!editMessage ? "far fa-edit channel__icon" : ""}
             onClick={(() => {
               if (reactMessage) {
                 setReactMessage(false)
               }
               setEditMessage(!editMessage);
             })}
-          ></i>
-          {/* {editMessage && <EditMessage props={{ currMessage, channelMessages }} />} */}
+          >{editMessage ? " X " : ""}</i>
+          {/* {editMessage && <EditMessage props={{ message, channelMessages }} />} */}
           <i class="far fa-trash-alt channel__icon"
-            onClick={deletedMessage}></i>
-        </div>)}
+            onClick={() => setDeleteMessage(!deleteMessage)}></i>
+          {deleteMessage && <Modal onClose={()=>setDeleteMessage(false)}><div>
+            <p>
+            Are you sure you want to delete this message?
+          </p>
+            <span className="message_timestamp__span">
+              {timeConvert(Date.now() - new Date(message.created_at))}
+              {/* {index} */}
+            </span>
+            <div className="message_content__div">{message.content}</div>
+            <button onClick={deletedMessage}>Yes</button>
+            <button onClick={() => setDeleteMessage(false)}>No</button>
+            </div>
+            </Modal>}
+        </div>)
+        }
       </>) : (
         <div>
           Loading...
