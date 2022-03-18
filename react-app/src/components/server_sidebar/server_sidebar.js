@@ -10,6 +10,7 @@ import { NavLink, Route, Switch } from "react-router-dom";
 import ChannelsList from "../server_channels/channels_list";
 import logo from '../../images/discord-logo-transparent.png'
 import Container from "./server_context_container";
+import PrivateMessagesList from "../private_messages/PrivateMessagesList";
 // import {authenticate} from "../../store/session"
 const separator = <div className="separator__div"></div>
 
@@ -50,7 +51,7 @@ const ServerSidebar = () => {
       </div>
       <Switch>
         <Route path='/channels/@me'>
-
+            <PrivateMessagesList />
         </Route>
         <Route path='/channels/:serverId' exact={false}>
           <ChannelsList />
