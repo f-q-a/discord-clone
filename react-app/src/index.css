@@ -276,9 +276,6 @@ div.active__div{
   height: 16px;
 }
 
-::-webkit-scrollbar-track {
-  background: #2E3338;
-}
 
 ::-webkit-scrollbar-thumb{
   background: #202225;
@@ -290,6 +287,11 @@ div.active__div{
 
 .user_list{
   grid-area: users_list;
+}
+
+.user_list > h3 {
+  margin-left: unset;
+  margin: 4px;
 }
 
 .user_status_bar {

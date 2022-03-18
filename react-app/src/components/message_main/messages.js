@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as messageActions from '../../store/message'
-import { deleteMessage } from '../../store/message';
 import EditMessage from './edit_message'
-import ReactMessage from './react_message'
 import logo from '../../images/discord-logo-transparent.png'
 import { Modal } from '../../context/Modal';
 

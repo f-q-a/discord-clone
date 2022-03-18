@@ -33,7 +33,7 @@ const ServerUsers = () => {
 
   return (
     <div className ="user_list">
-        <h1>ServerUsers:</h1>
+        <h3>Members:</h3>
         {list}
     </div>
   );

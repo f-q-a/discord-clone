@@ -11,6 +11,7 @@ import ChannelsList from "../server_channels/channels_list";
 import logo from '../../images/discord-logo-transparent.png'
 import Container from "./server_context_container";
 import PrivateMessagesList from "../private_messages/PrivateMessagesList";
+import ServerUsers from "../active_users_sidebar/active_users_sidebar";
 // import {authenticate} from "../../store/session"
 const separator = <div className="separator__div"></div>
 
@@ -55,6 +56,7 @@ const ServerSidebar = () => {
         </Route>
         <Route path='/channels/:serverId' exact={false}>
           <ChannelsList />
+          <ServerUsers />
         </Route>
       </Switch>
     </>
