@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory, useParams } from "react-router-dom";
+import { NavLink, Route, useHistory, useParams } from "react-router-dom";
 import * as messageActions from "../../store/message";
 import * as channelActions from "../../store/channel";
 import { Modal } from "../../context/Modal";
+import MessageMain from "../message_main/message_main";
 
 function NormalChannel({ channel }) {
   const channelRef = useRef();

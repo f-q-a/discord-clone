@@ -4,7 +4,8 @@ import NormalChannel from "./normal_server__channel";
 import * as messageActions from "../../store/message";
 import { useParams, useHistory, Link } from "react-router-dom";
 import * as channelActions from '../../store/channel';
-import { Redirect } from "react-router";
+import { Route } from "react-router-dom";
+import MessageMain from "../message_main/message_main";
 
 function ChannelsList() {
   const { serverId } = useParams();
@@ -117,7 +118,9 @@ function ChannelsList() {
             ))}
         </div>
       </div>
-
+      <Route path='/channels/:serverId/:channelId' exact={false}>
+        <MessageMain />
+      </Route>
     </>
   )
 }
