@@ -122,6 +122,7 @@ function ChannelsList() {
       </div>
       <Route path='/channels/:serverId/:channelId' exact={false}>
         <MessageMain />
+        
       </Route>
     </>
   )

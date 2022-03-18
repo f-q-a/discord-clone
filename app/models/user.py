@@ -26,6 +26,14 @@ class User(db.Model, UserMixin):
             "avatar_link": self.avatar_link,
             # "personal_server":  [server.to_dict() for server in self.servers if server.user_id==self.id and server.type == "Private"]
         }
+    def to_safe_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "avatar_link": self.avatar_link,
+            # "personal_server":  [server.to_dict() for server in self.servers if server.user_id==self.id and server.type == "Private"]
+        }
+        
 #if
     def get_servers(self):
         return [server.to_dict() for server in self.servers]

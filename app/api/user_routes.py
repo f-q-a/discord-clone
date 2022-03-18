@@ -9,14 +9,14 @@ user_routes = Blueprint('users', __name__)
 @login_required
 def users():
     users = User.query.all()
-    return {"users": [user.to_dict() for user in users]}
+    return {"users": [user.to_safe_dict() for user in users]}
 
 
 @user_routes.route('/<int:id>')
 @login_required
 def user(id):
     user = User.query.get(id)
-    return user.to_dict()
+    return user.to_safe_dict()
 
 @user_routes.route('/<int:id>', methods=['PUT'])
 def edit_user(id):
@@ -36,7 +36,7 @@ def edit_user(id):
             user.hashed_password = res['password']
         db.session.add(user)
         db.session.commit()
-        return user.to_dict()
+        return user.to_safe_dict()
 
 @user_routes.route('/<int:id>', methods=['DELETE'])
 def delete_user(id):
