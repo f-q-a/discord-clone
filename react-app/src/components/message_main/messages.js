@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as messageActions from '../../store/message'
 import { deleteMessage } from '../../store/message';
 import EditMessage from './edit_message'
@@ -9,12 +9,13 @@ function Messages({ props }) {
   const { message, index, reload, setReload, handleChange, channelMessages, setChannelMessages, serverId, channelId } = props;
 
   const dispatch = useDispatch()
+  const user = useSelector(state => state.session.user)
   const [editMessage, setEditMessage] = useState(false);
   const [reactMessage, setReactMessage] = useState(false)
   const [currMessage, setCurrMessage] = useState(message)
   const timeNow = new Date();
   let messageDate, messageLocalTime, messageDay, messageMonth, messageHours, messageMinutes;
-  if(message){
+  if (message) {
     messageDate = new Date(message.created_at);
     messageLocalTime = Date(message.created_at).toLocaleString();
     messageDay = messageDate.getDate();
@@ -30,13 +31,13 @@ function Messages({ props }) {
     e.preventDefault();
     console.log('WHAT IS CONTAINED HERE', message)
     dispatch(messageActions.deleteMessage(message))
-    dispatch(messageActions.getMessages(channelId)).then((data) =>{
-    const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-    console.log('These messages are sorted?', sortedChannelMessages)
-    setChannelMessages(sortedChannelMessages)
-    setCurrMessage("")
-  })
-}
+    dispatch(messageActions.getMessages(channelId)).then((data) => {
+      const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      console.log('These messages are sorted?', sortedChannelMessages)
+      setChannelMessages(sortedChannelMessages)
+      setCurrMessage("")
+    })
+  }
   useEffect(() => {
     dispatch(messageActions.getMessages(Number(channelId)))
   }, [dispatch])
@@ -117,29 +118,34 @@ function Messages({ props }) {
     <>
       {message ? (<>
         <div className="message_avatar__div">
-        <img className="message_avatar__img" src={`${message.user_avatar}`} />
-      </div>
-      <div> {/*  clasName="message_username_date__div" */}
-        <span className="message_username__span">{`${message.username} `}</span>
-        <span className="message_timestamp__span">
-          {timeConvert(Date.now() - new Date(message.created_at))}, {index}
-        </span>
-      </div>
-      <div className="message_content__div">{message.content}</div>
-      <div className="message_context__div">
-        <button onClick={(() => {
-          if (reactMessage) {
-            setReactMessage(false)
-          }
-          setEditMessage(!editMessage);
-        })}>EDIT</button>
-        {editMessage && <EditMessage props={{ currMessage, channelMessages }} />}
-        <button onClick={deletedMessage}>DELETE</button>
-      </div>
-      </>):(
-      <div>
-        Loading...
-      </div>)}
+          <img className="message_avatar__img" src={`${message.user_avatar}`} />
+        </div>
+        <div> {/*  clasName="message_username_date__div" */}
+          <span className="message_username__span">{`${message.username} `}</span>
+          <span className="message_timestamp__span">
+            {timeConvert(Date.now() - new Date(message.created_at))} 
+            {/* {index} */}
+          </span>
+        </div>
+        <div className="message_content__div">{message.content}</div>
+        {user.id === message.user_id && (<div className="message_context__div">
+          <i
+            class="far fa-edit channel__icon"
+            onClick={(() => {
+              if (reactMessage) {
+                setReactMessage(false)
+              }
+              setEditMessage(!editMessage);
+            })}
+          ></i>
+          {editMessage && <EditMessage props={{ currMessage, channelMessages }} />}
+          <i class="far fa-trash-alt channel__icon"
+            onClick={deletedMessage}></i>
+        </div>)}
+      </>) : (
+        <div>
+          Loading...
+        </div>)}
 
     </>
     // </div>

@@ -18,8 +18,6 @@ const MessageMain = () => {
   const user = useSelector((state) => state.session.user);
   const server = useSelector((state) => state.server)
   const messages = useSelector(state => state.message.messages[channelId])
-
-  console.log('These are our messages', messages)
   const msgCopy = [].concat(messages)
   const serverType = Object.values(server);
 
