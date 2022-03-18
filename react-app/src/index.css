@@ -45,6 +45,23 @@ a {
   background-color: #202225;
 }
 
+.private_server_icon {
+  height: 35px;
+  width: 36px;
+  /* background-color:#2F3136; */
+  background-color: transparent;
+  color: #F3FFFF;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  align-self: center;
+  justify-self: center;
+  position: relative;
+  /* left: 5px; */
+  font-size: 1.5rem;
+}
+
 .server_abbrev {
   justify-items: center;
   font-size: .6vw;
@@ -106,8 +123,27 @@ a {
   overflow-x: hidden;
 }
 
+.add_text_channel_paragraph {
+  cursor:pointer;
+  margin: 2px;
+  padding: 4px;
+}
+
+.individual_text_channel:hover {
+  background-color: #32353B
+}
+
+.add_text_channel_paragraph:hover {
+  background: #393C43;
+}
+
+.text_channels_paragraph {
+  font-size: smaller;
+  padding: 5px;
+}
+
 .normal_channel__div {
-  margin: 1px 8px;
+  margin: 3px 8px;
   padding: 5px 8px;
   border-radius: 3px;
 }

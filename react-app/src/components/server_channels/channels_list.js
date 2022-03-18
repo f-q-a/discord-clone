@@ -106,15 +106,15 @@ function ChannelsList() {
         <div className="server_title--channel_list__div">{server && `${server.name}`}</div>
         {/* {(user && user.id === server.user_id) ? (channelsList && */}
         <div className="text_channels channel_list__div">
+          <p className="text_channels_paragraph">Text Channels</p>
+          <span className="add_text_channel_paragraph" onClick={() => setCreateChannelState(!createChannelState)}>{createChannelState ? "Cancel" : "Add Channel"}</span>
+          {createChannelState && <CreateChannel props={{ createChannelState, setCreateChannelState }} />}
           {channelsList &&
             channelsList.map((channel, index) => (
               <div className="text_channels individual_text_channel">
                 <NormalChannel channel={channel} key={`channel_key__${channel.id}`} />
-                <button className='delete_channel__button' key={`button_key__${channel.name}`} onClick={(e) => deleteChannel(e, channel.id)}>Delete Channel</button>
               </div>
             ))}
-          <button onClick={() => setCreateChannelState(!createChannelState)}>New Channel?</button>
-          {createChannelState && <CreateChannel props={{ createChannelState, setCreateChannelState }} />}
         </div>
       </div>
 

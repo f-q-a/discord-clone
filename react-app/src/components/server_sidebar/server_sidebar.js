@@ -8,8 +8,11 @@ import ServerFormAddModal from "./server_modal_add"
 import { getServers } from "../../store/server"
 import { Route } from "react-router-dom";
 import ChannelsList from "../server_channels/channels_list";
+import logo from '../../images/discord-logo-transparent.png'
+import Container from "./server_context_container";
 // import {authenticate} from "../../store/session"
 const separator = <div className="separator__div"></div>
+
 
 const ServerSidebar = () => {
   const servers = useSelector((state) => state.server);
@@ -28,9 +31,12 @@ const ServerSidebar = () => {
   return (
     <>
       <div className="sidebar__container">
+
         <div className="sidebar__div">
-          <p>SIDEBAR CONTAINER</p>
-          {separator}
+          <Container>
+            <img className="private_server_icon" src={logo} />
+          </Container>
+          {/* {separator} */}
           {/* <PrivateServer /> */}
           {separator}
           {serversList.map((server, index) => (
@@ -40,7 +46,7 @@ const ServerSidebar = () => {
           <ServerFormAddModal />
         </div>
       </div>
-      <Route path='/channels/:serverId/'>
+      <Route path='/channels/:serverId' exact={false}>
         <ChannelsList />
       </Route>
     </>
