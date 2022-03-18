@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import '../css/contextmenu.css'
 import ServerFormModal from './server_modal_del_edi_form'
 
 
-const items = [
-    { text: "Add Friend" },
-    { text: "Edit Server Name" },
-    { text: "Delete Server" }
-]
 
 const ContextMenu = ({ parentRef, serverId }) => {
     const [Visible, setVisible] = useState(false)
     const [showModal, setShowModal] = useState(false);
     const [Y, setY] = useState(0)
+    const currentServer = useSelector(state => state.server[serverId])
+    const currentUser = useSelector(state => state.session.user)
+    let items = []
+    if (currentServer) {
+
+        currentServer.user_id === currentUser.id ? items = [
+            { text: "Add Friend" },
+            { text: "Edit Server Name" },
+            { text: "Delete Server" }
+        ] : items = [{ text: "Add Friend" }]
+    }
     const [X, setX] = useState(0)
 
     const closeMenu = (e) => {
