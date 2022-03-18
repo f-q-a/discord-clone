@@ -4,6 +4,7 @@ const CREATE_CHANNEL = "channel/CREATE_CHANNEL";
 const DELETE_CHANNEL = "channel/DELETE_CHANNEL";
 const ADD_CHANNEL = "channel/ADD_CHANNEL";
 const EDIT_CHANNEL = "channel/EDIT_CHANNEL";
+const CLEAR_CHANNELS = "'channel/CLEAR-CHANNELS'"
 
 export const getChannelsAction = (channels) => ({
   type: GET_ALL_CHANNELS,
@@ -36,6 +37,8 @@ const editChannelAction = (channelId, name) => ({
   channelId,
   name,
 });
+
+export const clearChannelsActions = () => ({type: CLEAR_CHANNELS})
 
 export const getChannels = (serverId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${serverId}`);
@@ -123,7 +126,8 @@ export default function reducer(state = initialState, action) {
       newStateChannels[action.channel.id] = action.channel
       newState.channels[action.channel.server_id] = newStateChannels
       return newState
-
+    case CLEAR_CHANNELS:
+      return {channels: {}}
     case DELETE_CHANNEL:
       newState = { ...state }
       delete newState.channels[action.serverId][action.channelId]

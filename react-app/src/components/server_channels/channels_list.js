@@ -23,7 +23,9 @@ function ChannelsList() {
 
   useEffect(() => {
     dispatch(channelActions.getChannels(serverId)).then(() => setChannelisloaded(true))
-    return () => setChannelisloaded(false)
+    return () => {
+      dispatch(channelActions.clearChannelsActions())
+    }
   }, [serverId])
 
 

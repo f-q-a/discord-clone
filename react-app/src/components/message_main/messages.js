@@ -4,6 +4,7 @@ import * as messageActions from '../../store/message'
 import { deleteMessage } from '../../store/message';
 import EditMessage from './edit_message'
 import ReactMessage from './react_message'
+import logo from '../../images/discord-logo-transparent.png'
 
 function Messages({ props }) {
   const { message, index, reload, setReload, handleChange, channelMessages, setChannelMessages, serverId, channelId } = props;
@@ -118,7 +119,7 @@ function Messages({ props }) {
     <>
       {message ? (<>
         <div className="message_avatar__div">
-          <img className="message_avatar__img" src={`${message.user_avatar}`} />
+          <img className="message_avatar__img" src={message.user_avatar ? message.user_avatar : logo} />
         </div>
         <div> {/*  clasName="message_username_date__div" */}
           <span className="message_username__span">{`${message.username} `}</span>
