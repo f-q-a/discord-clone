@@ -44,13 +44,13 @@ function App() {
   // bill test <NavBar />
   return (
     <BrowserRouter>
-      <Route path="/splash-page" exact={true}>
+      <Route path="/" exact={true}>
         <SplashPage setUrl={setUrl}/>
       </Route>
 
       { url.endsWith("page") ?  null : <div className="app__container">
 
-        <ProtectedRoute path="/">
+        <ProtectedRoute path="/channels">
           <MainApp />
           <SettingBar />
         </ProtectedRoute>

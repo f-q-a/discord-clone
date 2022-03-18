@@ -23,7 +23,6 @@ const ServerSidebarItem = ({server}) => {
       <Container serverId={server.id} className="sidebar_container__div">
         <NavLink
           className={`server_sidebar__link server_num${server.id}`}
-          exact
           to={`/channels/${server.id}`}
         >
           <div className='server_abbrev'>

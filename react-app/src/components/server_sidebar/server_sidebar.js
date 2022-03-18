@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import ContextMenu from "./server_context_menu";
 import ServerFormAddModal from "./server_modal_add"
 import { getServers } from "../../store/server"
-import { Route } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import ChannelsList from "../server_channels/channels_list";
 import logo from '../../images/discord-logo-transparent.png'
 import Container from "./server_context_container";
@@ -34,7 +34,9 @@ const ServerSidebar = () => {
 
         <div className="sidebar__div">
           <Container>
-            <img className="private_server_icon" src={logo} />
+            <NavLink to='/channels/@me'>
+              <img className="private_server_icon" src={logo} />
+            </NavLink>
           </Container>
           {/* {separator} */}
           {/* <PrivateServer /> */}
@@ -46,9 +48,14 @@ const ServerSidebar = () => {
           <ServerFormAddModal />
         </div>
       </div>
-      <Route path='/channels/:serverId' exact={false}>
-        <ChannelsList />
-      </Route>
+      <Switch>
+        <Route path='/channels/@me'>
+
+        </Route>
+        <Route path='/channels/:serverId' exact={false}>
+          <ChannelsList />
+        </Route>
+      </Switch>
     </>
   );
 };

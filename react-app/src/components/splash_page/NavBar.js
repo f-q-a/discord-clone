@@ -27,7 +27,7 @@ const OpenAppButton = ({setUrl}) => {
   const history =useHistory()
   const redirect = () => {
     setUrl(" ")
-    history.push('/')
+    history.push('/channels/@me')
 
     }
 
