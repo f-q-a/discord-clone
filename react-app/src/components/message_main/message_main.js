@@ -50,9 +50,10 @@ const MessageMain = () => {
     socket.emit('join', {channelId: channelId, username: user.username});
 
     socket.on('chat', (chat) => {
-      setChannelMessages((channelMessages) => [...channelMessages, chat]);
+      // setChannelMessages((channelMessages) => [...channelMessages, chat]);
       // console.log();
       // dispatch(messageActions.createMessage(chat));
+      dispatch(messageActions.updateChannelMessagesAction(channelId, chat))
     });
 
     return () => {
@@ -69,13 +70,14 @@ const MessageMain = () => {
     e.preventDefault();
     socket.emit('chat', {
       "user": user,
+      "user_id": user.id,
       "content": chatInput,
       "channelId": channelId,
       "user_avatar": user.avatar_link,
       "username": user.username,
       "created_at": Date(),
     });
-    dispatch(messageActions.createMessage(channelId, chatInput));
+    // dispatch(messageActions.createMessage(channelId, chatInput));
     setChatInput("")
     // setChannelMessages("")
     setReload(true)

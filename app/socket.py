@@ -35,7 +35,7 @@ def handle_chat(data):
     print('```data```', data)
     message = Message(**{
         'user_id': data['user_id'],
-        'chat_id': data['chat_id'],
+        'channel_id': data['channelId'],
         'content': data['content'],
     })
     db.session.add(message)
@@ -47,7 +47,7 @@ def handle_chat(data):
         'created_at': str(datetime.now()),
         'user_id': data['user_id']
     }
-    room = str(data['chat_id'])
+    room = str(data['channelId'])
     emit("chat", chat_data, room=room)
 
 @socketio.on('join')

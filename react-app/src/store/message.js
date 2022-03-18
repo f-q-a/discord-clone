@@ -5,12 +5,19 @@ const CREATE_MESSAGE = "message/CREATE_MESSAGE"
 const DELETE_MESSAGE = "message/DELETE_MESSAGE"
 const ADD_MESSAGE = "message/ADD_MESSAGE"
 const EDIT_MESSAGE = "message/EDIT_MESSAGE"
+const UPDATE_CHANNEL_MESSAGES = "messages/CHAT_RECIEVED"
 
 const getMessagesAction = (channelId, messages) => ({
     type: GET_ALL_MESSAGES,
     channelId,
     messages
 
+})
+
+export const updateChannelMessagesAction = (channelId, message) => ({
+    type : UPDATE_CHANNEL_MESSAGES,
+    channelId,
+    message
 })
 
 const createMessageAction = (message) => ({
@@ -155,6 +162,10 @@ export default function reducer(state = initialState, action) {
             // let temp = {...newState, messages: {msgArr}}
             // console.log(temp)
             return newState
+        case UPDATE_CHANNEL_MESSAGES:
+            newState = {...state}
+            newState.messages[action.channelId] = [...state.messages[action.channelId], action.message]
+            return newState;
         default:
             return state;
     }
