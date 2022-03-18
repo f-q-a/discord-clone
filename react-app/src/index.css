@@ -99,6 +99,13 @@ a {
   justify-content: space-between;
 }
 
+.server_title--channel_list__div {
+  margin: 2px;
+  font-weight: bold;
+  color: white;
+  overflow-x: hidden;
+}
+
 .normal_channel__div {
   margin: 1px 8px;
   padding: 5px 8px;
