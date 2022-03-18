@@ -43,9 +43,6 @@ export const getServers = () => async (dispatch) => {
         return;
     }
     dispatch(getServersAction(data.servers))
-    data.servers.forEach(server => {
-        dispatch(ChannelActions.getServerChannels(server.id, server.channels))
-    })
     return data.servers;
 }
 

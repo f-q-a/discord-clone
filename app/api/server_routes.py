@@ -6,12 +6,9 @@ server_routes = Blueprint('servers', __name__)
 
 @server_routes.route('/')
 def getting_servers():
-    userId = int(current_user.id)
-    serverObjects = db.session.query(Server).all()
-
-    servers = [servers.to_dict() for servers in serverObjects]
-
-    return {'servers':servers}
+    user_id = int(current_user.id)
+    user = User.query.get(user_id)
+    return {'servers': user.get_servers()}
 
 
 @server_routes.route('/', methods=['POST'])
@@ -106,11 +103,11 @@ def add_server_users(serverId):
     else:
         return{'errors':["Not A Valid User"]}
     
-@server_routes.route('/user')
-@login_required
-def self_servers():
-    user_id = int(current_user.id)
-    user = User.query.get(user_id)
-    return {'servers': user.get_servers()}
+# @server_routes.route('/user')
+# @login_required
+# def self_servers():
+#     user_id = int(current_user.id)
+#     user = User.query.get(user_id)
+#     return {'servers': user.get_servers()}
 
     #send back the server and channel to update state maybe
