@@ -111,7 +111,7 @@ export const editUser = ({userId,username,email,image,password,repeatPassword}) 
     if (data && data.errors){
         return data
     } else {
-        dispatch(setUser(data.users))
+        // dispatch(setUser(data.users))
     }
 }
 
