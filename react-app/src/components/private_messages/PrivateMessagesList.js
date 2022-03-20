@@ -7,7 +7,7 @@ export default function PrivateMessagesList(){
         {/* {(user && user.id === server.user_id) ? (channelsList && */}
         <div className="text_channels channel_list__div">
           <p className="text_channels_paragraph">Feature coming soon!</p>
-          <p className="text_channels_paragraph">In the mean time, choose a server on the left to get started</p>
+          <p className="text_channels_paragraph">In the mean time, choose a server on the left or create a new one to get started</p>
           
         </div>
       </div>
