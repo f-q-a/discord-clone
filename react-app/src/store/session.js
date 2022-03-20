@@ -57,9 +57,8 @@ export const login = (email, password) => async (dispatch) => {
         return data;
     } else {
         dispatch(setUser(data))
-        return {}
+        return data
     }
-
 }
 
 export const logout = () => async (dispatch) => {

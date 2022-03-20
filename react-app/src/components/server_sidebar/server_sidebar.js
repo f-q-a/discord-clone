@@ -35,11 +35,15 @@ const ServerSidebar = () => {
       <div className="sidebar__container">
 
         <div className="sidebar__div">
-          <Container>
-            <NavLink to='/channels/@me'>
-              <img className="private_server_icon" src={logo} />
-            </NavLink>
-          </Container>
+          <div className="sidebar_item__div">
+            <Container>
+              <NavLink to='/channels/@me'>
+                <img className="private_server_icon" src={logo} />
+                <div className='current_active_pip__div' />
+              </NavLink>
+            </Container>
+            <div className='active_pip__div' />
+          </div>
           {/* {separator} */}
           {/* <PrivateServer /> */}
           {separator}
@@ -52,7 +56,7 @@ const ServerSidebar = () => {
       </div>
       <Switch>
         <Route path='/channels/@me'>
-            <PrivateMessagesList />
+          <PrivateMessagesList />
         </Route>
         <Route path='/channels/:serverId' exact={false}>
           <ChannelsList />

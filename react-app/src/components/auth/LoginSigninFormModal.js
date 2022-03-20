@@ -5,10 +5,14 @@ import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm'
 // import './LoginFormModal.css';
 import "../css/navigation.css"
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function LoginFormModal() {
   const [showModal, setShowModal] = useState(false);
   const [formState, setformState] = useState(true);
+  const user = useSelector(state => state.session.user)
+  const history = useHistory()
 //   if (sessionUser) return <Redirect to="/" />;
   const toLogin = async (e) => {
     setformState(true);
@@ -18,9 +22,14 @@ function LoginFormModal() {
     setformState(false)
   };
 
+  function loginButtonAction(){
+    if (user) history.push('/channels/@me')
+    else setShowModal(true)
+  }
+
   return (
     <>
-      <button className="LoginButton button" onClick={() => setShowModal(true)}>Log In</button>
+      <button className="LoginButton button" onClick={loginButtonAction}>Log In</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           {formState ?
