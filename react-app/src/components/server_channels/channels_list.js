@@ -22,6 +22,11 @@ function ChannelsList() {
   const channelsList = Object.values(channelsState)
 
   useEffect(() => {
+    const lastChannel = localStorage.getItem(serverId)
+    if (lastChannel) history.push(`/channels/${serverId}/${lastChannel}`)
+  }, [serverId])
+
+  useEffect(() => {
     dispatch(channelActions.getChannels(serverId)).then(() => setChannelisloaded(true))
     return () => {
       dispatch(channelActions.clearChannelsActions())
@@ -122,7 +127,7 @@ function ChannelsList() {
       </div>
       <Route path='/channels/:serverId/:channelId' exact={false}>
         <MessageMain />
-        
+
       </Route>
     </>
   )

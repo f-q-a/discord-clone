@@ -35,6 +35,10 @@ const MessageMain = () => {
     });
   }
 
+  useEffect(()=>{
+    localStorage.setItem(serverId, channelId)
+  },[channelId])
+
   useEffect(() => {
     dispatch(messageActions.getMessages(channelId))
     socket = io();

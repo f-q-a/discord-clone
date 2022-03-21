@@ -15,7 +15,7 @@ const NavBar = ({ setUrl }) => {
   const history = useHistory()
 
   function redirect() {
-    if (user) history.pushState('/channels/@me')
+    if (user) history.push('/channels/@me')
     else {
       setError("You must log in before app can open!")
       setTimeout(() => {
