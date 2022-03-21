@@ -18,14 +18,11 @@ function NormalChannel({ channel }) {
   //   dispatch(messageActions.getMessages(channel.id));
   // }, [serverId]);
 
-  function EditChannel({ props }) {
+  function EditChannel({ channel }) {
     const { serverId } = useParams();
-    const { channelId } = props;
     const channelLink = document.getElementById(`channel_${channelId}`);
 
-    const currServer = useSelector((state) => state.channel.channels[serverId]);
-    const currChannel = currServer[channelId];
-    const [channelName, setChannelName] = useState(currChannel.name);
+    const [channelName, setChannelName] = useState(channel.name);
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -33,7 +30,7 @@ function NormalChannel({ channel }) {
     const handleSubmit = (e) => {
       e.preventDefault();
       let newErrors = [];
-      dispatch(channelActions.editChannel({ id: channelId, name: channelName }))
+      dispatch(channelActions.editChannel({ id: channel.id, name: channelName }))
         .then(() => {
           channelRef.current.innerText = `# ${channelName}`;
           setChannelName("");
@@ -46,7 +43,6 @@ function NormalChannel({ channel }) {
             setErrors(newErrors);
           }
         });
-      history.push(`/@me/${serverId}/${channelId}`);
     };
 
     return (
@@ -104,7 +100,7 @@ function NormalChannel({ channel }) {
             onClick={() => setShowModal(!showModal)}></i>
         </span>
       </div>
-      {editChannel && <EditChannel props={{ channelId: channel.id }} />}
+      {editChannel && <EditChannel channel={channel} />}
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           Are you sure you want to delete this channel? This action is permanent and destroys all messages that have been sent to this channel.

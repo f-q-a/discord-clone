@@ -13,7 +13,7 @@ function ChannelsList() {
   const history = useHistory();
   const server = useSelector(state => state.server[serverId])
   let user = useSelector(state => state.session.user)
-  let channelsState = useSelector((state) => state.channel.channels);
+  let channelsState = useSelector((state) => state.channel);
   const [createChannelState, setCreateChannelState] = useState(false)
   const [channelCreated, setChannelCreated] = useState(false)
   const [channelDeleted, setChannelDeleted] = useState(false)
