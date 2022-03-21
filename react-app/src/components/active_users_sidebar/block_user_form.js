@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import React from "react";
+import { useDispatch,  } from "react-redux";
+// import {  useHistory } from "react-router-dom";
 import { blockRelationship } from '../../store/relationship'
 
 const BlockUserForm = ({user, setShowModal}) => {
-  const history = useHistory()
+  // const history = useHistory()
   const dispatch = useDispatch();
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
 
   const onBlock = async (e) => {
     e.preventDefault();

@@ -1,45 +1,26 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { editUser } from '../../store/session'
 
 const UserEditForm = () => {
   const history = useHistory()
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
-  const [userId, setUserId] = useState(user.id);
+  // const [userId, setUserId] = useState(user.id);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState(null);
-  const [imageLoading, setImageLoading] = useState(false);
+  // const [imageLoading, setImageLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
 
   const onProfileEdit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("avatar_link", image);
-    setImageLoading(true);
-    const res = await fetch('/api/avatar', {
-      method: "POST",
-      body: formData,
-    });
-
-    if (res.ok) {
-      const response = await res.json();
-      setImageLoading(false);
-      const data = await dispatch(editUser(userId, username, email, response["url"], password, repeatPassword));
-      if (data && data.errors) {
-      setErrors(data.errors)
-    }
-
-    } else {
-      setImageLoading(false);
-      // a real app would probably use more advanced
-      // error handling
-    }
-    history.push(`/@me`);
+    const data = await dispatch(editUser({ userId: user.id, username, email, password, repeatPassword, image }));
+    if (data.errors) setErrors(data.errors)
+    history.push(`/channels/@me`);
   }
 
   const updateUsername = (e) => {
@@ -122,7 +103,7 @@ const UserEditForm = () => {
         </div>
         <div className="create">
           <button className="server-button" type="submit">Submit</button>
-          {(imageLoading) && <p>Loading...</p>}
+          {/* {(imageLoading) && <p>Loading...</p>} */}
         </div>
       </form>
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { addServerUsers } from '../../store/serveruser'
 import "../css/server_add_form.css";
 const ServerAddUserForm = ({serverId}) => {
@@ -13,7 +13,7 @@ const ServerAddUserForm = ({serverId}) => {
     const onServerInvite = async (e) => {
         e.preventDefault();
         const data = await dispatch(addServerUsers(serverId, name));
-        console.log("frontend______",data)
+        // console.log("frontend______",data)
         if (data.errors) {
             setErrors(data.errors);
         }

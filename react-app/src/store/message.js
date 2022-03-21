@@ -5,6 +5,8 @@ const CREATE_MESSAGE = "message/CREATE_MESSAGE"
 const DELETE_MESSAGE = "message/DELETE_MESSAGE"
 const ADD_MESSAGE = "message/ADD_MESSAGE"
 const EDIT_MESSAGE = "message/EDIT_MESSAGE"
+const UPDATE_CHANNEL_MESSAGES = "messages/CHAT_RECIEVED"
+const CLEAR_MESSAGES = "message/CLEAR_MESSAGES"
 
 const getMessagesAction = (channelId, messages) => ({
     type: GET_ALL_MESSAGES,
@@ -13,14 +15,20 @@ const getMessagesAction = (channelId, messages) => ({
 
 })
 
+export const updateChannelMessagesAction = (channelId, message) => ({
+    type : UPDATE_CHANNEL_MESSAGES,
+    channelId,
+    message
+})
+
 const createMessageAction = (message) => ({
     type: CREATE_MESSAGE,
     message
 })
 
-export const deleteMessageAction = (message) => ({
+export const deleteMessageAction = (id) => ({
     type: DELETE_MESSAGE,
-    message
+    id
 })
 
 export const addMessageAction = (message) => ({
@@ -32,6 +40,8 @@ export const editMessageAction = (message) => ({
     type: EDIT_MESSAGE,
     message
 })
+
+export const clearMessagesAction = () => ({type:CLEAR_MESSAGES})
 
 export const getMessages = (channelId) => async (dispatch) => {
     const response = await fetch(`/api/messages/${channelId}`)
@@ -54,7 +64,7 @@ export const createMessage = (channelId, content) => async (dispatch) => {
 
 
     const data = await response.json();
-    console.log('hello from create message', data)
+    // console.log('hello from create message', data)
     if (data.errors) {
         return data;
     }
@@ -64,19 +74,19 @@ export const createMessage = (channelId, content) => async (dispatch) => {
 
 
 export const deleteMessage = (message) => async (dispatch) => {
-    console.log('WHEN I ARRIVE', message)
+    // console.log('WHEN I ARRIVE', message)
     const response = await fetch(`/api/messages/${message.id}`, {
         method: 'DELETE',
     });
     const data = await response.json();
-    console.log('BEFORE I LEAVE', data)
-    dispatch(deleteMessageAction(data))
+    // console.log('BEFORE I LEAVE', data)
+    dispatch(deleteMessageAction(message.id))
     return data
 
 }
 
 export const editMessage = (message) => async(dispatch) =>{
-    console.log('ARE WE EVER REACHING THIS PART?', message)
+    // console.log('ARE WE EVER REACHING THIS PART?', message)
     const response = await fetch(`/api/messages/${message.id}`, {
         method: 'PUT',
         headers: {
@@ -92,69 +102,52 @@ export const editMessage = (message) => async(dispatch) =>{
     return {};
 }
 
-const NormalizeMessage = (messages) => {
-    const normMessage = {}
-    messages.forEach(message => {
-        normMessage[message.id] = message
-    })
-    return normMessage
-}
+// const NormalizeMessage = (messages) => {
+//     const normMessage = {}
+//     messages.forEach(message => {
+//         normMessage[message.id] = message
+//     })
+//     return normMessage
+// }
 
 const initialState = { messages: {} }
 
 export default function reducer(state = initialState, action) {
     let newState
     let newArr
-    let elementsIndex
+    // let elementsIndex
     switch (action.type) {
         case GET_ALL_MESSAGES:
-            newState = {...state}
-            newState.messages[action.channelId] = action.messages
-            return {...state, messages: newState.messages}
+            newState = {}
+            
+            action.messages.forEach(message => newState[message.id] = message)
+            return newState
         case CREATE_MESSAGE:
             newState = { ...state }
             newArr = [].concat(newState.messages[action.message.channel_id])
             newArr.push(action.message);
             newState.messages[action.message.channel_id] = newArr
             // thunk action not working, may be unnecessary
-            console.log('WHATS HANNENIN', newState)
+            // console.log('WHATS HANNENIN', newState)
             return {...state, messages: newState.messages}
         case DELETE_MESSAGE:
-            newState = { ...state }
-            let tempArr = newState.messages[action.message.channel_id]
-            console.log('WHAT THE HELL IS THIS', tempArr);
-            elementsIndex = tempArr.findIndex(element => element.id == action.message.id)
-            newArr = [].concat(newState.messages[action.message.channel_id]);
-            newArr.splice(elementsIndex, 1);
-            newState.messages[action.message.channel_id] = newArr;
-            console.log('Are we reaching this?')
-            return {...state, messages: newState.messages}
-            console.log('Test Number 4', newState.messages[action.message.channel_id][action.message.id])
-            //
-            // if (elementsIndex !== -1){
-            //     let newMessageArr = tempArr.splice(elementsIndex, 1)
-
-            //     return newState;
-            // }else{
-            //     return newState;
-            // }
+            newState = {...state}
+            delete newState[action.id]
             return newState;
         case ADD_MESSAGE:
-            newState = { messages: { ...state.messages } }
-            newState.messages[action.message.id] = action.message
-            newState.messages[action.message.channel_id][elementsIndex].content = action.message.content;
+            newState = { ...state }
+            newState[action.channelId] = {...state[action.channelId], [action.message.id]:action.message}
             return newState;
         case EDIT_MESSAGE:
-            newState = { messages: { ...state.messages } }
-            console.log('HERE IS THE MESSAGE LIST ====>', newState.messages[action.message.channel_id])
-            elementsIndex = newState.messages[action.message.channel_id].findIndex(element => element.id == action.message.id)
-            console.log('THIS IS ELEMENTS INDEX=======>', elementsIndex);
-            newState.messages[action.message.channel_id][elementsIndex].content = action.message.content;
-            console.log(newState.messages[action.message.channel_id][elementsIndex]);
-
-            // let temp = {...newState, messages: {msgArr}}
-            // console.log(temp)
-            return newState
+            newState = {...state}
+            newState[action.message.id] = action.message
+            return newState;
+        case UPDATE_CHANNEL_MESSAGES:
+            newState = { ...state }
+            newState[action.message.id] = action.message;
+            return newState;
+        case CLEAR_MESSAGES:
+            return {}
         default:
             return state;
     }

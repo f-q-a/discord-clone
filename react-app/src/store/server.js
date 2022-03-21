@@ -1,4 +1,4 @@
-import { createChannelAction } from './channel'
+// import { createChannelAction } from './channel'
 import * as ChannelActions from './channel'
 
 const GET_ALL_SERVERS = "server/GET_ALL_SERVERS"
@@ -43,9 +43,6 @@ export const getServers = () => async (dispatch) => {
         return;
     }
     dispatch(getServersAction(data.servers))
-    data.servers.forEach(server => {
-        dispatch(ChannelActions.getServerChannels(server.id, server.channels))
-    })
     return data.servers;
 }
 
@@ -118,23 +115,16 @@ export default function reducer(state = initialState, action) {
     let newState
     switch (action.type) {
         case GET_ALL_SERVERS:
-            return { servers: NormalizeServer(action.payload) }
+            return NormalizeServer(action.payload)
         case CREATE_SERVER:
             newState = { servers: { ...state.servers } }
             newState.servers[action.payload.id] = action.payload
             return newState
         case DELETE_SERVER:
-
-            // newState = { servers: { ...state.servers } }
-            // delete newState.servers[action.payload]
-            // console.log("STATE__________",{...state,servers:newState})
-            // console.log("STATE__________2",{newState})
-            // return newState
-
             newState= {...state.servers}
             delete newState[action.payload]
-            console.log("STATE__________",{...state,servers:newState})
-            console.log("STATE__________2",{newState})
+            // console.log("STATE__________",{...state,servers:newState})
+            // console.log("STATE__________2",{newState})
             return {...state,servers:newState}
         case ADD_SERVER:
             newState = { servers: { ...state.servers } }

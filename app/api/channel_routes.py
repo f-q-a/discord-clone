@@ -15,6 +15,11 @@ def create_channel():
     return channel.to_dict()
 
 
+@channel_routes.route('/<int:id>', methods=['GET'])
+def get_server_channels(id):
+    channels = db.session.query(Channel).filter(Channel.server_id == id)
+    return {"channels": [channel.to_dict() for channel in channels]}
+
 @channel_routes.route('/<int:id>', methods=['DELETE'])
 def delete_channel(id):
     channel = db.session.query(Channel).get(id)

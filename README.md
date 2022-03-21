@@ -35,26 +35,19 @@ Redux also stores and sets information about the user. By managing this state in
 
 Redux also allows for a lot of extendibility if new features are to be implemented (additional feature wish-list discussed in conclusion).
 
-## Google Maps Javascript API
-The Google Maps Javascript API is absolutely essential to this project. Basically the entire frontend is built on top of the Google Maps API via the react-google-maps library. All artist information is rendered on a Google Map component as pins, and then displayed in custom stylized Infobox components.
-
-The API has a truly robust feature set, of which this application just scratched the surface. However, with its scope also lie many bugs and other issues. Of particular pain throughout the development, were the Pins and Infobox components. For instance, to render the artist information on mobile devices, it required forgoing the Infobox component associated with the Pin of the large-screen version in favor of a different component positioned to the bottom of the screen. This change was necessary because the Infobox component has to have static position, while the mobile styling required positioning relative to the device window for easy use on smaller screen size.
-
 ## Backend Overview
 Discord Clone uses an Express server with MongoDB as the database. Compared to the frontend, the backend of Discord Clone is fairly simple, with the server sending the front end to the client, receiving requests, and sending data to the frontend. Below are the backend technologies used with some notes regarding their implementation.
 
 ### Backend Technologies Used
-#### ExpressJS
-Express was the natural choice for Discord Clone's server-side framework. The minimalism of Express lent itself to the very light-weight responsibilities of Discord Clone's server. The server is just a couple of routes and a connection to the database, with a few utilities to facilitate this.
+#### Flask
+Flask was the natural choice for Discord Clone's server-side framework. The minimalism of Flask lent itself to the very light-weight responsibilities of Discord Clone's server. The server is just a couple of routes and a connection to the database, with a few utilities to facilitate this.
 
 ### Conclusion and Next Steps
-Time to break the 4th wall. Discord Clone was a ton of fun to build.  It was an amazing experience getting to combine something we use in real life with my newer passion for coding.
+Time to break the 4th wall. Discord Clone was a ton of fun to build.  It was an amazing experience getting to combine something we use in real life with our newer passion for coding.
 
 This also marks the first time that We had built a fullstack app in this stack, and use the context menus, websockets, and AWS. Discord Clone has been an incredibly rewarding to create.
 
 While making Discord Clone, We got to play with a whole bunch of new technologies and get better at even more. At the beginning of the project, We had only learned React 2 weeks previous, and Redux 1 week before. I've come out of it stronger with both, and eager to continue getting better with React and creating cool stuff with the many amazing libraries and technologies of the React ecosystem.
-
-This was also my first time using Postgres. We found it and the full Postgres, Flask, React, Node stack very smooth and well integrated, and now understand why it's so popular. We look forward to learning more about Postgre and build projects that have more robust backends than Discord Clone using it.
 
 Next Steps: Next steps for Discord Clone may be found in the project todo list, where you can also find a somewhat exhaustive list of the tasks of the project development. And if you want to support this project financially, please make a contribution to Black Lives Matter instead.
 

@@ -5,12 +5,12 @@ import ActiveUserFormModal from './userlist_modal'
 
 const items = [
     { text: "Add Friend"},
-    { text: "Block Friend"},
+    { text: "Block User"},
   ]
 
 const ContextMenu = ({parentRef, user}) => {
     const [Visible, setVisible] = useState(false)
-    const [showModal, setShowModal] = useState(false);
+    // const [showModal, setShowModal] = useState(false);
     const [Y, setY] = useState(0)
     const [X, setX] = useState(0)
     useEffect(()=>{

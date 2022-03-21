@@ -11,6 +11,7 @@ message_routes = Blueprint('messages', __name__)
 def get_messages(id):
     messages = db.session.query(Message).filter(Message.channel_id == id).all()
     result = [message.to_dict() for message in messages]
+    print("PPEEPPPEEEE", result)
     return {'messages':result}
 
 @message_routes.route('/', methods=['POST'])

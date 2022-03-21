@@ -13,7 +13,7 @@ function SettingsBarModal() {
 
   return (
     <>
-        <img className="settingbar_icon" src={setting}  onClick={() => setShowModal(true)}></img>
+        <img className="settingbar_icon" alt='gear' src={setting}  onClick={() => setShowModal(true)}></img>
         {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <UserEditForm />

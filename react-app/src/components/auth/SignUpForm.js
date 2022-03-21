@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import "../css/LoginLogoutForm.css"
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user)
+  const history = useHistory();
+  // const user = useSelector(state => state.session.user)
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState([]);
@@ -19,7 +20,8 @@ const SignUpForm = () => {
       const data = await dispatch(signUp(username, email, password));
       if (data.errors) {
         setErrors(data.errors);
-      }
+      } else history.push('/channels/me')
+
     }
   };
 

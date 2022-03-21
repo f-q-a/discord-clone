@@ -7,12 +7,12 @@ import * as channelActions from '../../store/channel'
 
 function EditChannel() {
   const { channelId, serverId } = useParams()
-  const currServerChannels = useSelector(state => {
-    const temp = state.channel.channels[serverId]
-    return temp
-  });
+  // const currServerChannels = useSelector(state => {
+  //   const temp = state.channel.channels[serverId]
+  //   return temp
+  // });
 
-  console.log('Am I doing this right?', currServerChannels);
+  // console.log('Am I doing this right?', currServerChannels);
 
   const [channelName, setChannelName] = useState("");
   const [errors, setErrors] = useState([]);
@@ -25,7 +25,7 @@ function EditChannel() {
     return dispatch(channelActions.editChannel({id: channelId, name: channelName, server_id: serverId}))
       .then((data) => {
 
-        console.log('what will I find here?', data)
+        // console.log('what will I find here?', data)
         setChannelName("");
         history.push(`/@me/${serverId}/${channelId}`)
       })

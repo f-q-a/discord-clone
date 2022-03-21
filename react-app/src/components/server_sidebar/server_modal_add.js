@@ -8,9 +8,9 @@ function ServerFormAddModal({item, serverId}) {
 
   return (
     <>
-      <a className="server_create__button" onClick={() => setShowModal(true)}>
+      <div clbuttonssName="server_create__button" onClick={() => setShowModal(true)}>
         <div className="server_create__container">+</div>
-      </a>
+      </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <ServerAddForm serverId={serverId} />

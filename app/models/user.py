@@ -1,7 +1,7 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
+# from app.models import ServerUser
 
 class User(db.Model, UserMixin):
 
@@ -13,8 +13,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(100), nullable=False)
     avatar_link = db.Column(db.String(200))
 
-    servers = db.relationship('Server', secondary='server_users', back_populates='users', cascade="all,delete")
-    memberships = db.relationship('ServerUser', back_populates='users')
+    servers = db.relationship('Server', secondary="server_users", back_populates='users', cascade="all,delete")
+    owned_servers = db.relationship('Server', back_populates='owner')
 
 
     def to_dict(self):
@@ -24,9 +24,20 @@ class User(db.Model, UserMixin):
             "email": self.email,
             "hashed_password": self.hashed_password,
             "avatar_link": self.avatar_link,
-            "personal_server":  [server.to_dict() for server in self.servers if server.user_id==self.id and server.type == "Private"]
+            # "personal_server":  [server.to_dict() for server in self.servers if server.user_id==self.id and server.type == "Private"]
         }
+    def to_safe_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "avatar_link": self.avatar_link,
+            # "personal_server":  [server.to_dict() for server in self.servers if server.user_id==self.id and server.type == "Private"]
+        }
+        
 #if
+    def get_servers(self):
+        return [server.to_dict() for server in self.servers]
+    
     @property
     def password(self):
         return self.hashed_password

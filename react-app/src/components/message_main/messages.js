@@ -1,22 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as messageActions from '../../store/message'
-import { deleteMessage } from '../../store/message';
 import EditMessage from './edit_message'
-import ReactMessage from './react_message'
+import logo from '../../images/discord-logo-transparent.png'
+import { Modal } from '../../context/Modal';
 
 function Messages({ props }) {
-  const { message, index, reload, setReload, handleChange, channelMessages, setChannelMessages, serverId, channelId } = props;
+  const { message, channelMessages } = props;
 
   const dispatch = useDispatch()
+  const user = useSelector(state => state.session.user)
   const [editMessage, setEditMessage] = useState(false);
+  const [deleteMessage, setDeleteMessage] = useState(false)
   const [reactMessage, setReactMessage] = useState(false)
-  const [currMessage, setCurrMessage] = useState(message)
   const timeNow = new Date();
-  let messageDate, messageLocalTime, messageDay, messageMonth, messageHours, messageMinutes;
-  if(message){
+  let messageDate, messageDay, messageMonth, messageHours, messageMinutes;
+  if (message) {
     messageDate = new Date(message.created_at);
-    messageLocalTime = Date(message.created_at).toLocaleString();
     messageDay = messageDate.getDate();
     messageMonth = messageDate.getMonth();
     messageHours = messageDate.getHours();
@@ -28,18 +28,8 @@ function Messages({ props }) {
 
   const deletedMessage = (e) => {
     e.preventDefault();
-    console.log('WHAT IS CONTAINED HERE', message)
-    dispatch(messageActions.deleteMessage(message))
-    dispatch(messageActions.getMessages(channelId)).then((data) =>{
-    const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-    console.log('These messages are sorted?', sortedChannelMessages)
-    setChannelMessages(sortedChannelMessages)
-    setCurrMessage("")
-  })
-}
-  useEffect(() => {
-    dispatch(messageActions.getMessages(Number(channelId)))
-  }, [dispatch])
+    dispatch(messageActions.deleteMessage(message)).then(()=>setDeleteMessage(false))
+  }
 
   function monthParse(monthNum) {
     switch (monthNum) {
@@ -67,18 +57,20 @@ function Messages({ props }) {
         return 'November';
       case 12:
         return 'December';
+      default:
+        return 'Unsure of month'
     }
   }
 
 
-  function timeConvert(time) {
-    const seconds = parseInt(time / 1000);
-    const minutes = parseInt(time / (1000 * 60));
-    const hours = parseInt(time / (1000 * 60 * 60));
-    const days = parseInt(time / (1000 * 60 * 60 * 24));
+  function timeConvert() {
+    // const seconds = parseInt(time / 1000);
+    // const minutes = parseInt(time / (1000 * 60));
+    // const hours = parseInt(time / (1000 * 60 * 60));
+    // const days = parseInt(time / (1000 * 60 * 60 * 24));
     const month = monthParse(messageMonth);
-    let date;
     let meridian;
+    let date
     if (messageMonth === timeNow.getMonth() && messageDay === timeNow.getDate())
       date = 'Today';
     else if (
@@ -95,10 +87,6 @@ function Messages({ props }) {
       if (messageDay < 10) messageDay = '0' + messageDay;
       date = `${month} ${messageDay}, `;
     }
-    // if (seconds < 60) return seconds + ' seconds ago';
-    // else if (minutes < 60) return minutes + ' minutes ago';
-    // else if (hours < 24) return hours + ' hours ago';
-    // else if (days < 7) return days + ' days ago';
     if (messageHours > 12) {
       meridian = 'PM';
       messageHours -= 12;
@@ -111,35 +99,50 @@ function Messages({ props }) {
   }
 
 
-
+  const closeEdit = () => setEditMessage(false)
   return (
-    // <div className={`message__div author_${message.username}`} id={`${index}`}>
     <>
       {message ? (<>
         <div className="message_avatar__div">
-        <img className="message_avatar__img" src={`${message.user_avatar}`} />
-      </div>
-      <div> {/*  clasName="message_username_date__div" */}
-        <span className="message_username__span">{`${message.username} `}</span>
-        <span className="message_timestamp__span">
-          {timeConvert(Date.now() - new Date(message.created_at))}, {index}
-        </span>
-      </div>
-      <div className="message_content__div">{message.content}</div>
-      <div className="message_context__div">
-        <button onClick={(() => {
-          if (reactMessage) {
-            setReactMessage(false)
-          }
-          setEditMessage(!editMessage);
-        })}>EDIT</button>
-        {editMessage && <EditMessage props={{ currMessage, channelMessages }} />}
-        <button onClick={deletedMessage}>DELETE</button>
-      </div>
-      </>):(
-      <div>
-        Loading...
-      </div>)}
+          <img className="message_avatar__img" src={message.user_avatar ? message.user_avatar : logo} alt='user-avatar'/>
+        </div>
+        <div>
+          <span className="message_username__span">{`${message.username} `}</span>
+          <span className="message_timestamp__span">
+            {timeConvert(Date.now() - new Date(message.created_at))}
+          </span>
+        </div>
+        {!editMessage ? <div className="message_content__div">{message.content}</div> : <EditMessage props={{ message, channelMessages, closeEdit }} />}
+        {user.id === message.user_id && (<div className="message_context__div">
+          <i
+            class={!editMessage ? "far fa-edit channel__icon" : ""}
+            onClick={(() => {
+              if (reactMessage) {
+                setReactMessage(false)
+              }
+              setEditMessage(!editMessage);
+            })}
+          >{editMessage ? " X " : ""}</i>
+          <i class="far fa-trash-alt channel__icon"
+            onClick={() => setDeleteMessage(!deleteMessage)}></i>
+          {deleteMessage && <Modal onClose={() => setDeleteMessage(false)}><div>
+            <p>
+              Are you sure you want to delete this message?
+            </p>
+            <span className="message_timestamp__span">
+              {timeConvert(Date.now() - new Date(message.created_at))}
+            </span>
+            <div className="message_content__div">{message.content}</div>
+            <button onClick={deletedMessage}>Yes</button>
+            <button onClick={() => setDeleteMessage(false)}>No</button>
+          </div>
+          </Modal>}
+        </div>)
+        }
+      </>) : (
+        <div>
+          Loading...
+        </div>)}
 
     </>
     // </div>

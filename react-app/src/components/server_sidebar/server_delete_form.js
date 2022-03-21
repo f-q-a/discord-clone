@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import React from "react";
+import { useDispatch,  } from "react-redux";
+import {  useHistory } from "react-router-dom";
 import { deleteServer } from '../../store/server'
 import "../css/server_delete_form.css"
 
 const ServerDeleteForm = ({serverId}) => {
   const history = useHistory()
   const dispatch = useDispatch();
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
 
   const onDelete = async (e) => {
     e.preventDefault();

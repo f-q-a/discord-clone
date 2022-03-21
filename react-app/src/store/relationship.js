@@ -9,10 +9,10 @@ const getRelationshipsAction = (relationships) => ({
     payload: relationships
 })
 
-const createRelationshipAction = (relationship) => ({
-    type: CREATE_RELATIONSHIPS,
-    payload: relationship
-})
+// const createRelationshipAction = (relationship) => ({
+//     type: CREATE_RELATIONSHIPS,
+//     payload: relationship
+// })
 
 export const deleteRelationshipAction = (relationship) => ({
     type: DELETE_RELATIONSHIPS,
@@ -30,14 +30,14 @@ export const editRelationshipAction = (userId,relationships) => ({
     relationships
 })
 
-export const getRelationships = () => async (dispatch) => {
+export const getRelationships = () => async (dispatch, getState ) => {
     const response = await fetch('/api/relationships/')
     const data = await response.json();
     if (data.errors) {
         return;
     }
 
-    dispatch(getRelationshipsAction(data.relationships))
+    dispatch(getRelationshipsAction(data.relationships, getState().session.user.id))
     return data.relationships;
 }
 
@@ -174,20 +174,24 @@ export const addRelationship = (addid) => async (dispatch) => {
 //     dispatch(getRelationshipsAction(data.relationships))
 // }
 
-const NormalizeRelationship = (relationships) => {
-    const normRelationship = {}
-    relationships.forEach(relationship => {
-        normRelationship[relationship.id] = relationship
-    })
-    return normRelationship
-}
+// const NormalizeRelationship = (relationships) => {
+//     const normRelationship = {}
+//     relationships.forEach(relationship => {
+//         normRelationship[relationship.id] = relationship
+//     })
+//     return normRelationship
+// }
 
 const initialState = { relationships: {} }
 
 export default function reducer(state = initialState, action) {
-    let newState
+    let newState;
+    // let incoming, outgoing;
     switch (action.type) {
         case GET_ALL_RELATIONSHIPS:
+            // incoming = {}
+            // outgoing = {}
+
             return { relationships: action.payload }
         case CREATE_RELATIONSHIPS:
             newState = { relationships: { ...state.relationships } }

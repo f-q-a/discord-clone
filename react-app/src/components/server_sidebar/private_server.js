@@ -1,11 +1,11 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React from 'react';
 // import { useDispatch, useSelector } from "react-redux";
 import {NavLink} from 'react-router-dom';
 import Container from './server_context_container';
 
 const PrivateServer = ({server}) => {
   {
-    console.log('IS THIS INDIVD SERVER__________', server.id);
+    // console.log('IS THIS INDIVD SERVER__________', server.id);
   }
   function serverAbbr(name) {
     const words = name.split(' ');

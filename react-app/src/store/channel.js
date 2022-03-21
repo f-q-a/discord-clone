@@ -2,8 +2,9 @@ const GET_ALL_CHANNELS = "channel/GET_ALL_CHANNELS";
 const GET_SERVER_CHANNELS = "channel/GET_SERVER_CHANNELS";
 const CREATE_CHANNEL = "channel/CREATE_CHANNEL";
 const DELETE_CHANNEL = "channel/DELETE_CHANNEL";
-const ADD_CHANNEL = "channel/ADD_CHANNEL";
+// const ADD_CHANNEL = "channel/ADD_CHANNEL";
 const EDIT_CHANNEL = "channel/EDIT_CHANNEL";
+const CLEAR_CHANNELS = "'channel/CLEAR-CHANNELS'"
 
 export const getChannelsAction = (channels) => ({
   type: GET_ALL_CHANNELS,
@@ -23,13 +24,12 @@ const createChannelAction = (channel) => ({
 const deleteChannelAction = (channelId, serverId) => ({
   type: DELETE_CHANNEL,
   channelId,
-  serverId,
 });
 
-const addChannelAction = (channel) => ({
-  type: ADD_CHANNEL,
-  payload: channel,
-});
+// const addChannelAction = (channel) => ({
+//   type: ADD_CHANNEL,
+//   payload: channel,
+// });
 
 const editChannelAction = (channelId, name) => ({
   type: EDIT_CHANNEL,
@@ -37,8 +37,10 @@ const editChannelAction = (channelId, name) => ({
   name,
 });
 
+export const clearChannelsActions = () => ({ type: CLEAR_CHANNELS })
+
 export const getChannels = (serverId) => async (dispatch) => {
-  const response = await fetch(`/api/channels/:${serverId}`);
+  const response = await fetch(`/api/channels/${serverId}`);
   const data = await response.json();
   if (data.errors) return;
   dispatch(getChannelsAction(data.channels));
@@ -46,7 +48,7 @@ export const getChannels = (serverId) => async (dispatch) => {
 };
 
 export const editChannel = (data) => async (dispatch) => {
-  console.log('what is ', data)
+  // console.log('what is ', data)
   const response = await fetch(`/api/channels/${data.id}/edit`, {
     method: 'POST',
     headers: {
@@ -57,7 +59,7 @@ export const editChannel = (data) => async (dispatch) => {
 
   if (response.ok) {
     data = await response.json()
-    console.log("IS EDIT CHANNEL RESPONSE OK?", data.server_id)
+    // console.log("IS EDIT CHANNEL RESPONSE OK?", data.server_id)
     return dispatch(editChannelAction(data.id, data.name))
   }
 }
@@ -86,10 +88,10 @@ export const deleteChannel = (channelId, serverId) => async (dispatch) => {
   });
   // const data = await response.json();
   // if (data.errors) return;
-  console.log('THUNK')
-  dispatch(deleteChannelAction(channelId, serverId))
+  // console.log('THUNK')
   if (response.ok) {
-    console.log('IFTHUNK')
+    // console.log('IFTHUNK')
+    dispatch(deleteChannelAction(channelId))
 
   }
 
@@ -108,29 +110,27 @@ const initialState = { channels: {} };
 
 export default function reducer(state = initialState, action) {
   let newState;
-  let newStateChannels;
+  // let newStateChannels;
   switch (action.type) {
     case GET_ALL_CHANNELS:
-      return { channels: NormalizeData(action.payload) };
+      return { ...NormalizeData(action.payload) };
     case GET_SERVER_CHANNELS:
       newState = { ...state }
-      newState.channels[action.serverId] = NormalizeData(action.channels);
+      newState[action.serverId] = NormalizeData(action.channels);
       return newState;
     case CREATE_CHANNEL:
       newState = { ...state }
-      newStateChannels = newState.channels[action.channel.server_id]
-      console.log('This is newStateChannels ---> ', newStateChannels)
-      newStateChannels[action.channel.id] = action.channel
-      newState.channels[action.channel.server_id] = newStateChannels
+      newState[action.channel.id] = action.channel
       return newState
-
+    case CLEAR_CHANNELS:
+      return { channels: {} }
     case DELETE_CHANNEL:
       newState = { ...state }
-      delete newState.channels[action.serverId][action.channelId]
+      delete newState[action.channelId]
       return newState
     case EDIT_CHANNEL:
       newState = { ...state }
-      newState.channels[action.id] = action.name
+      newState[action.id] = action.name
       return newState
     default:
       return state;

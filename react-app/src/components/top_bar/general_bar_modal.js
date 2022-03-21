@@ -16,25 +16,25 @@ function GeneralBarModal() {
     // const [pendingid, setPendingid] = useState(null);
     const [username, setUsername] = useState("");
     const [errors, setErrors] = useState([]);
-    const [data, setData] = useState(false);
+    // const [data, setData] = useState(false);
 
     const relationshipObject= useSelector((state) => state.relationship.relationships);
     const user = useSelector(state => state.session.user)
     const allusers =  useSelector(state => state.user.users)
     const alluserList = Object.values(allusers)
 
-    console.log(relationshipObject)
-    console.log(alluserList)
-    console.log(user)
+    // console.log(relationshipObject)
+    // console.log(alluserList)
+    // console.log(user)
 
 /////////////////////////////////////////////////
     const Accepted = Object.values(relationshipObject).filter((el)=>(el.first_user_id === Number(user.id) && el.relationship ==="Accepted"))
     const Blocked = Object.values(relationshipObject).filter((el)=>(el.first_user_id === Number(user.id) && el.relationship ==="Blocked" ))
     const Pending = Object.values(relationshipObject).filter((el)=>(el.second_user_id === Number(user.id) && el.relationship ==="Pending" ))
 
-    console.log("Accepted",Accepted)
-    console.log("Blocked",Blocked)
-    console.log("Pending",Pending)
+    // console.log("Accepted",Accepted)
+    // console.log("Blocked",Blocked)
+    // console.log("Pending",Pending)
 
     const Acceptedpushlist =[]
     for (let i=0; i < Accepted.length; i++){
@@ -61,9 +61,9 @@ function GeneralBarModal() {
         }
     }
 ///////////////////////////////////////////////////
-    console.log(Acceptedpushlist)
-    console.log(Blockedpushlist)
-    console.log(Pendingpushlist)
+    // console.log(Acceptedpushlist)
+    // console.log(Blockedpushlist)
+    // console.log(Pendingpushlist)
 
     const targetModalvalue = (e) => {
         setTarget(e.target.innerText)
@@ -105,7 +105,7 @@ function GeneralBarModal() {
     return (
     <div className="Topbar_Buttons">
         <div>
-            <a className="General_Button" onClick={targetModalvalue} value="All">All</a>
+            <div className="General_Button" onClick={targetModalvalue} value="All">All</div>
             {showModal && target==="All" && (
             <Modal onClose={() => setShowModal(false)}>
                 <div className="General_Modal scroll">
@@ -116,7 +116,7 @@ function GeneralBarModal() {
             </Modal>)}
         </div>
         <div>
-            <a className="General_Button" onClick={targetModalvalue}>Pending</a>
+            <div className="General_Button" onClick={targetModalvalue}>Pending</div>
             {showModal  && target==="Pending" &&(
             <Modal onClose={() => setShowModal(false)}>
                 <div className="General_Modal scroll">
@@ -131,7 +131,7 @@ function GeneralBarModal() {
             </Modal>)}
         </div>
         <div>
-            <a className="General_Button" onClick={targetModalvalue}>Blocked</a>
+            <div className="General_Button" onClick={targetModalvalue}>Blocked</div>
             {showModal && target==="Blocked" &&(
             <Modal onClose={() => setShowModal(false)}>
                 <div className="General_Modal scroll">

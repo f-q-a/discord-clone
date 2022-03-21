@@ -12,51 +12,52 @@ const ServerUsers = () => {
   const serverUsers = useSelector((state) => state.serveruser);
   let { serverId } = useParams();
 
-  const serverUsersList= Object.values(serverUsers)
-  let list=null
+  const serverUsersList = Object.values(serverUsers)
+  let list = null
 
-  useEffect(async () => {
-    await dispatch(getServerUsers(serverId));
+  useEffect(() => {
+    dispatch(getServerUsers(serverId));
   }, [dispatch, serverId]);
 
 
 
-  if(serverUsersList.length > 0){
+  if (serverUsersList.length > 0) {
     list = serverUsersList.map((user) => {
-          return(
-          <Container user={user}>
-             <UserList key={`userlist_key__${user.id}`} props={user} />
-          </Container>
-          )
+      return (
+        <Container user={user}>
+          <UserList key={`userlist_key__${user.id}`} props={user} />
+        </Container>
+      )
     })
-}
-
-  return (
-    <div className ="user_list">
-        <h1>ServerUsers:</h1>
-        {list}
-    </div>
-  );
   }
 
-const UserList = ({props}) => {
-  console.log("WHAT ARE YOU",{props})
-    return(
+  return (
+    <div className="user_list">
+      <h3>Members:</h3>
+      {list}
+    </div>
+  );
+}
 
-        <div className="server_users">
-            <img
-                className="user_image user_image_bar"
-                src={
-                props.avatar_link
-                    ? props.avatar_link
-                    : defaultLogo
-                }
-            ></img>
-            <div className="server_username">{props.username}</div>
+const UserList = ({ props }) => {
+  // console.log("WHAT ARE YOU",{props})
+  return (
 
-        </div>
+    <div className="server_users">
+      <img
+        className="user_image user_image_bar"
+        alt='user-avatar'
+        src={
+          props.avatar_link
+            ? props.avatar_link
+            : defaultLogo
+        }
+      ></img>
+      <div className="server_username">{props.username}</div>
 
-    )
+    </div>
+
+  )
 }
 
 export default ServerUsers
