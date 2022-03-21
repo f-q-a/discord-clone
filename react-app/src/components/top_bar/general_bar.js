@@ -8,19 +8,24 @@ import "../css/general_bar.css"
 const GeneralBar = () => {
     const dispatch = useDispatch();
     const {serverId, channelId} = useParams();
-    const [specificChannel, setSpecificChannel] =useState();
+    const channel= useSelector(state => state.channel[channelId])
+    const [specificChannel, setSpecificChannel] = useState(channel?.name);
     const relationshipObject= useSelector((state) => state.relationship.relationships);
-
+    console.log(channel, 'chanchanchan', channelId)
+    console.log(useParams())
     // let specificChannel
-    const channel= useSelector((state)=> state.channel.channels[serverId])
     const user = useSelector(state => state.session.user)
+    
 
     useEffect(() => {
-        dispatch(getRelationships());
+        dispatch(getRelationships())
+      }, []);
+
+    useEffect(()=> {
         if(channel){
-            setSpecificChannel(channel[channelId]?.name);
+            setSpecificChannel(channel?.name);
         }
-      }, [dispatch, channel, user ]);
+    }, [channel, channelId])
 
 
     // if(channel){

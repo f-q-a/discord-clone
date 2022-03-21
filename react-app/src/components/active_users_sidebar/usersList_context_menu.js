@@ -5,7 +5,7 @@ import ActiveUserFormModal from './userlist_modal'
 
 const items = [
     { text: "Add Friend"},
-    { text: "Block Friend"},
+    { text: "Block User"},
   ]
 
 const ContextMenu = ({parentRef, user}) => {

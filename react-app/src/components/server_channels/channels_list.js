@@ -6,6 +6,7 @@ import { useParams, useHistory, Link } from "react-router-dom";
 import * as channelActions from '../../store/channel';
 import { Route } from "react-router-dom";
 import MessageMain from "../message_main/message_main";
+import GeneralBar from "../top_bar/general_bar";
 
 function ChannelsList() {
   const { serverId } = useParams();
@@ -127,7 +128,7 @@ function ChannelsList() {
       </div>
       <Route path='/channels/:serverId/:channelId' exact={false}>
         <MessageMain />
-
+        <GeneralBar />
       </Route>
     </>
   )

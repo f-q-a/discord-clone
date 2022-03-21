@@ -3,12 +3,14 @@ import ServerSidebar from "../server_sidebar/server_sidebar";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as serverActions from "../../store/server";
+import GeneralBar from "../top_bar/general_bar";
+import { Route } from "react-router-dom";
 
 function MainApp() {
   const dispatch = useDispatch();
   const [serversLoaded, setServersLoaded] = useState(false)
   useEffect(() => {
-    dispatch(serverActions.getServers()).then(()=>setServersLoaded(true))
+    dispatch(serverActions.getServers()).then(() => setServersLoaded(true))
 
   }, [dispatch]);
 
@@ -16,7 +18,7 @@ function MainApp() {
 
   return (
     <>
-        <ServerSidebar />
+      <ServerSidebar />
     </>
   );
 }

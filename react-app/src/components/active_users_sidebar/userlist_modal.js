@@ -9,7 +9,7 @@ function ActiveUserFormModal({item,user}) {
   const [display, setDisplay] = useState(true);
   console.log("ContainerPROPS", {user} )
   useEffect(() => {
-    if (item.text === "Block Friend"){
+    if (item.text === "Block User"){
       setDisplay(true)
     }
     else if (item.text==="Add Friend") {
