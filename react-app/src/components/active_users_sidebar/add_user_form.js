@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
-import { deleteServer } from '../../store/server'
+import React, { useEffect } from 'react';
+import { useDispatch } from "react-redux";
+// import { useHistory } from "react-router-dom";
+// import { deleteServer } from '../../store/server'
 import {getRelationships} from "../../store/relationship"
 import {addcreateRelationship} from "../../store/relationship"
-import {editRelationship} from "../../store/relationship"
+// import {editRelationship} from "../../store/relationship"
 import {getAllUsers} from "../../store/user"
 
 const AddUserForm = ({user, setShowModal}) => {
-console.log("USER OBCJECT",{user})
-  const history = useHistory()
+// console.log("USER OBCJECT",{user})
+  // const history = useHistory()
   const dispatch = useDispatch();
-  const [data, setData] = useState(false);
+  // const [data, setData] = useState(false);
 
-  const relationshipObject= useSelector((state) => state.relationship.relationships);
-  const userstate = useSelector(state => state.session.user)
-  const allusers =  useSelector(state => state.user.users)
-  const alluserList = Object.values(allusers)
+  // const relationshipObject= useSelector((state) => state.relationship.relationships);
+  // const userstate = useSelector(state => state.session.user)
+  // const allusers =  useSelector(state => state.user.users)
+  // const alluserList = Object.values(allusers)
 
-  console.log(relationshipObject)
-  console.log(alluserList)
-  console.log(userstate)
+  // console.log(relationshipObject)
+  // console.log(alluserList)
+  // console.log(userstate)
 
   const onFriendSubmit = async (e)=> {
     dispatch(addcreateRelationship(user.id));
@@ -30,7 +30,7 @@ console.log("USER OBCJECT",{user})
 useEffect(() => {
     dispatch(getRelationships());
     dispatch(getAllUsers())
-  }, [dispatch,data]); //username
+  }, [dispatch]); //username
 
   return (
 

@@ -9,8 +9,8 @@ import * as messageActions from "../../store/message"
 const MessageMain = () => {
   let { channelId } = useParams();
   const channelMessages = useSelector((state)=> state.message.messages[channelId])
-  console.log('chanchanchanchan', channelId)
-  console.log('honk', channelMessages)
+  // console.log('chanchanchanchan', channelId)
+  // console.log('honk', channelMessages)
   return (
     // <div>
     //   <h1>MESSAGES CONTAINER</h1>

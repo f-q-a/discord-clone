@@ -34,7 +34,7 @@ const Chat = () => {
     const sendChat = (e) => {
         e.preventDefault()
         socket.emit('chat', { user: user.username, msg: chatInput })
-        console.log('<<<<<<<', messages)
+        // console.log('<<<<<<<', messages)
         setChatInput("")
     }
 

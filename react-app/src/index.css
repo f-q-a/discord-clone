@@ -191,7 +191,7 @@ div.active__div{
 
 .whumpus{
   grid-area: channel_body;
-  height: 100%;
+  height: auto;
   width: 100%;
 }
 

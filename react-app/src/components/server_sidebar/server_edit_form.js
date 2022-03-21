@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { editServer } from '../../store/server'
 import "../css/server_edit_form.css";
 const ServerEditForm = ({serverId}) => {
@@ -16,7 +16,7 @@ const ServerEditForm = ({serverId}) => {
     const formData = new FormData();
         formData.append("image", image);
 
-    const data = await dispatch(editServer(serverId,name)); //.image
+    const data = await dispatch(editServer(serverId,name)).catch(e=>setErrors(e)); //.image
     if (data) {
       history.push(`/`);
     }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { NavLink, Redirect } from 'react-router-dom';
+// import { NavLink, Redirect } from 'react-router-dom';
 import LoginFormModal from '../auth/LoginSigninFormModal';
 // import OpenAppButton from '../auth/OpenAppButton'
 import "../css/navigation.css"

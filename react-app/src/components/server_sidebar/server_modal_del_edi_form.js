@@ -20,12 +20,12 @@ function ServerFormModal({ item, serverId, setVisible }) {
       setDisplay("Add")
     }
     // const closeMenu = () => setVisible(false)
-  }, [])
+  }, [item.text])
 
 
   return (
     <>
-      <a className="context_menu_popup-items" onClick={() => setShowModal(true)}>{item.text}</a>
+      <div className="context_menu_popup-items" onClick={() => setShowModal(true)}>{item.text}</div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           {display === "Delete" ?

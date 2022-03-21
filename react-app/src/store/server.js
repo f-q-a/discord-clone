@@ -1,4 +1,4 @@
-import { createChannelAction } from './channel'
+// import { createChannelAction } from './channel'
 import * as ChannelActions from './channel'
 
 const GET_ALL_SERVERS = "server/GET_ALL_SERVERS"
@@ -123,8 +123,8 @@ export default function reducer(state = initialState, action) {
         case DELETE_SERVER:
             newState= {...state.servers}
             delete newState[action.payload]
-            console.log("STATE__________",{...state,servers:newState})
-            console.log("STATE__________2",{newState})
+            // console.log("STATE__________",{...state,servers:newState})
+            // console.log("STATE__________2",{newState})
             return {...state,servers:newState}
         case ADD_SERVER:
             newState = { servers: { ...state.servers } }

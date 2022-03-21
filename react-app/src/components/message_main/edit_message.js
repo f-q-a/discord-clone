@@ -1,26 +1,26 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+// import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+// import { useHistory } from 'react-router';
 import * as messageActions from '../../store/message'
 
 function EditMessage({ props }) {
-  const { serverId, channelId } = useParams();
+  // const { serverId, channelId } = useParams();
   const { message, closeEdit } = props
   const inputRef = useRef()
   // console.log('What are the key value pairs for message?', message)
   // const message = useSelector(state => state.message[message.id]);
-  console.log('Am I keying into these messages correctly?', message)
+  // console.log('Am I keying into these messages correctly?', message)
   
 
-  const [showEditForm, setShowEditForm] = useState(true);
-  console.log('Am I doing this right?', message);
+  // const [showEditForm, setShowEditForm] = useState(true);
+  // console.log('Am I doing this right?', message);
 
   const [content, setContent] = useState(message.content);
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(()=>{inputRef.current.focus()},[])
 
@@ -28,9 +28,9 @@ function EditMessage({ props }) {
     e.preventDefault();
     let newErrors = [];
     dispatch(messageActions.editMessage({ id: message.id, user_id: message.user_id, content: content, channel_id: message.channel_id }))
-      .then((data) => {
+      .then(() => {
 
-        console.log('what will I find here?', data)
+        // console.log('what will I find here?', data)
         setContent("");
         closeEdit(false)
 
@@ -44,34 +44,6 @@ function EditMessage({ props }) {
       });
 
   };
-  const preEdit =
-    (
-      <div className="message_content__div">
-        {errors.length > 0 &&
-          errors.map((error) => <div key={error}>{error}</div>)}
-        <h2>edit</h2>
-        <form
-          // style={{ display: "flex", flexFlow: "column" }}
-          onSubmit={handleSubmit}
-          className="chat_box"
-        >
-          <label>
-            <input
-              type="text"
-              placeholder="Edit Message"
-              // className="text__box"
-              style={{ width: '100%' }}
-              defaultValue={`${message.content}`}
-              value={message.content}
-              onChange={(e) => setContent(e.target.value)}
-            />
-          </label>
-          {/* <button type="submit">Submit Edit</button> */}
-        </form>
-      </div>
-    );
-
-  const postEdit = '';
 
   return (
     <div className="message_content__div">
@@ -93,7 +65,6 @@ function EditMessage({ props }) {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-        {/* <button type="submit">Submit Edit</button> */}
       </form>
     </div>
   );

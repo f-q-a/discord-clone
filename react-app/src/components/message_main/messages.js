@@ -6,7 +6,7 @@ import logo from '../../images/discord-logo-transparent.png'
 import { Modal } from '../../context/Modal';
 
 function Messages({ props }) {
-  const { message, channelMessages, setChannelMessages, channelId } = props;
+  const { message, channelMessages } = props;
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
@@ -14,10 +14,9 @@ function Messages({ props }) {
   const [deleteMessage, setDeleteMessage] = useState(false)
   const [reactMessage, setReactMessage] = useState(false)
   const timeNow = new Date();
-  let messageDate, messageLocalTime, messageDay, messageMonth, messageHours, messageMinutes;
+  let messageDate, messageDay, messageMonth, messageHours, messageMinutes;
   if (message) {
     messageDate = new Date(message.created_at);
-    messageLocalTime = Date(message.created_at).toLocaleString();
     messageDay = messageDate.getDate();
     messageMonth = messageDate.getMonth();
     messageHours = messageDate.getHours();
@@ -58,18 +57,20 @@ function Messages({ props }) {
         return 'November';
       case 12:
         return 'December';
+      default:
+        return 'Unsure of month'
     }
   }
 
 
-  function timeConvert(time) {
-    const seconds = parseInt(time / 1000);
-    const minutes = parseInt(time / (1000 * 60));
-    const hours = parseInt(time / (1000 * 60 * 60));
-    const days = parseInt(time / (1000 * 60 * 60 * 24));
+  function timeConvert() {
+    // const seconds = parseInt(time / 1000);
+    // const minutes = parseInt(time / (1000 * 60));
+    // const hours = parseInt(time / (1000 * 60 * 60));
+    // const days = parseInt(time / (1000 * 60 * 60 * 24));
     const month = monthParse(messageMonth);
-    let date;
     let meridian;
+    let date
     if (messageMonth === timeNow.getMonth() && messageDay === timeNow.getDate())
       date = 'Today';
     else if (
@@ -103,7 +104,7 @@ function Messages({ props }) {
     <>
       {message ? (<>
         <div className="message_avatar__div">
-          <img className="message_avatar__img" src={message.user_avatar ? message.user_avatar : logo} />
+          <img className="message_avatar__img" src={message.user_avatar ? message.user_avatar : logo} alt='user-avatar'/>
         </div>
         <div>
           <span className="message_username__span">{`${message.username} `}</span>

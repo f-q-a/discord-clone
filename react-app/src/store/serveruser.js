@@ -7,10 +7,10 @@ const getServerUsersAction = (serverUsers) => ({
   payload: serverUsers
 })
 
-const addServerUsersAction = (serverUser) => ({
-  type: ADD_SERVERUSERS,
-  payload: serverUser
-})
+// const addServerUsersAction = (serverUser) => ({
+//   type: ADD_SERVERUSERS,
+//   payload: serverUser
+// })
 
 //thunk
 export const getServerUsers = (serverId) => async (dispatch) => {
@@ -62,7 +62,7 @@ export default function serveruser(state = initialState, action) {
     case GET_SERVERUSERS:
       return NormalizeServerUsers(action.payload)
     case ADD_SERVERUSERS:
-      console.log(newState)
+      // console.log(newState)
       newState = { serveruser: { ...state.payload } }
       newState.serveruser[action.payload.id] = action.serveruser
       return newState;

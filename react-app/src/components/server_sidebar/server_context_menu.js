@@ -7,7 +7,7 @@ import ServerFormModal from './server_modal_del_edi_form'
 
 const ContextMenu = ({ parentRef, serverId }) => {
     const [Visible, setVisible] = useState(false)
-    const [showModal, setShowModal] = useState(false);
+    // const [showModal, setShowModal] = useState(false);
     const [Y, setY] = useState(0)
     const currentServer = useSelector(state => state.server[serverId])
     const currentUser = useSelector(state => state.session.user)

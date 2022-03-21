@@ -9,10 +9,10 @@ const getRelationshipsAction = (relationships) => ({
     payload: relationships
 })
 
-const createRelationshipAction = (relationship) => ({
-    type: CREATE_RELATIONSHIPS,
-    payload: relationship
-})
+// const createRelationshipAction = (relationship) => ({
+//     type: CREATE_RELATIONSHIPS,
+//     payload: relationship
+// })
 
 export const deleteRelationshipAction = (relationship) => ({
     type: DELETE_RELATIONSHIPS,
@@ -174,22 +174,23 @@ export const addRelationship = (addid) => async (dispatch) => {
 //     dispatch(getRelationshipsAction(data.relationships))
 // }
 
-const NormalizeRelationship = (relationships) => {
-    const normRelationship = {}
-    relationships.forEach(relationship => {
-        normRelationship[relationship.id] = relationship
-    })
-    return normRelationship
-}
+// const NormalizeRelationship = (relationships) => {
+//     const normRelationship = {}
+//     relationships.forEach(relationship => {
+//         normRelationship[relationship.id] = relationship
+//     })
+//     return normRelationship
+// }
 
 const initialState = { relationships: {} }
 
 export default function reducer(state = initialState, action) {
-    let newState, incoming, outgoing;
+    let newState;
+    // let incoming, outgoing;
     switch (action.type) {
         case GET_ALL_RELATIONSHIPS:
-            incoming = {}
-            outgoing = {}
+            // incoming = {}
+            // outgoing = {}
 
             return { relationships: action.payload }
         case CREATE_RELATIONSHIPS:

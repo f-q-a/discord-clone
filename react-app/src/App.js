@@ -1,37 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import LoginForm from "./components/auth/LoginForm";
-import SignUpForm from "./components/auth/SignUpForm";
-import NavBar from "./components/splash_page/NavBar";
+
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import UsersList from "./components/splash_page/UsersList";
-import ChannelsList from "./components/server_channels/channels_list";
-import User from "./components/splash_page/User";
+
 import SplashPage from "./components/splash_page/splash_page";
-import MessageMain from "./components/message_main/message_main";
+
 import MainApp from "./components/app_container/main_app";
-import ServerUsers from "./components/active_users_sidebar/active_users_sidebar"
+
 import { authenticate } from "./store/session";
-import Chat from "./components/chat/chat";
-import EditChannel from "./components/server_channels/edit_channel";
+
 import SettingBar from "./components/setting_bar/setting_bar"
-import GeneralBar from "./components/top_bar/general_bar"
-import CreateChannel from "./components/top_bar/general_bar"
-import whumpus_image from "./images/Wumpus.png"
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const [url, setUrl] = useState(window.location.href);
-  console.log("WAHY!!!!!!!!!!!!!!!!!!!!!!!!!!!!",url)
+  // console.log("WAHY!!!!!!!!!!!!!!!!!!!!!!!!!!!!",url)
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
-  }, []);
+  }, [dispatch]);
 
   if (!loaded) {
     return null;
@@ -45,52 +37,16 @@ function App() {
   return (
     <BrowserRouter>
       <Route path="/" exact={true}>
-        <SplashPage setUrl={setUrl}/>
+        <SplashPage setUrl={setUrl} />
       </Route>
 
-      { url.endsWith("page") ?  null : <div className="app__container">
+      {url.endsWith("page") ? null : <div className="app__container">
 
         <ProtectedRoute path="/channels">
           <MainApp />
           <SettingBar />
         </ProtectedRoute>
-        {/* <ProtectedRoute path="/@me/">
-        </ProtectedRoute>
-        <ProtectedRoute path="/@me/:serverId">
-          <ChannelsList />
-          <ServerUsers />
-        </ProtectedRoute>
-        <ProtectedRoute path="/users" exact={true}>
-          <UsersList />
-        </ProtectedRoute>
-        <ProtectedRoute path="/users/:userId" exact={true}>
-          <User />
-        </ProtectedRoute>
-        <ProtectedRoute path="/@me/:serverId/:channelId">
-          <MessageMain />
-        </ProtectedRoute>
-        <ProtectedRoute path="/chat">
-          <Chat />
-        </ProtectedRoute>
-        <ProtectedRoute path="/@me/:serverId/:channelId/edit" exact={true}>
-          <EditChannel/>
-        </ProtectedRoute>
-        <ProtectedRoute path="/@me/:serverId/add" exact={true}>
-          <CreateChannel/>
-        </ProtectedRoute>
-        <Switch>
-          <ProtectedRoute path="/@me/:serverId/:channelId" exact={true} >
-            <GeneralBar />
-          </ProtectedRoute>
-          <ProtectedRoute path="/@me/" exact={true} >
-            <ChannelsList />
-            <img className="whumpus" src={whumpus_image}></img>
-          </ProtectedRoute>
-          <ProtectedRoute path="/" exact={true} >
-            <img className="whumpus" src={whumpus_image}></img>
-            <ChannelsList />
-          </ProtectedRoute>
-        </Switch> */}
+
 
 
       </div>}

@@ -36,13 +36,13 @@ function LoginFormModal() {
           <div>
             <h3 className="ButtonLink" >Login In</h3>
             <LoginForm />
-            <a className="ButtonLink" onClick={toSignUp}>Need to Sign Up?</a>
+            <div   className="ButtonLink" onClick={toSignUp}>Need to Sign Up?</div>
           </div>
           :
           <div>
             <h3 className="ButtonLink" >Sign Up</h3>
             <SignUpForm />
-            <a className="ButtonLink"onClick={toLogin}>Already Have An Account?</a>
+            <div className="ButtonLink"onClick={toLogin}>Already Have An Account?</div>
           </div>}
         </Modal>
       )}

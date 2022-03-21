@@ -10,7 +10,7 @@ const items = [
 
 const ContextMenu = ({parentRef, user}) => {
     const [Visible, setVisible] = useState(false)
-    const [showModal, setShowModal] = useState(false);
+    // const [showModal, setShowModal] = useState(false);
     const [Y, setY] = useState(0)
     const [X, setX] = useState(0)
     useEffect(()=>{

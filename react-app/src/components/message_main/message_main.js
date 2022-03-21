@@ -16,28 +16,20 @@ const MessageMain = () => {
   console.log(serverId)
   console.log(channelId)
   const user = useSelector((state) => state.session.user);
-  const server = useSelector((state) => state.server)
+  // const server = useSelector((state) => state.server)
   const messages = useSelector(state => state.message)
-  const msgCopy = [].concat(messages)
-  const serverType = Object.values(server);
+  // const msgCopy = [].concat(messages)
+  // const serverType = Object.values(server);
 
   const [chatInput, setChatInput] = useState('');
   // const [channelMessages, setChannelMessages] = useState([...msgCopy]);
   const [reload, setReload] = useState(false)
   const channelMessages = Object.values(messages)
 
-  const updateChatOutput = () => {
-    dispatch(messageActions.getMessages(channelId)).then((data) => {
-      setChatInput('');
-      const sortedChannelMessages = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-      console.log('These messages are sorted?', sortedChannelMessages)
-      // setChannelMessages([...sortedChannelMessages])
-    });
-  }
 
   useEffect(()=>{
     localStorage.setItem(serverId, channelId)
-  },[channelId])
+  },[channelId, serverId])
 
   useEffect(() => {
     dispatch(messageActions.getMessages(channelId))
@@ -58,7 +50,7 @@ const MessageMain = () => {
       socket.disconnect();
       dispatch(messageActions.clearMessagesAction());
     };
-  }, [dispatch, channelId]);
+  }, [dispatch, channelId, user.username]);
 
   useEffect(() => {
     if (latest.current) {
@@ -90,25 +82,25 @@ const MessageMain = () => {
     setReload(true)
   };
 
-  function timeConvert(time) {
-    const seconds = parseInt(time / 1000);
-    const minutes = parseInt(time / (1000 * 60));
-    const hours = parseInt(time / (1000 * 60 * 60));
-    const days = parseInt(time / (1000 * 60 * 60 * 24));
+  // function timeConvert(time) {
+  //   const seconds = parseInt(time / 1000);
+  //   const minutes = parseInt(time / (1000 * 60));
+  //   const hours = parseInt(time / (1000 * 60 * 60));
+  //   const days = parseInt(time / (1000 * 60 * 60 * 24));
 
-    if (seconds < 60) return seconds + ' seconds ago';
-    else if (minutes < 60) return minutes + ' minutes ago';
-    else if (hours < 24) return hours + ' hours ago';
-    else return days + ' days ago';
-  }
+  //   if (seconds < 60) return seconds + ' seconds ago';
+  //   else if (minutes < 60) return minutes + ' minutes ago';
+  //   else if (hours < 24) return hours + ' hours ago';
+  //   else return days + ' days ago';
+  // }
 
   if (latest) console.log(latest);
 
-  const AlwaysScrollToBottom = () => {
-    const elementRef = useRef();
-    useEffect(() => elementRef.current.scrollIntoView(), []);
-    return <div ref={elementRef} ></div>;
-  };
+  // const AlwaysScrollToBottom = () => {
+  //   const elementRef = useRef();
+  //   useEffect(() => elementRef.current.scrollIntoView(), []);
+  //   return <div ref={elementRef} ></div>;
+  // };
 
   function gotoBottom() {
     if (latest.current)

@@ -64,7 +64,7 @@ export const createMessage = (channelId, content) => async (dispatch) => {
 
 
     const data = await response.json();
-    console.log('hello from create message', data)
+    // console.log('hello from create message', data)
     if (data.errors) {
         return data;
     }
@@ -74,19 +74,19 @@ export const createMessage = (channelId, content) => async (dispatch) => {
 
 
 export const deleteMessage = (message) => async (dispatch) => {
-    console.log('WHEN I ARRIVE', message)
+    // console.log('WHEN I ARRIVE', message)
     const response = await fetch(`/api/messages/${message.id}`, {
         method: 'DELETE',
     });
     const data = await response.json();
-    console.log('BEFORE I LEAVE', data)
+    // console.log('BEFORE I LEAVE', data)
     dispatch(deleteMessageAction(message.id))
     return data
 
 }
 
 export const editMessage = (message) => async(dispatch) =>{
-    console.log('ARE WE EVER REACHING THIS PART?', message)
+    // console.log('ARE WE EVER REACHING THIS PART?', message)
     const response = await fetch(`/api/messages/${message.id}`, {
         method: 'PUT',
         headers: {
@@ -102,20 +102,20 @@ export const editMessage = (message) => async(dispatch) =>{
     return {};
 }
 
-const NormalizeMessage = (messages) => {
-    const normMessage = {}
-    messages.forEach(message => {
-        normMessage[message.id] = message
-    })
-    return normMessage
-}
+// const NormalizeMessage = (messages) => {
+//     const normMessage = {}
+//     messages.forEach(message => {
+//         normMessage[message.id] = message
+//     })
+//     return normMessage
+// }
 
 const initialState = { messages: {} }
 
 export default function reducer(state = initialState, action) {
     let newState
     let newArr
-    let elementsIndex
+    // let elementsIndex
     switch (action.type) {
         case GET_ALL_MESSAGES:
             newState = {}
@@ -128,7 +128,7 @@ export default function reducer(state = initialState, action) {
             newArr.push(action.message);
             newState.messages[action.message.channel_id] = newArr
             // thunk action not working, may be unnecessary
-            console.log('WHATS HANNENIN', newState)
+            // console.log('WHATS HANNENIN', newState)
             return {...state, messages: newState.messages}
         case DELETE_MESSAGE:
             newState = {...state}

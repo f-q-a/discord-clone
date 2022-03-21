@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Route, useHistory, useParams } from "react-router-dom";
-import * as messageActions from "../../store/message";
+import React, { useRef, useState } from "react";
+import { useDispatch, } from "react-redux";
+import { NavLink, useParams } from "react-router-dom";
+// import * as messageActions from "../../store/message";
 import * as channelActions from "../../store/channel";
 import { Modal } from "../../context/Modal";
-import MessageMain from "../message_main/message_main";
+// import MessageMain from "../message_main/message_main";
 
 function NormalChannel({ channel }) {
   const channelRef = useRef();
-  const { serverId, channelId } = useParams();
+  const { serverId } = useParams();
   const dispatch = useDispatch();
-  const [activeDiv, setActiveDiv] = useState("");
+  // const [activeDiv, setActiveDiv] = useState("");
   const [editChannel, setEditChannel] = useState(false);
   const [showModal, setShowModal] = useState(false)
   const [channelDeleted, setChannelDeleted] = useState(false)
@@ -19,13 +19,13 @@ function NormalChannel({ channel }) {
   // }, [serverId]);
 
   function EditChannel({ channel }) {
-    const { serverId } = useParams();
-    const channelLink = document.getElementById(`channel_${channelId}`);
+    // const { serverId } = useParams();
+    // const channelLink = document.getElementById(`channel_${channelId}`);
 
     const [channelName, setChannelName] = useState(channel.name);
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
-    const history = useHistory();
+    // const history = useHistory();
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -85,7 +85,7 @@ function NormalChannel({ channel }) {
           to={`/channels/${channel.server_id}/${channel.id}`}
           activeClassName="active_channel"
         >
-          <div className={`normal_channel__div ${activeDiv}`}>
+          <div className={`normal_channel__div`}>
             <p className="channel_info__p" ref={channelRef}>
               # {channel.name}
             </p>

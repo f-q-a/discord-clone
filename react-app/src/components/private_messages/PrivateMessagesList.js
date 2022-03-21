@@ -12,7 +12,7 @@ export default function PrivateMessagesList() {
           <p className="text_channels_paragraph">In the mean time, choose a server on the left or create a new one to get started</p>
         </div>
       </div>
-      <img className="whumpus" src={whumpus_image}></img>
+      <img className="whumpus" src={whumpus_image} alt='whumpus'></img>
     </>
 
   )

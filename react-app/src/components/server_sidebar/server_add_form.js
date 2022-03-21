@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { createServer } from '../../store/server'
 
 const ServerAddForm = () => {
@@ -16,7 +16,7 @@ const ServerAddForm = () => {
     const formData = new FormData();
         formData.append("image", image);
 
-    const data = await dispatch(createServer(name, image));
+    const data = await dispatch(createServer(name, image)).catch(e=>setErrors(e));
     if (data) {
       history.push(`/`);
     }

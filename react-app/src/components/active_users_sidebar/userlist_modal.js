@@ -7,7 +7,7 @@ import BlockUserForm from "./block_user_form"
 function ActiveUserFormModal({item,user}) {
   const [showModal, setShowModal] = useState(false);//false
   const [display, setDisplay] = useState(true);
-  console.log("ContainerPROPS", {user} )
+  // console.log("ContainerPROPS", {user} )
   useEffect(() => {
     if (item.text === "Block User"){
       setDisplay(true)
@@ -15,7 +15,7 @@ function ActiveUserFormModal({item,user}) {
     else if (item.text==="Add Friend") {
       setDisplay(false)
     }
-  },[])
+  },[item.text])
 
 
 
@@ -23,7 +23,7 @@ function ActiveUserFormModal({item,user}) {
 
   return (
     <>
-        <a className="context_menu_popup-items" onClick={() => setShowModal(true)}>{item.text}</a>
+        <div className="context_menu_popup-items" onClick={() => setShowModal(true)}>{item.text}</div>
         {showModal && (
         <Modal onClose={() => setShowModal(false)}>
             {display ?
