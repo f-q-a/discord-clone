@@ -30,14 +30,14 @@ export const editRelationshipAction = (userId,relationships) => ({
     relationships
 })
 
-export const getRelationships = () => async (dispatch) => {
+export const getRelationships = () => async (dispatch, getState ) => {
     const response = await fetch('/api/relationships/')
     const data = await response.json();
     if (data.errors) {
         return;
     }
 
-    dispatch(getRelationshipsAction(data.relationships))
+    dispatch(getRelationshipsAction(data.relationships, getState().session.user.id))
     return data.relationships;
 }
 
@@ -185,9 +185,12 @@ const NormalizeRelationship = (relationships) => {
 const initialState = { relationships: {} }
 
 export default function reducer(state = initialState, action) {
-    let newState
+    let newState, incoming, outgoing;
     switch (action.type) {
         case GET_ALL_RELATIONSHIPS:
+            incoming = {}
+            outgoing = {}
+
             return { relationships: action.payload }
         case CREATE_RELATIONSHIPS:
             newState = { relationships: { ...state.relationships } }
